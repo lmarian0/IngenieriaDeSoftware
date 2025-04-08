@@ -11,11 +11,13 @@ public class Character {
     protected float attackTime; //How often the character attacks
     protected float attackDuration; //Duration of the character attacks
     protected boolean inAttack;
+    protected boolean isAlive;
 
 
 
     public Character(String name, int hp, int movSpeed, int baseDmg, float attackTime, float attackDuration, int posX, int posY, int xp){
         this.inAttack = false;
+        this.isAlive = true;
         this.name = name;
         this.hp = hp;
         this.movSpeed = movSpeed;
@@ -45,12 +47,21 @@ public class Character {
         this.posY -= movSpeed;
     }
 
-    public void attackInit(){
+    //to attack
+    protected void attackInit(){
         this.inAttack = true;
     }
 
-    public void attackEnd(){
+    protected void attackEnd(){
         this.inAttack = false;
+    }
+
+    //to be damaged
+    protected void takeDamage(int damage){
+        this.hp -= damage;
+        if(hp<=0){
+            isAlive = false;
+        }
     }
 
     //Setters to hp, movSpeed, baseDmg, attackTime, attackDuration
@@ -63,7 +74,6 @@ public class Character {
     public void setMovSpeed(int speed){
         this.movSpeed = speed;
     }
-
 
     //variable uptAttackTime -> update attack time
     public void setAttackTime(float uptAttackTime){
