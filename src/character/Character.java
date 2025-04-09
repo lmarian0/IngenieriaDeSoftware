@@ -6,8 +6,7 @@ public class Character {
     private int movSpeed;
     private int baseDmg;
     private int posX;
-    private int posY;
-    private int xp;
+    private int posY;    
     private float attackTime; //How often the character attacks
     private float attackDuration; //Duration of the character attacks
     private boolean inAttack;
@@ -15,7 +14,7 @@ public class Character {
 
 
 
-    public Character(String name, int hp, int movSpeed, int baseDmg, float attackTime, float attackDuration, int posX, int posY, int xp){
+    public Character(String name, int hp, int movSpeed, int baseDmg, float attackTime, float attackDuration, int posX, int posY){
         this.inAttack = false;
         this.isAlive = true;
         this.name = name;
@@ -26,7 +25,6 @@ public class Character {
         this.attackDuration = attackDuration;
         this.posX = posX;
         this.posY = posY;
-        this.xp = 0 ;
     }
 
     
@@ -125,5 +123,13 @@ public class Character {
 
     public boolean getIsAlive(){
         return isAlive;
+    }
+
+    public float getAttackTime(){
+        return attackTime;
+    }
+
+    public float getAttackDuration(){
+        return attackDuration;
     }
 }

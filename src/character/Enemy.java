@@ -4,8 +4,8 @@ public class Enemy extends NPC{
 
     private int agressionLevel;
 
-    public Enemy(String name, int hp, int movSpeed, int baseDmg, float attackTime, float attackDuration, int posX, int posY, int xp, String dialogue, int agressionLevel){
-        super(name, hp, movSpeed, baseDmg, attackTime, attackDuration, posX, posY, xp, dialogue);
+    public Enemy(String name, int hp, int movSpeed, int baseDmg, float attackTime, float attackDuration, int posX, int posY, String dialogue, int agressionLevel){
+        super(name, hp, movSpeed, baseDmg, attackTime, attackDuration, posX, posY, dialogue);
         this.agressionLevel = agressionLevel;
     }
 
