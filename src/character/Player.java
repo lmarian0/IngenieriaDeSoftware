@@ -55,6 +55,7 @@ public class Player extends Character {
 
     //Getters
 
+    @Override
     public int getDmg(){
         int dmg = (weapon.getItemDamage()+getDmg());
         return dmg;
