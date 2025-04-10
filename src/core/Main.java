@@ -18,7 +18,7 @@ public class Main extends Application {
 
         // Crear el mapa lógico
         GameMap gameMap = new GameMap(image);
-        Player p1 = new Player("Osvaldo", 100F, 0.5f, 10.5f, 0,0,0);
+        Player p1 = new Player("Osvaldo", 100, 5, 10, 0,0,5, 5, 5);
         System.out.println(p1.getDmg());
     }
 
