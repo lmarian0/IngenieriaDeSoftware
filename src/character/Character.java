@@ -1,21 +1,20 @@
 package character;
 
 public class Character {
-    protected String name;
-    protected int hp;
-    protected int movSpeed;
-    protected int baseDmg;
-    protected int posX;
-    protected int posY;
-    protected int xp;
-    protected float attackTime; //How often the character attacks
-    protected float attackDuration; //Duration of the character attacks
-    protected boolean inAttack;
-    protected boolean isAlive;
+    private String name;
+    private int hp;
+    private int movSpeed;
+    private int baseDmg;
+    private int posX;
+    private int posY;    
+    private float attackTime; //How often the character attacks
+    private float attackDuration; //Duration of the character attacks
+    private boolean inAttack;
+    private boolean isAlive;
 
 
 
-    public Character(String name, int hp, int movSpeed, int baseDmg, float attackTime, float attackDuration, int posX, int posY, int xp){
+    public Character(String name, int hp, int movSpeed, int baseDmg, float attackTime, float attackDuration, int posX, int posY){
         this.inAttack = false;
         this.isAlive = true;
         this.name = name;
@@ -26,8 +25,9 @@ public class Character {
         this.attackDuration = attackDuration;
         this.posX = posX;
         this.posY = posY;
-        this.xp = 0 ;
     }
+
+    
 
     //Movement in x
     public void moveRight(){
@@ -64,15 +64,22 @@ public class Character {
         }
     }
 
-    //Setters to hp, movSpeed, baseDmg, attackTime, attackDuration
+    //Setters to hp, movSpeed, baseDprivatemg, attackTime, attackDuration, isAlive
+    public void setDmg(int dmg){
+        this.baseDmg = dmg;
+    }
 
-    //variable uptHp -> update hp
-    public void setHp(int uptHp){
-        this.hp = uptHp;
+    public void setIsAlive(boolean life){
+        this.isAlive = life;
     }
 
     public void setMovSpeed(int speed){
         this.movSpeed = speed;
+    }
+
+    //variable uptHp -> update hp
+    public void setHp(int uptHp){
+        this.hp = uptHp;
     }
 
     //variable uptAttackTime -> update attack time
@@ -112,5 +119,17 @@ public class Character {
 
     public boolean getInAttack(){
         return inAttack;
+    }
+
+    public boolean getIsAlive(){
+        return isAlive;
+    }
+
+    public float getAttackTime(){
+        return attackTime;
+    }
+
+    public float getAttackDuration(){
+        return attackDuration;
     }
 }
