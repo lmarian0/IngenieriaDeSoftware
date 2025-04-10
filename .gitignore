@@ -1,0 +1,44 @@
+# Archivos y carpetas generadas por IntelliJ IDEA
+.idea/
+*.iml
+
+# Build
+/out/
+target/
+bin/
+
+# Archivos de configuración del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Archivos temporales
+*.tmp
+*.swp
+
+# Configuración de ejecución local
+*.iws
+
+# Archivos generados por compilación
+*.class
+
+# Maven
+.mvn/
+!**/src/main/**/mvnw*
+!**/src/test/**/mvnw*
+.settings/
+dependency-reduced-pom.xml
+buildNumber.properties
+
+# Gradle
+.gradle/
+build/
+!gradle-wrapper.jar
+
+# Cache
+.cache/
+
+# IntelliJ coverage
+.idea/**/coverage/
