@@ -1,5 +1,5 @@
 package main.java.character;
-import main.java.core.GamePanel;
+import main.java.core.Display;
 import main.java.core.KeyHandler;
 import main.java.items.Item;
 
@@ -9,18 +9,18 @@ import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class Player extends Entity {
+public class Player extends Character {
     private int level;
     private int coins;
     private int xp;
     private Item weapon;
-    private GamePanel gp;
+    private Display gp;
     private KeyHandler keyHandler;
 
 
 
 
-    public Player(String name, int hp, int movSpeed, int baseDmg, float attackTime, float attackDuration, int posX, int posY, int coins,GamePanel gp, KeyHandler keyHandler)
+    public Player(String name, int hp, int movSpeed, int baseDmg, float attackTime, float attackDuration, int posX, int posY, int coins, Display gp, KeyHandler keyHandler)
     {
         super(name, hp, movSpeed, baseDmg, attackTime, attackDuration, posX, posY);
         this.weapon = new Item(0, "fernet", 1 , 5);
@@ -34,6 +34,8 @@ public class Player extends Entity {
     }
 
     public void update(KeyHandler keyH) {
+
+      if(keyH.up == true || keyH.down == true || keyH.left == true || keyH.right == true) {
         if(keyH.up == true) {
             direction = "up";
             setPosY(getPosY() - getMovSpeed());
@@ -53,25 +55,57 @@ public class Player extends Entity {
             direction = "right";
             setPosX(getPosX() + getMovSpeed());
         }
+
+        spriteCounter++;
+        if(spriteCounter > 10) {
+            if(spriteNum == 1) {
+                spriteNum = 2;
+            }
+            else if(spriteNum == 2) {
+                spriteNum = 1;
+            }
+            spriteCounter = 0;
+        }
+      }
     }
 
     public void draw(Graphics2D g2d) {
-        g2d.setColor(Color.WHITE);
-        g2d.fillRect(this.getPosX(), this.getPosY(), gp.getTILESIZE(), gp.getTILESIZE());
+        //g2d.setColor(Color.WHITE);
+        //g2d.fillRect(this.getPosX(), this.getPosY(), gp.getTILESIZE(), gp.getTILESIZE());
 
         BufferedImage image = null;
         switch(direction) {
             case "up":
-                image = up1;
+                if(spriteNum == 1) {
+                    image = up1;
+                }
+                if(spriteNum == 2) {
+                    image = up2;
+                }
                 break;
             case "down":
-                image = down1;
+                if(spriteNum == 1) {
+                    image = down1;
+                }
+                if(spriteNum == 2) {
+                    image = down2;
+                }
                 break;
             case "left":
-                image = left1;
+                if(spriteNum == 1) {
+                    image = left1;
+                }
+                if(spriteNum == 2) {
+                    image = left2;
+                }
                 break;
             case "right":
-                image = right1;
+                if(spriteNum == 1) {
+                    image = right1;
+                }
+                if(spriteNum == 2) {
+                    image = right2;
+                }
                 break;
         }
         g2d.drawImage(image, this.getPosX(), this.getPosY(), gp.getTILESIZE(), gp.getTILESIZE(), null);
@@ -79,14 +113,14 @@ public class Player extends Entity {
 
     public void getPlayerImage() {
         try{
-            up1 = ImageIO.read(new FileInputStream("src/resources/player/p1_up_1.png"));
-            up2 = ImageIO.read(new FileInputStream("src/resources/player/p1_up_2.png"));
-            down1 = ImageIO.read(new FileInputStream("src/resources/player/p1_down_1.png"));
-            down2 = ImageIO.read(new FileInputStream("src/resources/player/p1_down_2.png"));
-            left1 = ImageIO.read(new FileInputStream("src/resources/player/p1_left_1.png"));
-            left2 = ImageIO.read(new FileInputStream("src/resources/player/p1_left_2.png"));
-            right1 = ImageIO.read(new FileInputStream("src/resources/player/p1_right_1.png"));
-            right2 = ImageIO.read(new FileInputStream("src/resources/player/p1_right_2.png"));
+            up1 = ImageIO.read(new FileInputStream("src/main/resources/player/p1_up_1.png"));
+            up2 = ImageIO.read(new FileInputStream("src/main/resources/player/p1_up_2.png"));
+            down1 = ImageIO.read(new FileInputStream("src/main/resources/player/p1_down_1.png"));
+            down2 = ImageIO.read(new FileInputStream("src/main/resources/player/p1_down_2.png.png"));
+            left1 = ImageIO.read(new FileInputStream("src/main/resources/player/p1_left_1.png"));
+            left2 = ImageIO.read(new FileInputStream("src/main/resources/player/p1_left_2.png"));
+            right1 = ImageIO.read(new FileInputStream("src/main/resources/player/p1_right_1.png"));
+            right2 = ImageIO.read(new FileInputStream("src/main/resources/player/p1_right_2.png"));
             //up1 = ImageIO.read(new FileInputStream("src/resources/player/p1_up_1.png"));
             //up2 = ImageIO.read(getClass().getResourceAsStream("resources/player/p1_up_2.png"));
             //down1 = ImageIO.read(getClass().getResourceAsStream("resources/player/p1_down_1.png"));

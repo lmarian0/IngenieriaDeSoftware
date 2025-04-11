@@ -2,6 +2,8 @@ package main.java.map;
 
 import main.java.constants.Constants;
 import javafx.scene.image.Image;
+import java.util.Random;
+
 
 public class GameMap {
 
@@ -17,13 +19,14 @@ public class GameMap {
         this.mapImage = mapImage;
         this.width = (int) mapImage.getWidth();
         this.height = (int) mapImage.getHeight();
-        this.horTiles = width / Constants.TILE_SIZE;
-        this.verTiles = height / Constants.TILE_SIZE;
+        this.horTiles = width / Constants.TILE_SIZE.getSize();
+        this.verTiles = height / Constants.TILE_SIZE.getSize();
 
         this.map = new int[horTiles][verTiles];
 
         setSpawnReg();
         setPlayReg();
+        setObstacles();
         showMap();
     }
 
@@ -31,21 +34,36 @@ public class GameMap {
     public void setPlayReg() {
         for (int x = 1; x < horTiles - 1; x++) {
             for (int y = 1; y < verTiles - 1; y++) {
-                map[x][y] = Constants.EMPTY;
+                map[x][y] = Constants.EMPTY.getSize();
             }
         }
     }
 
     // Define las regiones de spawn o bordes
     public void setSpawnReg() {
-        for (int x = 0; x < horTiles; x++) {
-            for (int y = 0; y < verTiles; y++) {
-                if (x == 0 || x == horTiles - 1 || y == 0 || y == verTiles - 1) {
-                    map[x][y] = Constants.SPAWN;
+            for (int x = 0; x < horTiles; x++) {
+                for (int y = 0; y < verTiles; y++) {
+                    if (x == 0 || x == horTiles - 1 || y == 0 || y == verTiles - 1) {
+                        map[x][y] = Constants.SPAWN.getSize();
+                    }
+                }
+            }
+    }
+
+    // Define los obstaculos
+    public void setObstacles() {
+        Random rand = new Random();
+        if (rand.nextInt() == Constants.WALL.getSize()) {
+            for (int x = 1; x < horTiles; x++) {
+                for (int y = 1; y < verTiles; y++) {
+                    if (map[x][y] == 0) {
+                        map[x][y] = Constants.WALL.getSize();
+                    }
                 }
             }
         }
     }
+
 
     // Muestra el mapa matriceado por consola
     public void showMap() {
@@ -56,6 +74,8 @@ public class GameMap {
             System.out.println();
         }
     }
+
+
 
     // Muestra las medidas del mapa
     public void getMapMeasures() {

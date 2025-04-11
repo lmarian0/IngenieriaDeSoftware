@@ -1,6 +1,6 @@
 package main.java.character;
 
-public class NPC extends Entity {
+public class NPC extends Character {
     private String dialogue;
 
     public NPC(String name, int hp, int movSpeed, int baseDmg, float attackTime, float attackDuration, int posX, int posY, String dialogue){

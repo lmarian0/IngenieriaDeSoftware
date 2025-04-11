@@ -2,7 +2,7 @@ package main.java.character;
 
 import java.awt.image.BufferedImage;
 
-public abstract class Entity {
+public abstract class Character {
     private String name;
     private int hp;
     private int movSpeed;
@@ -19,9 +19,10 @@ public abstract class Entity {
     private final int INITIAL_XPOS = 100;
     private final int INITIAL_YPOS = 100;
 
+    public int spriteCounter;
+    public int spriteNum;
 
-
-    public Entity(String name, int hp, int movSpeed, int baseDmg, float attackTime, float attackDuration, int posX, int posY){
+    public Character(String name, int hp, int movSpeed, int baseDmg, float attackTime, float attackDuration, int posX, int posY){
         this.inAttack = false;
         this.isAlive = true;
         this.name = name;
@@ -32,6 +33,8 @@ public abstract class Entity {
         this.attackDuration = attackDuration;
         this.posX = posX;
         this.posY = posY;
+        this.spriteCounter = 0;
+        this.spriteNum = 1;
     }
 
     
