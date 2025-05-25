@@ -2,11 +2,11 @@ package main.java.core;
 
 import javax.swing.*;
 
-import javafx.scene.image.Image;
+//import javafx.scene.image.Image;
 import main.java.map.*;
-import javafx.application.Application;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
+//import javafx.application.Application;
+//import javafx.scene.image.Image;
+//import javafx.stage.Stage;
 import main.java.character.*;
 
 

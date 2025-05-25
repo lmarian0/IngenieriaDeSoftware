@@ -1,13 +1,13 @@
 package main.java.map;
 
 import main.java.constants.Constants;
-import javafx.scene.image.Image;
+//import javafx.scene.image.Image;
 import java.util.Random;
 
 
 public class GameMap {
 
-    private Image mapImage;
+    //private Image mapImage;
     private int width;
     private int height;
     private int horTiles; //Cantidad de tiles horizontales
@@ -15,10 +15,10 @@ public class GameMap {
     private int[][] map; // Matriz del mapa
 
     // Constructor
-    public GameMap(Image mapImage) {
-        this.mapImage = mapImage;
-        this.width = (int) mapImage.getWidth();
-        this.height = (int) mapImage.getHeight();
+    public GameMap() {
+        //this.mapImage = mapImage;
+        //this.width = (int) mapImage.getWidth();
+        //this.height = (int) mapImage.getHeight();
         this.horTiles = width / Constants.TILE_SIZE.getSize();
         this.verTiles = height / Constants.TILE_SIZE.getSize();
 
