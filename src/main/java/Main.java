@@ -23,7 +23,7 @@ public class Main {
          List<Enemy> enemies = new ArrayList<>();
          enemies.add(new Enemy("Pedroni", 2, 100, 20, 0, 0, 0));
          enemies.add(new Enemy("Ayarde", 2, 50, 35, 0, 0, 0));
-         enemies.add(new Enemy("Briones", 2, 75, 20, 0, 0, 0));
+         enemies.add(new Enemy("Briones", 2, 75, 80, 0, 0, 0));
 
          Controller controller = new Controller(player, enemies, keyHandler);
          Display display = new Display(controller);
