@@ -3,7 +3,6 @@ package main.java.controller;
 import main.java.constants.Direction;
 import main.java.model.Enemy;
 import main.java.model.Player;
-import main.java.view.Display;
 
 import java.util.List;
 

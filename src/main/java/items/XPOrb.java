@@ -1,5 +1,12 @@
 package main.java.items;
 
-public class XPOrb {
+public class XPOrb extends Drop {
+
+    private int xpAmount;
+
+    public XPOrb(int posX, int posY, int xpAmount) {
+        super(posX, posY);
+        this.xpAmount = xpAmount;
+    }
     
 }

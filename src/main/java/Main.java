@@ -6,40 +6,35 @@ import main.java.controller.KeyHandler;
 import main.java.model.Enemy;
 import main.java.model.Player;
 import main.java.view.Display;
+import main.java.view.MainWindow;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class Main {
-   public static void main(String[] args)  {
-      SwingUtilities.invokeLater(() -> {
-         JFrame window = new JFrame("Juego MVC");
-         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-         window.setResizable(false);
+public class   Main {
+   public static void main(String[] args) {
 
-         KeyHandler keyHandler = new KeyHandler();
-         Player player = new Player();
-         List<Enemy> enemies = new ArrayList<>();
-         enemies.add(new Enemy("Pedroni", 2, 100, 20, 0, 0, 0));
-         enemies.add(new Enemy("Ayarde", 2, 50, 35, 0, 0, 0));
-         enemies.add(new Enemy("Briones", 2, 75, 80, 0, 0, 0));
+      KeyHandler keyHandler = new KeyHandler();
+      Player player = new Player();
+      List<Enemy> enemies = new ArrayList<>();
+      enemies.add(new Enemy("Pedroni", 2, 100, 20, 0, 0, 0));
+      enemies.add(new Enemy("Ayarde", 2, 50, 35, 0, 0, 0));
+      enemies.add(new Enemy("Briones", 2, 75, 80, 0, 0, 0));
 
-         Controller controller = new Controller(player, enemies, keyHandler);
-         Display display = new Display(controller);
-         window.add(display);
-         window.pack();
-         window.setLocationRelativeTo(null);
-         window.setVisible(true);
-         window.requestFocusInWindow();
+      Controller controller = new Controller(player, enemies, keyHandler);
+      Display display = new Display(controller);
+      MainWindow window = new MainWindow(display, keyHandler);
 
-         window.addKeyListener(keyHandler);
-
-         // Bucle de juego
-         new Timer(16, e -> {
+      Timer timer = new Timer(16, new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
             controller.update();
             display.repaint();
-         }).start();
+         }
       });
+      timer.start();
    }
 }

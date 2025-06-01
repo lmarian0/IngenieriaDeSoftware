@@ -47,19 +47,4 @@ public class Display extends JPanel {
         g.setColor(Color.RED);
         g.fillRect(player.getPosX() - offsetX, player.getPosY() - offsetY, player.getWidth(), player.getHeight());
     }
-
-
-
-    /*
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
-        enzito.draw(g2d);
-        g2d.dispose();
-    }
-     */
-
-    public int getTILESIZE() {
-        return TILESIZE;
-    }
 }
