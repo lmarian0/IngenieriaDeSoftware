@@ -74,4 +74,7 @@ public class Player extends Character {
         return xp;
     }
 
+    public int getWidth() { return 32; }
+    public int getHeight() { return 32; }
+
 }

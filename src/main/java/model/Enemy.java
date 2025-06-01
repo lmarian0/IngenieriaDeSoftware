@@ -40,4 +40,8 @@ public class Enemy extends NPC {
             setIsAlive(false);
         }
     }
+
+    public int getWidth() { return 32; }
+    public int getHeight() { return 32; }
+
 }

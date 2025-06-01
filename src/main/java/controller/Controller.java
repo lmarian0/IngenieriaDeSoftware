@@ -11,6 +11,7 @@ public class Controller {
     private Player enzito;
     private KeyHandler keyHandler;
     private List<Enemy> enemies;
+    private final Camera camera = new Camera();
 
     public Controller (Player enzito, List<Enemy> enemies, KeyHandler keyHandler) {
         this.enzito = enzito;
@@ -21,6 +22,7 @@ public class Controller {
     public void update() {
         handlePlayerInput();
         updateEnemies();
+        camera.update(enzito);
     }
 
     private void handlePlayerInput() {
@@ -43,5 +45,10 @@ public class Controller {
     public List<Enemy> getEnemies() {
         return enemies;
     }
+
+    public Camera getCamera() {
+        return camera;
+    }
+
 }
 
