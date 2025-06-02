@@ -5,8 +5,8 @@ import main.java.controller.Controller;
 import main.java.controller.KeyHandler;
 import main.java.model.Enemy;
 import main.java.model.Player;
-import main.java.view.Display;
 import main.java.view.MainWindow;
+import main.java.view.View;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,14 +25,14 @@ public class   Main {
       enemies.add(new Enemy("Briones", 2, 75, 80, 0, 0, 0));
 
       Controller controller = new Controller(player, enemies, keyHandler);
-      Display display = new Display(controller);
-      MainWindow window = new MainWindow(display, keyHandler);
+      View view = new View(controller);
+      MainWindow window = new MainWindow(view, keyHandler);
 
       Timer timer = new Timer(16, new ActionListener() {
          @Override
          public void actionPerformed(ActionEvent e) {
             controller.update();
-            display.repaint();
+            view.repaint();
          }
       });
       timer.start();

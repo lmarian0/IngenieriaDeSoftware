@@ -1,6 +1,8 @@
 package main.java.controller;
 
 import main.java.constants.Direction;
+import main.java.gameState.GameState;
+import main.java.gameState.MenuState;
 import main.java.model.Enemy;
 import main.java.model.Player;
 
@@ -10,12 +12,14 @@ public class Controller {
     private Player enzito;
     private KeyHandler keyHandler;
     private List<Enemy> enemies;
+    private GameState gameState;
     private final Camera camera = new Camera();
 
     public Controller (Player enzito, List<Enemy> enemies, KeyHandler keyHandler) {
         this.enzito = enzito;
         this.keyHandler = keyHandler;
         this.enemies = enemies;
+        this.gameState = new MenuState();
     }
 
     public void update() {

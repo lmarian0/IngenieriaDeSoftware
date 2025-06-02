@@ -6,9 +6,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/*
+ * Ventana principal del programa.
+ */
 public class MainWindow {
 
-    public MainWindow(Display display, KeyHandler keyHandler) {
+    public MainWindow(View display, KeyHandler keyHandler) {
         JFrame window = new JFrame("Juego MVC");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);

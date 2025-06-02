@@ -2,7 +2,7 @@ package main.java.model;
 
 
 import main.java.constants.Direction;
-import main.java.view.Display;
+import main.java.view.View;
 import main.java.controller.KeyHandler;
 import main.java.items.Item;
 import main.java.character.Character;

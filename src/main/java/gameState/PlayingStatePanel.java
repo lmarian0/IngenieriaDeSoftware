@@ -1,31 +1,12 @@
-package main.java.view;
+package main.java.gameState;
 
-import main.java.controller.Controller;
 import main.java.model.Enemy;
 import main.java.model.Player;
-import main.java.constants.Constants;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class Display extends JPanel {
-
-    //SCREEN SETTINGS
-    private final int FPS = 60;
-    private final int TILESIZE = Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize(); // 96x96 Tile Size
-    private final int MAXSCREENCOL = 8;
-    private final int MAXSCREENROW = 6;
-    private final int SCREENWIDTH = TILESIZE * MAXSCREENCOL;
-    private final int SCREENHEIGHT = TILESIZE * MAXSCREENROW;
-    private final Controller controller;
-
-    public Display(Controller controller) {
-        this.controller = controller;
-        this.setPreferredSize(new Dimension(SCREENWIDTH, SCREENHEIGHT));
-        this.setBackground(Color.BLACK);
-        this.setDoubleBuffered(true);
-        this.setFocusable(true);
-    }
+public class PlayingStatePanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
