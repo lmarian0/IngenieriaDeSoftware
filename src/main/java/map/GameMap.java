@@ -5,7 +5,7 @@ import main.java.constants.Constants;
 import java.util.Random;
 
 
-public class GameMap {
+public class GameMap extends Thread {
 
     //private Image mapImage;
     private int width;
@@ -13,9 +13,10 @@ public class GameMap {
     private int horTiles; //Cantidad de tiles horizontales
     private int verTiles; //Cantidad de tiles verticales
     private int[][] map; // Matriz del mapa
+    public static GameMap SINGLETON_MAP;
 
     // Constructor
-    public GameMap() {
+    private GameMap() {
         //this.mapImage = mapImage;
         //this.width = (int) mapImage.getWidth();
         //this.height = (int) mapImage.getHeight();
@@ -28,6 +29,18 @@ public class GameMap {
         setPlayReg();
         setObstacles();
         showMap();
+    }
+
+    public static GameMap getInstance() {
+
+        if (SINGLETON_MAP == null) {
+            synchronized (GameMap.class) {
+                if (SINGLETON_MAP == null) {
+                    SINGLETON_MAP = new GameMap();
+                }
+            }
+        }
+        return SINGLETON_MAP;
     }
 
     // Define las regiones jugables/caminables
