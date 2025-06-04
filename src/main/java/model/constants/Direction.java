@@ -1,4 +1,4 @@
-package main.java.constants;
+package main.java.model.constants;
 
 public enum Direction {
     UP,

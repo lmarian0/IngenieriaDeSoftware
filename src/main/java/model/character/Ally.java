@@ -1,4 +1,4 @@
-package main.java.character;
+package main.java.model.character;
 
 public class Ally extends NPC{
 

@@ -1,4 +1,4 @@
-package main.java.gameState;
+package main.java.model.gameState;
 
 public class PlayingState extends GameState {
 

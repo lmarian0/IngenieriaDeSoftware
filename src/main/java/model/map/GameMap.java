@@ -1,4 +1,4 @@
-package main.java.map;
+package main.java.model.map;
 
 import main.java.constants.Constants;
 import java.util.Random;

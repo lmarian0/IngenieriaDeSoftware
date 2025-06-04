@@ -1,4 +1,4 @@
-package main.java.items;
+package main.java.model.items;
 
 public class Drop {
 

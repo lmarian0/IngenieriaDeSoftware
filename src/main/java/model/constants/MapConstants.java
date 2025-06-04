@@ -1,4 +1,4 @@
-package main.java.constants;
+package main.java.model.constants;
 
 public class MapConstants {
     public static final int TILE_SIZE = 32;
