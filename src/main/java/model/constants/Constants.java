@@ -2,7 +2,7 @@ package main.java.model.constants;
 
 public enum Constants {
     TILE_SIZE(32),
-    SCALE(3),
+    SCALE(2),
     EMPTY(0),
     PLAYER(1),
     WALL(2),

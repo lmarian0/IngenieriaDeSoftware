@@ -58,10 +58,15 @@ public class GameMap{
         for (int x = 1; x < horTiles; x++) {
             for (int y = 1; y < verTiles; y++) {
                 Random rand = new Random();
-                // Genera un obstáculo con una probabilidad de 1 en 5
-                if (rand.nextInt(10) == Constants.WALL.getSize()) {
+                // Genera un obstáculo con una probabilidad de 1 en 25
+                if (rand.nextInt(25) == Constants.WALL.getSize()) {
                     if (map[x][y] == 0) {
-                        map[x][y] = Constants.WALL.getSize();
+                        if (x >= (horTiles/2)-1 && x <= (horTiles/2)+1 && y >= (verTiles/2)-1 && y <= (verTiles/2)+1) {
+                            // No se generan obstáculos en el centro del mapa
+                        }
+                        else {
+                            map[x][y] = Constants.WALL.getSize();
+                        }
                     }
                 }
             }
