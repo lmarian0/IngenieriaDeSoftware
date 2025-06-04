@@ -1,6 +1,6 @@
 package main.java.model;
 
-import main.java.gameState.GameState;
+import main.java.model.gameState.GameState;
 
 public class GameStateModel {
     GameState context;

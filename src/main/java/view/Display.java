@@ -1,10 +1,10 @@
 package main.java.view;
 
 import main.java.controller.Controller;
-import main.java.map.GameMap;
+import main.java.model.map.GameMap;
 import main.java.model.Enemy;
 import main.java.model.Player;
-import main.java.constants.Constants;
+import main.java.model.constants.Constants;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

@@ -1,6 +1,6 @@
 package main.java.controller;
 
-import main.java.constants.Direction;
+import main.java.model.constants.Direction;
 import main.java.model.Enemy;
 import main.java.model.Player;
 

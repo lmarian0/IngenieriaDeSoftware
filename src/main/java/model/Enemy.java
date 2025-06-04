@@ -1,8 +1,8 @@
 package main.java.model;
 
-import main.java.character.NPC;
+import main.java.model.character.NPC;
 import main.java.model.Player;
-import main.java.character.Character;
+import main.java.model.character.Character;
 
 public class Enemy extends NPC {
 

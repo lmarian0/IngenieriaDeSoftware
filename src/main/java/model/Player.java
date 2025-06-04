@@ -1,11 +1,11 @@
 package main.java.model;
 
 
-import main.java.constants.Direction;
+import main.java.model.constants.Direction;
 import main.java.view.Display;
 import main.java.controller.KeyHandler;
-import main.java.items.Item;
-import main.java.character.Character;
+import main.java.model.items.Item;
+import main.java.model.character.Character;
 
 import javax.imageio.ImageIO;
 import java.io.FileInputStream;

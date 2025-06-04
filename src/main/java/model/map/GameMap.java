@@ -1,6 +1,6 @@
 package main.java.model.map;
 
-import main.java.constants.Constants;
+import main.java.model.constants.Constants;
 import java.util.Random;
 public class GameMap{
 

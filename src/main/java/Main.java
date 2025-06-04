@@ -7,7 +7,7 @@ import main.java.model.Enemy;
 import main.java.model.Player;
 import main.java.view.Display;
 import main.java.view.MainWindow;
-import main.java.map.GameMap;
+import main.java.model.map.GameMap;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

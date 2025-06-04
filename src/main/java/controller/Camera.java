@@ -1,7 +1,7 @@
 package main.java.controller;
 
 import main.java.model.Player;
-import main.java.constants.MapConstants;
+import main.java.model.constants.MapConstants;
 
 public class Camera {
 
