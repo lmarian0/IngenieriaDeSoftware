@@ -1,42 +1,33 @@
 package main.java.map;
 
 import main.java.constants.Constants;
-//import javafx.scene.image.Image;
 import java.util.Random;
+public class GameMap{
 
-
-public class GameMap extends Thread {
-
-    //private Image mapImage;
-    private int width;
-    private int height;
     private int horTiles; //Cantidad de tiles horizontales
     private int verTiles; //Cantidad de tiles verticales
     private int[][] map; // Matriz del mapa
     public static GameMap SINGLETON_MAP;
 
     // Constructor
-    private GameMap() {
-        //this.mapImage = mapImage;
-        //this.width = (int) mapImage.getWidth();
-        //this.height = (int) mapImage.getHeight();
-        this.horTiles = width / Constants.TILE_SIZE.getSize();
-        this.verTiles = height / Constants.TILE_SIZE.getSize();
-
-        this.map = new int[horTiles][verTiles];
-
+    private GameMap(int width, int height) {
+        
+        this.horTiles = width; // El ancho del mapa en tiles
+        this.verTiles = height; // La altura del mapa en tiles
+        this.map = new int[horTiles][verTiles]; //La matriz de tiles del mapa
         setSpawnReg();
         setPlayReg();
         setObstacles();
         showMap();
     }
 
-    public static GameMap getInstance() {
-
+    // Método para obtener la instancia única del mapa
+    // Utiliza el patrón Singleton para asegurar que solo haya una instancia del mapa
+    public static GameMap getInstance(int width, int height) {
         if (SINGLETON_MAP == null) {
             synchronized (GameMap.class) {
                 if (SINGLETON_MAP == null) {
-                    SINGLETON_MAP = new GameMap();
+                    SINGLETON_MAP = new GameMap(width, height);
                 }
             }
         }
@@ -52,23 +43,24 @@ public class GameMap extends Thread {
         }
     }
 
-    // Define las regiones de spawn o bordes
+    // Define las regiones de spawn y bordes
     public void setSpawnReg() {
-            for (int x = 0; x < horTiles; x++) {
-                for (int y = 0; y < verTiles; y++) {
-                    if (x == 0 || x == horTiles - 1 || y == 0 || y == verTiles - 1) {
-                        map[x][y] = Constants.SPAWN.getSize();
-                    }
+        for (int x = 0; x < horTiles; x++) {
+            for (int y = 0; y < verTiles; y++) {
+                if (x == 0 || x == horTiles - 1 || y == 0 || y == verTiles - 1) {
+                    map[x][y] = Constants.SPAWN.getSize();
                 }
             }
+        }
     }
 
     // Define los obstaculos
-    public void setObstacles() {
-        Random rand = new Random();
-        if (rand.nextInt() == Constants.WALL.getSize()) {
-            for (int x = 1; x < horTiles; x++) {
-                for (int y = 1; y < verTiles; y++) {
+    public void setObstacles() {   
+        for (int x = 1; x < horTiles; x++) {
+            for (int y = 1; y < verTiles; y++) {
+                Random rand = new Random();
+                // Genera un obstáculo con una probabilidad de 1 en 5
+                if (rand.nextInt(10) == Constants.WALL.getSize()) {
                     if (map[x][y] == 0) {
                         map[x][y] = Constants.WALL.getSize();
                     }
@@ -82,7 +74,7 @@ public class GameMap extends Thread {
     public void showMap() {
         for (int y = 0; y < verTiles; y++) {
             for (int x = 0; x < horTiles; x++) {
-                System.out.print(map[x][y] + " ");
+                System.out.print(getMapMatrix()[x][y] + " ");
             }
             System.out.println();
         }
@@ -92,8 +84,6 @@ public class GameMap extends Thread {
 
     // Muestra las medidas del mapa
     public void getMapMeasures() {
-        System.out.println("Pixels Width: " + width);
-        System.out.println("Pixels Height: " + height);
         System.out.println("Tiles Width: " + horTiles);
         System.out.println("Tiles Height: " + verTiles);
     }
