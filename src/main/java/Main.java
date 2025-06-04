@@ -7,6 +7,7 @@ import main.java.model.Enemy;
 import main.java.model.Player;
 import main.java.view.Display;
 import main.java.view.MainWindow;
+import main.java.map.GameMap;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +28,11 @@ public class   Main {
       Controller controller = new Controller(player, enemies, keyHandler);
       Display display = new Display(controller);
       MainWindow window = new MainWindow(display, keyHandler);
+
+      GameMap gameMap = GameMap.getInstance(display.getScreenCol(), display.getScreenRow()); // Initialize the game map with 8x6 tiles
+
+      gameMap.showMap();
+      gameMap.getMapMeasures();
 
       Timer timer = new Timer(16, new ActionListener() {
          @Override

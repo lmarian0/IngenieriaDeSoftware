@@ -18,7 +18,6 @@ public class GameMap{
         setSpawnReg();
         setPlayReg();
         setObstacles();
-        showMap();
     }
 
     // Método para obtener la instancia única del mapa
