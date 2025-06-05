@@ -2,6 +2,8 @@ package main.java.model;
 
 
 import main.java.model.constants.Direction;
+import main.java.model.gameState.Observer;
+import main.java.model.gameState.Subject;
 import main.java.view.Display;
 import main.java.controller.KeyHandler;
 import main.java.model.items.Item;
@@ -10,20 +12,29 @@ import main.java.model.character.Character;
 import javax.imageio.ImageIO;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectStreamException;
 
-public class Player extends Character {
+import main.java.model.gameState.Observer;
+import main.java.model.gameState.Subject;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Player extends Character implements Subject, Observer {
     private int level;
     private int coins;
     private int xp;
     private Item weapon;
-    //private Direction direction;
+    private Direction direction;
+
+    private final List<Observer> observers = new ArrayList<>();
 
     public Player() {
         super("Enzito",100, 15,  100, 20);
         this.level = 1;
         this.coins = 0;
         this.xp = 0;
-        //this.direction = Direction.DOWN;
+        this.direction = Direction.DOWN;
     }
 
     public void move(Direction direction) {
@@ -33,6 +44,46 @@ public class Player extends Character {
             case LEFT -> posX -= getMovSpeed();
             case RIGHT -> posX += getMovSpeed();
         }
+        this.direction = direction;
+    }
+
+    public void takeDamage(int dmg) {
+        setHp(getHp() - dmg);
+        System.out.println("Vida actual: " + getHp());  // debug
+        notifyObservers();  // <== Esto es lo que actualiza el HealthBar
+    }
+
+
+    public void gainXP(int amount) {
+        this.xp += amount;
+        notifyObservers();
+    }
+
+    // Observer: se llama cuando un Enemy notifica que murió
+    @Override
+    public void update() {
+        gainXP(10); // o un valor dinámico
+    }
+
+    @Override
+    public void addObserver(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer o : observers) {
+            o.update();
+        }
+    }
+
+    public void die() {
+
     }
 
 
@@ -77,4 +128,7 @@ public class Player extends Character {
     public int getWidth() { return 32; }
     public int getHeight() { return 32; }
 
+    public boolean isAlive() {
+        return getHp() > 0;
+    }
 }

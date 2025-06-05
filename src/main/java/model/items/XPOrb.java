@@ -8,5 +8,8 @@ public class XPOrb extends Drop {
         super(posX, posY);
         this.xpAmount = xpAmount;
     }
-    
+
+    public void pickUpOrb() {
+
+    }
 }
