@@ -23,7 +23,11 @@ public class Enemy extends NPC implements Subject {
     private boolean alive = true;
     private int hp;  // vida base del enemigo
 
-    public Enemy(String name, int movSpeed, int posX, int posY, int hp, int baseDmg, int attackTime, int attackDuration) {
+    private Image image;
+    // cooldown atack
+    private long lastAttackTime = 0;
+
+    public Enemy(String name, int movSpeed, int posX, int posY, int hp, int baseDmg, int attackTime, int attackDuration, Image image) {
         super(name, movSpeed ,posX, posY);
         this.hp = hp;
         this.baseDmg = baseDmg;
@@ -58,10 +62,19 @@ public class Enemy extends NPC implements Subject {
     }
 
     public void attack(Player p) {
-        if (!p.IsAlive()) return;
-        if (p.getHp() <= 0) return;  // No ataca si el player está muerto
-        System.out.println("Enemy ataca con daño: " + baseDmg);
-        p.takeDamage(baseDmg);
+        
+        long currentTime = System.currentTimeMillis();
+        if (!alive) return;
+        if (currentTime - lastAttackTime >= attackTime) {
+            double dx = p.getPosX() - getPosX();
+            double dy = p.getPosY() - getPosY();
+            double distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 16 ) {
+                p.takeDamage(baseDmg);
+                lastAttackTime = currentTime; 
+            }
+        }
     }
 
     public void takeDamage(int dmg) {

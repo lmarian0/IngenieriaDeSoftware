@@ -60,14 +60,7 @@ public class Controller {
                 continue;
             }
             enemy.chase(enzito.getPosX(), enzito.getPosY(), getEnemies());
-
-            // Verifica si está lo suficientemente cerca para atacar
-            int dx = Math.abs(enemy.getPosX() - enzito.getPosX());
-            int dy = Math.abs(enemy.getPosY() - enzito.getPosY());
-
-            if (dx < 20 && dy < 20) {
-                enemy.attack(enzito);  // Ahora el player recibe daño
-            }
+            enemy.attack(enzito);
         }
     }
 
