@@ -23,6 +23,19 @@ public class Controller {
         handlePlayerInput();
         updateEnemies();
         camera.update(enzito);
+
+        if (keyHandler.space && enzito.isAlive()) {
+            for (Enemy enemy : enemies) {
+                int dx = Math.abs(enemy.getPosX() - enzito.getPosX());
+                int dy = Math.abs(enemy.getPosY() - enzito.getPosY());
+
+                if (dx < 20 && dy < 20 && enemy.getIsAlive()) {
+                    enemy.takeDamage(5);  // daño de ataque del Player
+                    System.out.println("¡Ataque exitoso!");
+                }
+            }
+        }
+
     }
 
     private void handlePlayerInput() {

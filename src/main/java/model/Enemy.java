@@ -17,9 +17,12 @@ public class Enemy extends NPC implements Subject {
     private float attackTime;
     private float attackDuration;
     private final List<Observer> observers = new ArrayList<>();
+    private boolean alive = true;
+    private int hp;  // vida base del enemigo
 
-    public Enemy(String name, int movSpeed, int posX, int posY, int baseDmg, float attackTime, float attackDuration) {
+    public Enemy(String name, int movSpeed, int posX, int posY, int hp, int baseDmg, float attackTime, float attackDuration) {
         super(name, movSpeed ,posX, posY);
+        this.hp = hp;
         this.baseDmg = baseDmg;
         this.attackDuration = attackDuration;
         this.attackTime = attackTime;
@@ -47,7 +50,12 @@ public class Enemy extends NPC implements Subject {
         p.takeDamage(baseDmg);
     }
 
-
+    public void takeDamage(int dmg) {
+        hp -= dmg;
+        if (hp <= 0 && alive) {
+            die();  // si muere, se notifica al Player (Observer)
+        }
+    }
 
     public void die() {
         this.alive = false;
@@ -76,5 +84,13 @@ public class Enemy extends NPC implements Subject {
 
     public int getWidth() { return 32; }
     public int getHeight() { return 32; }
+
+    public boolean getIsAlive() {
+        return alive;
+    }
+
+    public int getHp() {
+        return hp;
+    }
 
 }
