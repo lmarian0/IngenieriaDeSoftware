@@ -14,13 +14,13 @@ import java.util.List;
 public class Enemy extends NPC implements Subject {
 
     private int baseDmg;
-    private float attackTime;
-    private float attackDuration;
+    private int attackTime;
+    private int attackDuration;
     private final List<Observer> observers = new ArrayList<>();
     private boolean alive = true;
     private int hp;  // vida base del enemigo
 
-    public Enemy(String name, int movSpeed, int posX, int posY, int hp, int baseDmg, float attackTime, float attackDuration) {
+    public Enemy(String name, int movSpeed, int posX, int posY, int hp, int baseDmg, int attackTime, int attackDuration) {
         super(name, movSpeed ,posX, posY);
         this.hp = hp;
         this.baseDmg = baseDmg;
@@ -45,7 +45,6 @@ public class Enemy extends NPC implements Subject {
     public void attack(Player p) {
         if (!p.IsAlive()) return;
         if (p.getHp() <= 0) return;  // No ataca si el player está muerto
-
         System.out.println("Enemy ataca con daño: " + baseDmg);
         p.takeDamage(baseDmg);
     }

@@ -23,8 +23,8 @@ public class   Main {
       KeyHandler keyHandler = new KeyHandler();
       Player player = new Player();
       List<Enemy> enemies = new ArrayList<>();
-      enemies.add(new Enemy("Pedroni", 2, 100, 20, 10,1, 0, 0));
-      //enemies.add(new Enemy("Ayarde", 2, 50, 35, 20,2,0, 0));
+      enemies.add(new Enemy("Pedroni", 2, 100, 20, 20,1, 10, 0));
+      enemies.add(new Enemy("Ayarde", 2, 50, 35, 50,2,10, 0));
       //enemies.add(new Enemy("Briones", 2, 75, 80, 30,3, 0, 0));
 
       // VINCULAR: cada enemy notifica al player cuando muere

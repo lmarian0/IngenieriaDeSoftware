@@ -24,8 +24,8 @@ public class Display extends JPanel {
     // SCREEN SETTINGS
     private final int FPS = 60;
     private final int TILESIZE = Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize() ; // 96x96 Tile Size
-    private final int MAXSCREENCOL = 24;
-    private final int MAXSCREENROW = 12;
+    private final int MAXSCREENCOL = 20;
+    private final int MAXSCREENROW = 10;
     private final int SCREENWIDTH = TILESIZE * MAXSCREENCOL;
     private final int SCREENHEIGHT = TILESIZE * MAXSCREENROW;
     private final Controller controller;
@@ -72,7 +72,6 @@ public class Display extends JPanel {
         return MAXSCREENCOL;
     }
 
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -99,18 +98,23 @@ public class Display extends JPanel {
 
         Player player = controller.getPlayer();
         // Centramos el jugador en el medio de la pantalla
-        int offsetX = player.getPosX() - SCREENWIDTH / 2 + player.getWidth() / 2;
-        int offsetY = player.getPosY() - SCREENHEIGHT / 2 + player.getHeight() / 2;
+        //int offsetX = player.getPosX() - SCREENWIDTH / 2 + player.getWidth() / 2;
+        //int offsetY = player.getPosY() - SCREENHEIGHT / 2 + player.getHeight() / 2;
 
         // Dibujar enemigos
         g.setColor(Color.BLUE);
         for (Enemy enemy : controller.getEnemies()) {
-            g.fillRect(enemy.getPosX() - offsetX, enemy.getPosY() - offsetY, enemy.getWidth() * 2, enemy.getHeight() * 2);
+            if(enemy.getIsAlive()) {
+                g.fillRect(enemy.getPosX(), enemy.getPosY(), enemy.getWidth() * 2, enemy.getHeight() * 2);
+            } else {
+                // Si el enemigo está muerto, no lo dibujamos
+                continue;
+            }
         }
 
         // Dibujar jugador
         g.setColor(Color.RED);
-        g.fillRect(player.getPosX() - offsetX, player.getPosY() - offsetY, player.getWidth() * 2, player.getHeight() * 2);
+        g.fillRect(player.getPosX(), player.getPosY(), player.getWidth() * 2, player.getHeight() * 2);
 
         // DIBUJA EL HUD ARRIBA DE TODO
         hud.draw(g);
