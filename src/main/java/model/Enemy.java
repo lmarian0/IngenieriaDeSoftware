@@ -14,6 +14,12 @@ public class Enemy extends NPC {
     private float attackDuration;
     private Image image;
 
+    private int dx;
+    private int dy;
+
+    // cooldown atack
+    private long lastAttackTime = 0;
+
     public Enemy(String name, int movSpeed, int posX, int posY, int baseDmg, float attackTime, float attackDuration, Image image) {
         super(name, movSpeed ,posX, posY);
         this.baseDmg = baseDmg;
@@ -22,21 +28,36 @@ public class Enemy extends NPC {
     }
 
     public void chase(int posX, int posY){
-        if (posX < getPosX()) {
-            setPosX(getPosX() - getMovSpeed());
-        } else if (posX > getPosX()) {
-            setPosX(getPosX() + getMovSpeed());
+
+        dx = posX - getPosX();
+        dy = posY - getPosY();
+        double distance = Math.sqrt(dx * dx + dy * dy);
+
+        if(distance > 0 ){
+            double vx = (dx / distance) * getMovSpeed();
+            double vy = (dy / distance) * getMovSpeed();
+            setPosX((int)(getPosX() + vx));
+            setPosY((int)(getPosY() + vy));
+
+
         }
 
-        if (posY < getPosY()) {
-            setPosY(getPosY() - getMovSpeed());
-        } else if (posY > getPosY()) {
-            setPosY(getPosY() + getMovSpeed());
-        }
+        
     }
 
     public void attack(Player p){
-        p.takeDamage(baseDmg);
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastAttackTime >= attackTime) {
+            double dx = p.getPosX() - getPosX();
+            double dy = p.getPosY() - getPosY();
+            double distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 16 ) {
+                p.takeDamage(baseDmg);
+                lastAttackTime = currentTime; 
+            }
+        }
+        
     }
 
     public void die(){
@@ -46,7 +67,7 @@ public class Enemy extends NPC {
     }
     public void draw (Graphics g, int offsetX, int offsetY){
        if (image != null) {
-            g.drawImage(image, getPosX() - offsetX, getPosY() - offsetY, getWidth(), getHeight(), null);
+            g.drawImage(image, (int)getPosX() - offsetX, (int)getPosY() - offsetY, getWidth(), getHeight(), null);
         } else {
             g.setColor(Color.YELLOW);
             g.fillRect(getPosX() - offsetX, getPosY() - offsetY, getWidth(), getHeight());

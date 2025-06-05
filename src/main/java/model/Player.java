@@ -19,7 +19,7 @@ public class Player extends Character {
     //private Direction direction;
 
     public Player() {
-        super("Enzito", 15,  100, 20);
+        super("Enzito",100, 15,  100, 20);
         this.level = 1;
         this.coins = 0;
         this.xp = 0;
