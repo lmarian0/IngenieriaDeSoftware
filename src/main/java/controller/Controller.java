@@ -1,6 +1,7 @@
 package main.java.controller;
 
 import main.java.model.constants.Direction;
+import main.java.view.Display;
 import main.java.model.Enemy;
 import main.java.model.Player;
 
@@ -12,7 +13,7 @@ public class Controller {
     private List<Enemy> enemies;
     private final Camera camera = new Camera();
     private boolean flagDead = false;
-
+    
     public Controller (Player enzito, List<Enemy> enemies, KeyHandler keyHandler) {
         this.enzito = enzito;
         this.keyHandler = keyHandler;
@@ -58,7 +59,7 @@ public class Controller {
                 enemies.remove(enemy); // Elimina el enemigo de la lista si está muerto
                 continue;
             }
-            enemy.chase(enzito.getPosX(), enzito.getPosY());
+            enemy.chase(enzito.getPosX(), enzito.getPosY(), getEnemies());
 
             // Verifica si está lo suficientemente cerca para atacar
             int dx = Math.abs(enemy.getPosX() - enzito.getPosX());

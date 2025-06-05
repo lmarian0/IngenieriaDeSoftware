@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import main.java.view.ui.HUD;
 import java.util.Random;
@@ -54,12 +55,7 @@ public class   Main {
          posicionesUsadas.add(new int[]{x, y});
          enemies.add(new Enemy(i,"Enemy" + i, 2, x, y, 5, baseDmg, 10,0));
       }
-
-      //enemies.add(new Enemy("Pedroni", 2, 20, 20, 20,1, 10, 0));
-      //enemies.add(new Enemy("Ayarde", 2, 50, 35, 50,2,10, 0));
-      //enemies.add(new Enemy("Briones", 2, 75, 80, 30,3, 0, 0));
-
-
+      
       // VINCULAR: cada enemy notifica al player cuando muere
       for (Enemy enemy : enemies) {
          enemy.addObserver(player);  // Player gana XP
