@@ -30,7 +30,7 @@ public class Player extends Character implements Subject, Observer {
     private final List<Observer> observers = new ArrayList<>();
 
     public Player() {
-        super("Enzito", 100, 15,  100, 20);
+        super("Enzito", 100, 15,  600, 300);
         this.level = 1;
         this.coins = 0;
         this.xp = 0;

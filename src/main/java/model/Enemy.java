@@ -19,9 +19,11 @@ public class Enemy extends NPC implements Subject {
     private final List<Observer> observers = new ArrayList<>();
     private boolean alive = true;
     private int hp;  // vida base del enemigo
+    private int id;
 
-    public Enemy(String name, int movSpeed, int posX, int posY, int hp, int baseDmg, int attackTime, int attackDuration) {
+    public Enemy(int id, String name, int movSpeed, int posX, int posY, int hp, int baseDmg, int attackTime, int attackDuration) {
         super(name, movSpeed ,posX, posY);
+        this.id = id;
         this.hp = hp;
         this.baseDmg = baseDmg;
         this.attackDuration = attackDuration;
@@ -45,13 +47,14 @@ public class Enemy extends NPC implements Subject {
     public void attack(Player p) {
         if (!p.IsAlive()) return;
         if (p.getHp() <= 0) return;  // No ataca si el player está muerto
-        System.out.println("Enemy ataca con daño: " + baseDmg);
+        System.out.println("Enemy [" + id + "] ataca con daño: " + baseDmg);
         p.takeDamage(baseDmg);
     }
 
     public void takeDamage(int dmg) {
         hp -= dmg;
         if (hp <= 0 && alive) {
+            System.out.println("Enemy [" + id + "] derrotado");
             die();  // si muere, se notifica al Player (Observer)
         }
     }
@@ -92,4 +95,5 @@ public class Enemy extends NPC implements Subject {
         return hp;
     }
 
+    public int gepId() { return id; }
 }

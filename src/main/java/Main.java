@@ -15,17 +15,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 import main.java.view.ui.HUD;
+import java.util.Random;
 
 
 public class   Main {
    public static void main(String[] args) {
 
+      Random rand = new Random();
+      int cantidadEnemigos = 10;
+      int separacionMinima = 100;
+
+      ArrayList<int[]> posicionesUsadas = new ArrayList<>();
       KeyHandler keyHandler = new KeyHandler();
       Player player = new Player();
       List<Enemy> enemies = new ArrayList<>();
-      enemies.add(new Enemy("Pedroni", 2, 100, 20, 20,1, 10, 0));
-      enemies.add(new Enemy("Ayarde", 2, 50, 35, 50,2,10, 0));
+
+      for (int i = 0; i < cantidadEnemigos; i++) {
+         int x, y;
+         boolean posicionValida;
+
+         do {
+            posicionValida = true;
+            x = rand.nextInt(1920 - 32);  // considerando tamaño del enemy
+            y = rand.nextInt(960 - 32);
+
+            for (int[] pos : posicionesUsadas) {
+               int dx = Math.abs(pos[0] - x);
+               int dy = Math.abs(pos[1] - y);
+               if (dx < separacionMinima && dy < separacionMinima) {
+                  posicionValida = false;
+                  break;
+               }
+            }
+
+         } while (!posicionValida);
+
+         int baseDmg = rand.nextInt(5) + 1;  // daño aleatorio entre 1 y 5
+         posicionesUsadas.add(new int[]{x, y});
+         enemies.add(new Enemy(i,"Enemy" + i, 2, x, y, 5, baseDmg, 10,0));
+      }
+
+      //enemies.add(new Enemy("Pedroni", 2, 20, 20, 20,1, 10, 0));
+      //enemies.add(new Enemy("Ayarde", 2, 50, 35, 50,2,10, 0));
       //enemies.add(new Enemy("Briones", 2, 75, 80, 30,3, 0, 0));
+
 
       // VINCULAR: cada enemy notifica al player cuando muere
       for (Enemy enemy : enemies) {
