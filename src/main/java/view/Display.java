@@ -6,6 +6,8 @@ import main.java.model.Enemy;
 import main.java.model.Player;
 import main.java.model.constants.Constants;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -31,6 +33,8 @@ public class Display extends JPanel {
 
     // Imagen
     private BufferedImage streetImage, ZemansTileImage, grassTileImage;
+    private BufferedImage spritePJleft1, spritePJleft2, spritePJright1, spritePJright2;
+    private BufferedImage spritePJup1, spritePJup2, spritePJdown1, spritePJdown2;
 
     public Display(Controller controller, KeyListener keyHandler, HUD hud) {
         this.controller = controller;
@@ -41,14 +45,24 @@ public class Display extends JPanel {
         this.setFocusable(true);
         this.addKeyListener(keyHandler);
         this.requestFocusInWindow();
+
+
         try {
             streetImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\StreetTile.png"));
             ZemansTileImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\ZemanskyTile.png"));
             grassTileImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\grass.png"));
+            //Sprites for Player
+            spritePJleft1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_left_1.png"));
+            spritePJleft2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_left_2.png"));
+            spritePJright1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_right_1.png"));
+            spritePJright2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_right_2.png"));
+            spritePJup1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_up_1.png"));
+            spritePJup2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_up_2.png"));
+            spritePJdown1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_down_1.png"));
+            spritePJdown2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_down_2.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public int getScreenRow() {

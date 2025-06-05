@@ -25,7 +25,7 @@ public class Player extends Character implements Subject, Observer {
     private int coins;
     private int xp;
     private Item weapon;
-    //private Direction direction;
+    private Direction direction;
 
     private final List<Observer> observers = new ArrayList<>();
 
@@ -34,7 +34,7 @@ public class Player extends Character implements Subject, Observer {
         this.level = 1;
         this.coins = 0;
         this.xp = 0;
-        //this.direction = Direction.DOWN;
+        this.direction = Direction.DOWN;
     }
 
     public void move(Direction direction) {
@@ -44,6 +44,7 @@ public class Player extends Character implements Subject, Observer {
             case LEFT -> posX -= getMovSpeed();
             case RIGHT -> posX += getMovSpeed();
         }
+        this.direction = direction;
     }
 
     public void takeDamage(int dmg) {
@@ -80,6 +81,11 @@ public class Player extends Character implements Subject, Observer {
             o.update();
         }
     }
+
+    public void die() {
+
+    }
+
 
     //El ataque tiene que ser invocar a un metodo del Enemy al q alcanza con el impacto
     public void attack(Enemy e){

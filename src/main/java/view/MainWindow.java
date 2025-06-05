@@ -11,7 +11,7 @@ public class MainWindow {
     public MainWindow(Display display) {
         JFrame window = new JFrame("Juego MVC");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
+        window.setResizable(true);
 
         window.add(display);
         window.pack();

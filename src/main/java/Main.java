@@ -24,8 +24,8 @@ public class   Main {
       Player player = new Player();
       List<Enemy> enemies = new ArrayList<>();
       enemies.add(new Enemy("Pedroni", 2, 100, 20, 1, 0, 0));
-      enemies.add(new Enemy("Ayarde", 2, 50, 35, 2, 0, 0));
-      enemies.add(new Enemy("Briones", 2, 75, 80, 3, 0, 0));
+      enemies.add(new Enemy("Ayarde", 2, 50, 35, 1, 0, 0));
+      enemies.add(new Enemy("Briones", 2, 75, 80, 1, 0, 0));
 
       // VINCULAR: cada enemy notifica al player cuando muere
       for (Enemy enemy : enemies) {

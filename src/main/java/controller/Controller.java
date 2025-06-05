@@ -27,10 +27,11 @@ public class Controller {
 
     private void handlePlayerInput() {
         if (enzito.isAlive()) { // Para que el PJ no se mueva luego de muerto
-            if (keyHandler.up) enzito.move(Direction.UP);
-            if (keyHandler.down) enzito.move(Direction.DOWN);
-            if (keyHandler.left) enzito.move(Direction.LEFT);
-            if (keyHandler.right) enzito.move(Direction.RIGHT);
+            if (keyHandler.up)      enzito.move(Direction.UP);
+            if (keyHandler.down)    enzito.move(Direction.DOWN);
+            if (keyHandler.left)    enzito.move(Direction.LEFT);
+            if (keyHandler.right)   enzito.move(Direction.RIGHT);
+
         } else if (!flagDead) {
             System.out.println("¡El jugador ha muerto! No se puede mover.");
             flagDead = true; // para que solo se imprima una vez
