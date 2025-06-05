@@ -57,17 +57,17 @@ public abstract class Character {
     }
 
     //variable uptHp -> update hp
-    public void setHp(int uptHp){
-        this.hp = uptHp;
+    public void setHp(int uptHp) {
+        this.hp = Math.max(0, uptHp); // evita valores negativos
+    }
+
+    public int getHp() {
+        return this.hp;
     }
 
     //Getters to hp, posX, posY, movSpeed, xp, name, baseDmg
     public String getCharName() {
         return name;
-    }
-
-    public int getHp() {
-        return hp;
     }
 
     public int getPosX(){

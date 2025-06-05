@@ -4,11 +4,19 @@ import main.java.model.character.NPC;
 import main.java.model.Player;
 import main.java.model.character.Character;
 
-public class Enemy extends NPC {
+import main.java.model.gameState.Subject;
+import main.java.model.gameState.Observer;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Enemy extends NPC implements Subject {
 
     private int baseDmg;
     private float attackTime;
     private float attackDuration;
+    private final List<Observer> observers = new ArrayList<>();
+    private boolean alive = true;
 
     public Enemy(String name, int movSpeed, int posX, int posY, int baseDmg, float attackTime, float attackDuration) {
         super(name, movSpeed ,posX, posY);
@@ -31,13 +39,35 @@ public class Enemy extends NPC {
         }
     }
 
-    public void attack(Player p){
-        p.takeDamage(baseDmg);
+    public void attack(Player p) {
+        if (alive && baseDmg > 0) {
+            System.out.println("Enemy ataca con daño: " + baseDmg);  // DEBUG
+            p.takeDamage(baseDmg);  // Le baja vida
+        }
     }
 
-    public void die(){
-        if(getHp()<=0){
-            setIsAlive(false);
+
+    public void die() {
+        this.alive = false;
+        notifyObservers();
+    }
+
+    @Override
+    public void addObserver(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void removeObserver(Observer o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyObservers() {
+        if (!alive) {
+            for (Observer o : observers) {
+                o.update();
+            }
         }
     }
 

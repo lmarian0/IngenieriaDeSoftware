@@ -34,6 +34,14 @@ public class Controller {
     public void updateEnemies() {
         for(Enemy enemy: enemies) {
             enemy.chase(enzito.getPosX(), enzito.getPosY());
+
+            // Verifica si está lo suficientemente cerca para atacar
+            int dx = Math.abs(enemy.getPosX() - enzito.getPosX());
+            int dy = Math.abs(enemy.getPosY() - enzito.getPosY());
+
+            if (dx < 20 && dy < 20) {
+                enemy.attack(enzito);  // Ahora el player recibe daño
+            }
         }
     }
 
