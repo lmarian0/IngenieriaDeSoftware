@@ -6,6 +6,7 @@ import main.java.model.character.Character;
 
 import main.java.model.gameState.Subject;
 import main.java.model.gameState.Observer;
+import main.java.model.items.XPOrb;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,6 @@ public class Enemy extends NPC implements Subject {
     private float attackTime;
     private float attackDuration;
     private final List<Observer> observers = new ArrayList<>();
-    private boolean alive = true;
 
     public Enemy(String name, int movSpeed, int posX, int posY, int baseDmg, float attackTime, float attackDuration) {
         super(name, movSpeed ,posX, posY);
@@ -51,6 +51,7 @@ public class Enemy extends NPC implements Subject {
 
     public void die() {
         this.alive = false;
+        XPOrb orb = new XPOrb(posX, posY, 5); //Hay que ver como hacer que la View se entere de la existencia para dibujarlo
         notifyObservers();
     }
 

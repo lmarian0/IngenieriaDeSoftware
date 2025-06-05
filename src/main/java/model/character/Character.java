@@ -9,7 +9,7 @@ public abstract class Character {
     protected int posX;
     protected int posY;
     private boolean inAttack;
-    private boolean isAlive;
+    protected boolean isAlive;
 
     public int spriteCounter;
     public int spriteNum;
