@@ -26,8 +26,8 @@ public class   Main {
       enemies.add(new Enemy("Briones", 2, 75, 80, 0, 0, 0));
 
       Controller controller = new Controller(player, enemies, keyHandler);
-      Display display = new Display(controller);
-      MainWindow window = new MainWindow(display, keyHandler);
+      Display display = new Display(controller, keyHandler);
+      MainWindow window = new MainWindow(display);
 
       GameMap gameMap = GameMap.getInstance(display.getScreenCol(), display.getScreenRow()); // Initialize the game map with 8x6 tiles
 

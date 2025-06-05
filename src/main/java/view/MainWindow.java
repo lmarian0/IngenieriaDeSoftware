@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 public class MainWindow {
 
-    public MainWindow(Display display, KeyHandler keyHandler) {
+    public MainWindow(Display display) {
         JFrame window = new JFrame("Juego MVC");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
@@ -17,8 +17,5 @@ public class MainWindow {
         window.pack();
         window.setLocationRelativeTo(null);
         window.setVisible(true);
-        window.requestFocusInWindow();
-
-        window.addKeyListener(keyHandler);
     }
 }

@@ -5,6 +5,8 @@ import main.java.model.map.GameMap;
 import main.java.model.Enemy;
 import main.java.model.Player;
 import main.java.model.constants.Constants;
+
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -27,12 +29,14 @@ public class Display extends JPanel {
     // Imagen
     private BufferedImage streetImage, ZemansTileImage, grassTileImage;
 
-    public Display(Controller controller) {
+    public Display(Controller controller, KeyListener keyHandler) {
         this.controller = controller;
         this.setPreferredSize(new Dimension(SCREENWIDTH, SCREENHEIGHT));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.setFocusable(true);
+        this.addKeyListener(keyHandler);
+        this.requestFocusInWindow();
         try {
             streetImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\StreetTile.png"));
             ZemansTileImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\ZemanskyTile.png"));
@@ -43,19 +47,19 @@ public class Display extends JPanel {
 
     }
 
-     public int getScreenRow() {
-            return MAXSCREENROW;
-        }
-        public int getScreenCol() {
-            return MAXSCREENCOL;
-        }
+    public int getScreenRow() {
+        return MAXSCREENROW;
+    }
+    public int getScreenCol() {
+        return MAXSCREENCOL;
+    }
 
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        
+
         GameMap gameMap = GameMap.getInstance(SCREENWIDTH, SCREENHEIGHT);
         for (int x = 0; x < MAXSCREENCOL; x++) {
             for (int y = 0; y < MAXSCREENROW;y++) {
@@ -74,8 +78,8 @@ public class Display extends JPanel {
             }
 
         }
-        
-       Player player = controller.getPlayer();
+
+        Player player = controller.getPlayer();
         // Centramos el jugador en el medio de la pantalla
         int offsetX = player.getPosX() - SCREENWIDTH / 2 + player.getWidth() / 2;
         int offsetY = player.getPosY() - SCREENHEIGHT / 2 + player.getHeight() / 2;
@@ -89,6 +93,6 @@ public class Display extends JPanel {
         // Dibujar jugador
         g.setColor(Color.RED);
         g.fillRect(player.getPosX() - offsetX, player.getPosY() - offsetY, player.getWidth()*2, player.getHeight()*2);
-       
+
     }
 }
