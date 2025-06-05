@@ -40,11 +40,13 @@ public class Enemy extends NPC implements Subject {
     }
 
     public void attack(Player p) {
-        if (alive && baseDmg > 0) {
-            System.out.println("Enemy ataca con daño: " + baseDmg);  // DEBUG
-            p.takeDamage(baseDmg);  // Le baja vida
-        }
+        if (!p.IsAlive()) return;
+        if (p.getHp() <= 0) return;  // No ataca si el player está muerto
+
+        System.out.println("Enemy ataca con daño: " + baseDmg);
+        p.takeDamage(baseDmg);
     }
+
 
 
     public void die() {

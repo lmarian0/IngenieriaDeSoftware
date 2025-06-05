@@ -58,8 +58,6 @@ public class Player extends Character implements Subject, Observer {
         notifyObservers();
     }
 
-    public int getXP() { return xp; }
-
     // Observer: se llama cuando un Enemy notifica que murió
     @Override
     public void update() {
@@ -124,4 +122,7 @@ public class Player extends Character implements Subject, Observer {
     public int getWidth() { return 32; }
     public int getHeight() { return 32; }
 
+    public boolean isAlive() {
+        return getHp() > 0;
+    }
 }

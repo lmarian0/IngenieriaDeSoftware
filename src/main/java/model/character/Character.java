@@ -86,8 +86,8 @@ public abstract class Character {
         return inAttack;
     }
 
-    public boolean getIsAlive(){
-        return isAlive;
+    public boolean IsAlive(){
+        return this.isAlive;
     }
 
     protected void setPosX(int posX) {
