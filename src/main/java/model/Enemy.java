@@ -28,18 +28,30 @@ public class Enemy extends NPC implements Subject {
         this.attackTime = attackTime;
     }
 
-    public void chase(int posX, int posY){
-        if (posX < getPosX()) {
-            setPosX(getPosX() - getMovSpeed());
-        } else if (posX > getPosX()) {
-            setPosX(getPosX() + getMovSpeed());
-        }
+    private void logicMove(int playerPosX, int playerPosY){
+        if      (playerPosX < getPosX()) setPosX(getPosX() - getMovSpeed());
+        else if (playerPosX > getPosX()) setPosX(getPosX() + getMovSpeed());
+        if      (playerPosY < getPosY()) setPosY(getPosY() - getMovSpeed());
+        else if (playerPosY > getPosY()) setPosY(getPosY() + getMovSpeed());
+    }
 
-        if (posY < getPosY()) {
-            setPosY(getPosY() - getMovSpeed());
-        } else if (posY > getPosY()) {
-            setPosY(getPosY() + getMovSpeed());
+    public void chase(int playerPosX, int playerPosY, List<Enemy> enemies) {
+        for(Enemy enemy : enemies){
+            if (enemy != this && isCollidingWith(enemy)) {
+                if      (getPosX() - enemy.getPosX()>0) setPosX(getPosX() + getMovSpeed());
+                else    setPosX(getPosX() - getMovSpeed());
+                if      (getPosY() - enemy.getPosY()>0) setPosY(getPosY() + getMovSpeed());
+                else    setPosY(getPosY() - getMovSpeed());
+                return;
+            }
         }
+        logicMove(playerPosX, playerPosY);
+    }
+
+    public boolean isCollidingWith(Enemy other){
+        int dx = Math.abs(getPosX() - other.getPosX());
+        int dy = Math.abs(getPosY() - other.getPosY());
+        return dx<=other.getWidth() && dy<= other.getHeight();
     }
 
     public void attack(Player p) {
