@@ -25,13 +25,6 @@ public class   Main {
       KeyHandler keyHandler = new KeyHandler();
       Player player = new Player();
       List<Enemy> enemies = new ArrayList<>();
-      EnemyFactory factory = new GoblinFactory();
-      Enemy goblin1 = factory.createEnemy(100, 150);
-      Enemy goblin2 = factory.createEnemy(200, 300);
-
-      enemies.add(goblin1);
-      enemies.add(goblin2);
-      //enemies.add(new Enemy("Briones", 2, 75, 80, 30,3, 0, 0));
 
       // VINCULAR: cada enemy notifica al player cuando muere
       for (Enemy enemy : enemies) {
@@ -42,7 +35,7 @@ public class   Main {
       HUD hud = new HUD(player);
 
 
-      Controller controller = new Controller(player, enemies, keyHandler);
+      Controller controller = new Controller(player, keyHandler);
       Display display = new Display(controller, keyHandler, hud);
       MainWindow window = new MainWindow(display);
 
