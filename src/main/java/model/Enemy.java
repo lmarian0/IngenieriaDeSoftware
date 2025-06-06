@@ -3,6 +3,9 @@ package main.java.model;
 import main.java.model.character.NPC;
 import main.java.model.Player;
 import main.java.model.character.Character;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Image;
 
 import main.java.model.gameState.Subject;
 import main.java.model.gameState.Observer;
@@ -21,7 +24,11 @@ public class Enemy extends NPC implements Subject {
     private int hp;  // vida base del enemigo
     private int id;
 
-    public Enemy(int id, String name, int movSpeed, int posX, int posY, int hp, int baseDmg, int attackTime, int attackDuration) {
+    private Image image;
+    // cooldown atack
+    private long lastAttackTime = 0;
+
+    public Enemy(String name, int movSpeed, int posX, int posY, int hp, int baseDmg, int attackTime, int attackDuration, Image image) {
         super(name, movSpeed ,posX, posY);
         this.id = id;
         this.hp = hp;
@@ -57,10 +64,19 @@ public class Enemy extends NPC implements Subject {
     }
 
     public void attack(Player p) {
-        if (!p.IsAlive()) return;
-        if (p.getHp() <= 0) return;  // No ataca si el player está muerto
-        System.out.println("Enemy [" + id + "] ataca con daño: " + baseDmg);
-        p.takeDamage(baseDmg);
+        
+        long currentTime = System.currentTimeMillis();
+        if (!alive) return;
+        if (currentTime - lastAttackTime >= attackTime) {
+            double dx = p.getPosX() - getPosX();
+            double dy = p.getPosY() - getPosY();
+            double distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 16 ) {
+                p.takeDamage(baseDmg);
+                lastAttackTime = currentTime; 
+            }
+        }
     }
 
     public void takeDamage(int dmg) {
@@ -95,6 +111,16 @@ public class Enemy extends NPC implements Subject {
             }
         }
     }
+    public void draw (Graphics g, int offsetX, int offsetY){
+       if (image != null) {
+            g.drawImage(image, (int)getPosX() - offsetX, (int)getPosY() - offsetY, getWidth(), getHeight(), null);
+        } else {
+            g.setColor(Color.YELLOW);
+            g.fillRect(getPosX() - offsetX, getPosY() - offsetY, getWidth(), getHeight());
+        }
+    }
+    
+    
 
     public int getWidth() { return 32; }
     public int getHeight() { return 32; }

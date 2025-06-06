@@ -5,6 +5,8 @@ import main.java.controller.Controller;
 import main.java.controller.KeyHandler;
 import main.java.model.Enemy;
 import main.java.model.Player;
+import main.java.model.Factory.EnemyFactory;
+import main.java.model.Factory.GoblinFactory;
 import main.java.view.Display;
 import main.java.view.MainWindow;
 import main.java.model.map.GameMap;
@@ -64,7 +66,7 @@ public class   Main {
       HUD hud = new HUD(player);
 
 
-      Controller controller = new Controller(player, enemies, keyHandler);
+      Controller controller = new Controller(player, keyHandler);
       Display display = new Display(controller, keyHandler, hud);
       MainWindow window = new MainWindow(display);
 

@@ -4,6 +4,7 @@ package main.java.model;
 import main.java.model.constants.Direction;
 import main.java.model.gameState.Observer;
 import main.java.model.gameState.Subject;
+import main.java.model.map.GameMap;
 import main.java.view.Display;
 import main.java.controller.KeyHandler;
 import main.java.model.items.Item;
@@ -26,6 +27,7 @@ public class Player extends Character implements Subject, Observer {
     private int xp;
     private Item weapon;
     private Direction direction;
+    //public static Player SINGLETON_PLAYER;
 
     private final List<Observer> observers = new ArrayList<>();
 
@@ -57,6 +59,10 @@ public class Player extends Character implements Subject, Observer {
     public void gainXP(int amount) {
         this.xp += amount;
         notifyObservers();
+    }
+
+    public void heal(int amount) {
+        setHp(getHp() + amount);
     }
 
     // Observer: se llama cuando un Enemy notifica que murió

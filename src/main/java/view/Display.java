@@ -102,10 +102,12 @@ public class Display extends JPanel {
         //int offsetY = player.getPosY() - SCREENHEIGHT / 2 + player.getHeight() / 2;
 
         // Dibujar enemigos
+
+        
         g.setColor(Color.BLUE);
         for (Enemy enemy : controller.getEnemies()) {
             if(enemy.getIsAlive()) {
-                g.fillRect(enemy.getPosX(), enemy.getPosY(), enemy.getWidth() * 2, enemy.getHeight() * 2);
+                enemy.draw(g, player.getPosX(), player.getPosY());
             } else {
                 // Si el enemigo está muerto, no lo dibujamos
                 continue;

@@ -1,5 +1,7 @@
 package main.java.controller;
 
+import main.java.model.Factory.EnemySpawner;
+import main.java.model.Factory.GoblinFactory;
 import main.java.model.constants.Direction;
 import main.java.view.Display;
 import main.java.model.Enemy;
@@ -10,14 +12,16 @@ import java.util.List;
 public class Controller {
     private Player enzito;
     private KeyHandler keyHandler;
-    private List<Enemy> enemies;
+    private EnemySpawner spawner;
     private final Camera camera = new Camera();
     private boolean flagDead = false;
     
-    public Controller (Player enzito, List<Enemy> enemies, KeyHandler keyHandler) {
+    public Controller (Player enzito, KeyHandler keyHandler) {
         this.enzito = enzito;
         this.keyHandler = keyHandler;
-        this.enemies = enemies;
+        spawner = new EnemySpawner();
+        Thread venThread = new Thread(spawner);
+        venThread.start();
     }
 
     public void update() {
@@ -26,7 +30,7 @@ public class Controller {
         camera.update(enzito);
 
         if (keyHandler.space && enzito.isAlive()) {
-            for (Enemy enemy : enemies) {
+            for (Enemy enemy : spawner.getGeneratedEnemies()) {
                 int dx = Math.abs(enemy.getPosX() - enzito.getPosX());
                 int dy = Math.abs(enemy.getPosY() - enzito.getPosY());
 
@@ -53,21 +57,14 @@ public class Controller {
     }
 
     public void updateEnemies() {
-        for(Enemy enemy: enemies) {
-            if(enemy.getIsAlive() == false){
+        for(Enemy enemy: getEnemies()) {
+            if(!enemy.getIsAlive()){
                 enemy = null;
-                enemies.remove(enemy); // Elimina el enemigo de la lista si está muerto
+                removeEnemy(enemy); // Elimina el enemigo de la lista si está muerto
                 continue;
             }
             enemy.chase(enzito.getPosX(), enzito.getPosY(), getEnemies());
-
-            // Verifica si está lo suficientemente cerca para atacar
-            int dx = Math.abs(enemy.getPosX() - enzito.getPosX());
-            int dy = Math.abs(enemy.getPosY() - enzito.getPosY());
-
-            if (dx < 20 && dy < 20) {
-                enemy.attack(enzito);  // Ahora el player recibe daño
-            }
+            enemy.attack(enzito);
         }
     }
 
@@ -76,7 +73,11 @@ public class Controller {
     }
 
     public List<Enemy> getEnemies() {
-        return enemies;
+        return spawner.getGeneratedEnemies();
+    }
+
+    public void removeEnemy(Enemy enemy) {
+        spawner.getGeneratedEnemies().remove(enemy);
     }
 
     public Camera getCamera() {
