@@ -61,6 +61,10 @@ public class Player extends Character implements Subject, Observer {
         notifyObservers();
     }
 
+    public void heal(int amount) {
+        setHp(getHp() + amount);
+    }
+
     // Observer: se llama cuando un Enemy notifica que murió
     @Override
     public void update() {

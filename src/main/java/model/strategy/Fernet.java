@@ -1,9 +1,15 @@
 package main.java.model.strategy;
 
-public class Fernet implements PowerUp {
+import main.java.model.Player;
+
+public class Fernet extends PowerUp {
+
+    public Fernet() {
+
+    }
 
     @Override
-    public void takePowerUp() {
+    public void takePowerUp(Player player) {
 
     }
 }
