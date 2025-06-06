@@ -5,6 +5,8 @@ import main.java.controller.Controller;
 import main.java.controller.KeyHandler;
 import main.java.model.Enemy;
 import main.java.model.Player;
+import main.java.model.Factory.EnemyFactory;
+import main.java.model.Factory.GoblinFactory;
 import main.java.view.Display;
 import main.java.view.MainWindow;
 import main.java.model.map.GameMap;
@@ -23,8 +25,12 @@ public class   Main {
       KeyHandler keyHandler = new KeyHandler();
       Player player = new Player();
       List<Enemy> enemies = new ArrayList<>();
-      enemies.add(new Enemy("Pedroni", 2, 100, 20, 20,1, 10, 0,null));
-      enemies.add(new Enemy("Ayarde", 2, 50, 35, 50,2,10, 0,null));
+      EnemyFactory factory = new GoblinFactory();
+      Enemy goblin1 = factory.createEnemy(100, 150);
+      Enemy goblin2 = factory.createEnemy(200, 300);
+
+      enemies.add(goblin1);
+      enemies.add(goblin2);
       //enemies.add(new Enemy("Briones", 2, 75, 80, 30,3, 0, 0));
 
       // VINCULAR: cada enemy notifica al player cuando muere
