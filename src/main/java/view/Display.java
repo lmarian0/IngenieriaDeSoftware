@@ -24,10 +24,10 @@ public class Display extends JPanel {
     // SCREEN SETTINGS
     private final int FPS = 60;
     private final int TILESIZE = Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize() ; // 96x96 Tile Size
-    private final int MAXSCREENCOL = 20;
-    private final int MAXSCREENROW = 10;
-    private final int SCREENWIDTH = TILESIZE * MAXSCREENCOL;
-    private final int SCREENHEIGHT = TILESIZE * MAXSCREENROW;
+    private int MAXSCREENCOL;
+    private int MAXSCREENROW;
+    private final int SCREENWIDTH;
+    private final int SCREENHEIGHT;
     private final Controller controller;
     private final HUD hud;
 
@@ -36,9 +36,14 @@ public class Display extends JPanel {
     private BufferedImage spritePJleft1, spritePJleft2, spritePJright1, spritePJright2;
     private BufferedImage spritePJup1, spritePJup2, spritePJdown1, spritePJdown2;
 
-    public Display(Controller controller, KeyListener keyHandler, HUD hud) {
+    public Display(Controller controller, KeyListener keyHandler, HUD hud, int screenWidth, int screenHeight) {
         this.controller = controller;
         this.hud = hud;
+        this.MAXSCREENCOL = screenWidth; // Cantidad de columnas de tiles en pantalla
+        this.MAXSCREENROW = screenHeight; // Cantidad de filas de tiles en pantalla
+
+        SCREENWIDTH = TILESIZE * MAXSCREENCOL;
+        SCREENHEIGHT = TILESIZE * MAXSCREENROW;
         this.setPreferredSize(new Dimension(SCREENWIDTH, SCREENHEIGHT));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
