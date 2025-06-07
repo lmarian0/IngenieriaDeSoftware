@@ -79,51 +79,5 @@ public class Display extends JPanel {
         controller.drawEstadoActual(g);
 
         
-         
-        GameMap gameMap = GameMap.getInstance(SCREENWIDTH, SCREENHEIGHT);
-        for (int x = 0; x < MAXSCREENCOL; x++) {
-            for (int y = 0; y < MAXSCREENROW; y++) {
-                // Dibujar el tile en la posición correspondiente (afecta la pos segun los px)
-                int tileX = x * TILESIZE;
-                int tileY = y * TILESIZE;
-
-                // Verificar si el tile es un obstáculo o un tile jugable
-                if (gameMap.getMapMatrix()[x][y] == Constants.EMPTY.getSize()) {
-                    g.drawImage(streetImage, tileX, tileY, TILESIZE, TILESIZE, null);
-                } else if (gameMap.getMapMatrix()[x][y] == Constants.SPAWN.getSize()) {
-                    g.drawImage(grassTileImage, tileX, tileY, TILESIZE, TILESIZE, null);
-                } else if (gameMap.getMapMatrix()[x][y] == Constants.WALL.getSize()) {
-                    g.drawImage(ZemansTileImage, tileX, tileY, TILESIZE, TILESIZE, null);
-                }
-            }
-
-        }
-
-        Player player = controller.getPlayer();
-        // Centramos el jugador en el medio de la pantalla
-        //int offsetX = player.getPosX() - SCREENWIDTH / 2 + player.getWidth() / 2;
-        //int offsetY = player.getPosY() - SCREENHEIGHT / 2 + player.getHeight() / 2;
-
-        // Dibujar enemigos
-
-        
-        g.setColor(Color.BLUE);
-        for (Enemy enemy : controller.getEnemies()) {
-            if(enemy.getIsAlive()) {
-                enemy.draw(g, player.getPosX(), player.getPosY());
-            } else {
-                // Si el enemigo está muerto, no lo dibujamos
-                continue;
-            }
-        }
-
-        // Dibujar jugador
-        g.setColor(Color.RED);
-        g.fillRect(player.getPosX(), player.getPosY(), player.getWidth() * 2, player.getHeight() * 2);
-
-        // DIBUJA EL HUD ARRIBA DE TODO
-        hud.draw(g);
-
-        
     }
 }

@@ -30,20 +30,9 @@ public class Controller {
     public void update() {
         printEstadoActual();
         handlePlayerInput();
-        updateEnemies();
         camera.update(enzito);
 
-        if (keyHandler.space && enzito.isAlive()) {
-            for (Enemy enemy : spawner.getGeneratedEnemies()) {
-                int dx = Math.abs(enemy.getPosX() - enzito.getPosX());
-                int dy = Math.abs(enemy.getPosY() - enzito.getPosY());
-
-                if (dx < 20 && dy < 20 && enemy.getIsAlive()) {
-                    enemy.takeDamage(5);  // daño de ataque del Player
-                    System.out.println("¡Ataque exitoso!");
-                }
-            }
-        }
+        
         if (estadoActual!=null){
             estadoActual.update(); // Actualiza el estado actual del juego
         }
