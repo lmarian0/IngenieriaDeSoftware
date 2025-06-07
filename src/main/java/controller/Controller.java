@@ -65,6 +65,7 @@ public class Controller {
                 enemy = null;
                 continue;
             }
+            enemy.addObserver(enzito);
             enemy.chase(enzito.getPosX(), enzito.getPosY(), getEnemies());
             enemy.attack(enzito);
             enemy.addObserver(enzito);

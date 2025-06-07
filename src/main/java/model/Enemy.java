@@ -94,7 +94,7 @@ public class Enemy extends NPC implements Subject {
 
     @Override
     public void addObserver(Observer o) {
-        if (!observers.contains(o)) observers.add(o);
+        if(!observers.contains(o)) observers.add(o);
     }
 
     @Override

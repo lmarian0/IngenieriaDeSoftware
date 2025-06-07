@@ -44,7 +44,6 @@ public class Main {
       gameMap.showMap();
       gameMap.getMapMeasures();
 
-
       // CREAR HUD (se actualiza con la vida y XP del Player)
       HUD hud = new HUD(player);
 
