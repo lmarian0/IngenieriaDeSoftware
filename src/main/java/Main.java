@@ -48,7 +48,6 @@ public class Main {
 
       gameMap.showMap();
       gameMap.getMapMeasures();
-      gameMap.debugObstacles();
 
       // Crear enemigos
       for (int i = 0; i < cantidadEnemigos; i++) {

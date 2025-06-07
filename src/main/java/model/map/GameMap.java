@@ -2,7 +2,6 @@ package main.java.model.map;
 
 import main.java.model.constants.Constants;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,7 +25,8 @@ public class GameMap {
     }
 
     // Método para obtener la instancia única del mapa
-    // Utiliza el patrón Singleton para asegurar que solo haya una instancia del mapa
+    // Utiliza el patrón Singleton para asegurar que solo haya una instancia del
+    // mapa
     public static GameMap getInstance(int width, int height) {
         if (SINGLETON_MAP == null) {
             synchronized (GameMap.class) {
@@ -65,9 +65,10 @@ public class GameMap {
             for (int y = 1; y < verTiles; y++) {
 
                 // Genera un obstáculo con una probabilidad de 1 en 25
-                if (rand.nextInt(25) == Constants.WALL.getSize() ) {
+                if (rand.nextInt(25) == Constants.WALL.getSize()) {
                     if (map[x][y] == 0) {
-                        if (x >= (horTiles/2)-1 && x <= (horTiles/2)+1 && y >= (verTiles/2)-1 && y <= (verTiles/2)+1) {
+                        if (x >= (horTiles / 2) - 1 && x <= (horTiles / 2) + 1 && y >= (verTiles / 2) - 1
+                                && y <= (verTiles / 2) + 1) {
                             // No se generan obstáculos en el centro del mapa
                         } else {
                             map[x][y] = Constants.WALL.getSize();
@@ -95,11 +96,11 @@ public class GameMap {
             for (int y = 0; y < verTiles; y++) {
                 if (map[x][y] == Constants.WALL.getSize() || map[x][y] == Constants.SPAWN.getSize()) {
                     int obsPosX = x * Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize()
-                            - Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize();
+                            - Constants.TILE_SIZE.getSize();
                     int obsPosY = y * Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize()
-                            - Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize();
-                    int limitX = obsPosX + Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize() * 2;
-                    int limitY = obsPosY + Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize() * 2;
+                            - Constants.TILE_SIZE.getSize();
+                    int limitX = obsPosX + Constants.TILE_SIZE.getSize() * (Constants.SCALE.getSize()+1);
+                    int limitY = obsPosY + Constants.TILE_SIZE.getSize() * (Constants.SCALE.getSize()+1) ;
 
                     obstaclePositions.add(new int[] { obsPosX, obsPosY, limitX, limitY });
                 }
