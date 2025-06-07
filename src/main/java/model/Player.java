@@ -32,7 +32,7 @@ public class Player extends Character implements Subject, Observer {
     private final List<Observer> observers = new ArrayList<>();
 
     public Player() {
-        super("Enzito", 100, 15,  600, 300);
+        super("Enzito", 100, 20,  600, 300);
         this.level = 1;
         this.coins = 0;
         this.xp = 0;
@@ -40,38 +40,44 @@ public class Player extends Character implements Subject, Observer {
     }
 
     public void move(Direction direction) {
-        GameMap gameMap = GameMap.getInstance(1, 1);
-        List<int[]> obstacles = gameMap.getObsPos();
+    GameMap gameMap = GameMap.getInstance(1, 1);
+    List<int[]> obstacles = gameMap.getObsPos();
 
-        // Calcular la nueva posición antes de mover al jugador
-        int newPosX = posX;
-        int newPosY = posY;
+    // Calcular la nueva posición antes de mover al jugador
+    int newPosX = posX;
+    int newPosY = posY;
 
-        switch (direction) {
-            case UP -> newPosY -= getMovSpeed();
-            case DOWN -> newPosY += getMovSpeed();
-            case LEFT -> newPosX -= getMovSpeed();
-            case RIGHT -> newPosX += getMovSpeed();
-        }
-
-        // Verificar si la nueva posición colisiona con un obstáculo
-        for (int[] obs : obstacles) {
-            int obsPosX = obs[0];
-            int obsPosY = obs[1];
-            int limitX = obs[2];
-            int limitY = obs[3];
-
-            if (newPosX + getWidth() > obsPosX && newPosX < limitX &&
-                newPosY + getHeight() > obsPosY && newPosY < limitY) {
-                return; // No actualizar la posición si hay colisión
-            }
-        }
-
-        // Si no hay colisión, actualizar la posición
-        posX = newPosX;
-        posY = newPosY;
-        this.direction = direction;
+    switch (direction) {
+        case UP -> newPosY -= getMovSpeed();
+        case DOWN -> newPosY += getMovSpeed();
+        case LEFT -> newPosX -= getMovSpeed();
+        case RIGHT -> newPosX += getMovSpeed();
     }
+
+    // Verificar si la nueva posición colisiona con un obstáculo
+    for (int[] obs : obstacles) {
+        int obsPosX = obs[0];
+        int obsPosY = obs[1];
+        int limitX = obs[2];
+        int limitY = obs[3];
+
+        if (newPosX + getWidth() > obsPosX && newPosX < limitX &&
+            newPosY + getHeight() > obsPosY && newPosY < limitY) {
+            
+            // Ajustar la posición para evitar que el jugador se quede atrapado
+            if (direction == Direction.UP) newPosY = limitY;
+            if (direction == Direction.DOWN) newPosY = obsPosY - getHeight();
+            if (direction == Direction.LEFT) newPosX = limitX;
+            if (direction == Direction.RIGHT) newPosX = obsPosX - getWidth();
+        }
+    }
+
+    // Actualizar la posición después de la corrección
+    posX = newPosX;
+    posY = newPosY;
+    this.direction = direction;
+}
+
 
     public void takeDamage(int dmg) {
         setHp(getHp() - dmg);

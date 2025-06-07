@@ -48,7 +48,6 @@ public class Main {
 
       gameMap.showMap();
       gameMap.getMapMeasures();
-      gameMap.debugObstacles();
 
       // VINCULAR: cada enemy notifica al player cuando muere
       for (Enemy enemy : enemies) {
