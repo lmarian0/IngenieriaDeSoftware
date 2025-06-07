@@ -31,7 +31,7 @@ public class Main {
 
       ArrayList<int[]> posicionesUsadas = new ArrayList<>();
       KeyHandler keyHandler = new KeyHandler();
-      Player player = new Player();
+      Player player = Player.getInstance(); 
       List<Enemy> enemies = new ArrayList<>();
 
       // Identificar el tamaño de la pantalla

@@ -119,10 +119,11 @@ public class Display extends JPanel {
             }
         }
 
-        // Dibujar jugador
-        g.setColor(Color.RED);
-        g.fillRect(player.getPosX(), player.getPosY(), player.getWidth() * 2, player.getHeight() * 2);
+        
 
+        // Dibujar jugador
+        g.drawImage(player.getCurrentSprite(), player.getPosX(), player.getPosY(), player.getWidth()*2, player.getHeight()*2, null);
+        
         // DIBUJA EL HUD ARRIBA DE TODO
         hud.draw(g);
     }
