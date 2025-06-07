@@ -1,20 +1,25 @@
 package main.java.model.map;
 
 import main.java.model.constants.Constants;
-import java.util.Random;
-public class GameMap{
 
-    private int horTiles; //Cantidad de tiles horizontales
-    private int verTiles; //Cantidad de tiles verticales
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+public class GameMap {
+
+    private int horTiles; // Cantidad de tiles horizontales
+    private int verTiles; // Cantidad de tiles verticales
     private int[][] map; // Matriz del mapa
     public static GameMap SINGLETON_MAP;
 
     // Constructor
     private GameMap(int width, int height) {
-        
+
         this.horTiles = width; // El ancho del mapa en tiles
         this.verTiles = height; // La altura del mapa en tiles
-        this.map = new int[horTiles][verTiles]; //La matriz de tiles del mapa
+        this.map = new int[horTiles][verTiles]; // La matriz de tiles del mapa
         setSpawnReg();
         setPlayReg();
         setObstacles();
@@ -54,17 +59,17 @@ public class GameMap{
     }
 
     // Define los obstaculos
-    public void setObstacles() {   
+    public void setObstacles() {
+        Random rand = new Random();
         for (int x = 1; x < horTiles; x++) {
             for (int y = 1; y < verTiles; y++) {
-                Random rand = new Random();
+
                 // Genera un obstáculo con una probabilidad de 1 en 25
                 if (rand.nextInt(25) == Constants.WALL.getSize()) {
                     if (map[x][y] == 0) {
                         if (x >= (horTiles/2)-1 && x <= (horTiles/2)+1 && y >= (verTiles/2)-1 && y <= (verTiles/2)+1) {
                             // No se generan obstáculos en el centro del mapa
-                        }
-                        else {
+                        } else {
                             map[x][y] = Constants.WALL.getSize();
                         }
                     }
@@ -72,7 +77,6 @@ public class GameMap{
             }
         }
     }
-
 
     // Muestra el mapa matriceado por consola
     public void showMap() {
@@ -84,7 +88,33 @@ public class GameMap{
         }
     }
 
+    public List<int[]> getObsPos() {
+        List<int[]> obstaclePositions = new ArrayList<>();
 
+        for (int x = 0; x < horTiles; x++) {
+            for (int y = 0; y < verTiles; y++) {
+                if (map[x][y] == Constants.WALL.getSize()) {
+                    int obsPosX = x * Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize()
+                            - Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize();
+                    int obsPosY = y * Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize()
+                            - Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize();
+                    int limitX = obsPosX + Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize() * 2;
+                    int limitY = obsPosY + Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize() * 2;
+
+                    obstaclePositions.add(new int[] { obsPosX, obsPosY, limitX, limitY });
+                }
+            }
+        }
+        return obstaclePositions;
+    }
+
+    public void debugObstacles() {
+        List<int[]> obstacles = getObsPos();
+        System.out.println("Obstáculos generados:");
+        for (int[] obs : obstacles) {
+            System.out.println("Obstáculo en: (" + obs[0] + ", " + obs[1] + ") - (" + obs[2] + ", " + obs[3] + ")");
+        }
+    }
 
     // Muestra las medidas del mapa
     public void getMapMeasures() {

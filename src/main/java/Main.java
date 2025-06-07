@@ -39,16 +39,16 @@ public class Main {
       int width = (int) screenSize.getWidth();
       int height = (int) screenSize.getHeight() - (int) screenSize.getHeight() / 10;
       System.out.println("Resolución de pantalla: " + width + "x" + height);
-
+      
       // Crear el mapa del juego
       int horTiles = (width / Constants.SCALE.getSize()) / Constants.TILE_SIZE.getSize();
       int verTiles = (height / Constants.SCALE.getSize()) / Constants.TILE_SIZE.getSize();
 
-     
-      GameMap gameMap = GameMap.getInstance(horTiles-1, verTiles); // Initialize the game map with 8x6 tiles
+      GameMap gameMap = GameMap.getInstance(horTiles, verTiles); // Initialize the game map with 8x6 tiles
 
       gameMap.showMap();
       gameMap.getMapMeasures();
+      gameMap.debugObstacles();
 
       // Crear enemigos
       for (int i = 0; i < cantidadEnemigos; i++) {
@@ -81,14 +81,12 @@ public class Main {
          enemy.addObserver(player); // Player gana XP
       }
 
-
       // CREAR HUD (se actualiza con la vida y XP del Player)
       HUD hud = new HUD(player);
 
       Controller controller = new Controller(player, keyHandler);
-      Display display = new Display(controller, keyHandler, hud, 20, 10);
+      Display display = new Display(controller, keyHandler, hud, horTiles, verTiles);
       MainWindow window = new MainWindow(display);
-
 
       Timer timer = new Timer(16, new ActionListener() {
          @Override
@@ -99,4 +97,5 @@ public class Main {
       });
       timer.start();
    }
+   
 }
