@@ -88,7 +88,7 @@ public class Display extends JPanel {
                 } else if (gameMap.getMapMatrix()[x][y] == Constants.SPAWN.getSize()) {
                     g.drawImage(grassTileImage, tileX, tileY, TILESIZE, TILESIZE, null);
                 } else if (gameMap.getMapMatrix()[x][y] == Constants.WALL.getSize()) {
-                    g.drawImage(ZemansTileImage, tileX, tileY, TILESIZE, TILESIZE, null);asdwasd
+                    g.drawImage(ZemansTileImage, tileX, tileY, TILESIZE, TILESIZE, null);
                 }
             }
 
