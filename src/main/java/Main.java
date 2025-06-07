@@ -44,10 +44,6 @@ public class Main {
       gameMap.showMap();
       gameMap.getMapMeasures();
 
-      // VINCULAR: cada enemy notifica al player cuando muere
-      for (Enemy enemy : enemies) {
-         enemy.addObserver(player); // Player gana XP
-      }
 
       // CREAR HUD (se actualiza con la vida y XP del Player)
       HUD hud = new HUD(player);
