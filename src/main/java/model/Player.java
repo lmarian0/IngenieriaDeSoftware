@@ -40,12 +40,36 @@ public class Player extends Character implements Subject, Observer {
     }
 
     public void move(Direction direction) {
+        GameMap gameMap = GameMap.getInstance(1, 1);
+        List<int[]> obstacles = gameMap.getObsPos();
+
+        // Calcular la nueva posición antes de mover al jugador
+        int newPosX = posX;
+        int newPosY = posY;
+
         switch (direction) {
-            case UP -> posY -= getMovSpeed();
-            case DOWN -> posY += getMovSpeed();
-            case LEFT -> posX -= getMovSpeed();
-            case RIGHT -> posX += getMovSpeed();
+            case UP -> newPosY -= getMovSpeed();
+            case DOWN -> newPosY += getMovSpeed();
+            case LEFT -> newPosX -= getMovSpeed();
+            case RIGHT -> newPosX += getMovSpeed();
         }
+
+        // Verificar si la nueva posición colisiona con un obstáculo
+        for (int[] obs : obstacles) {
+            int obsPosX = obs[0];
+            int obsPosY = obs[1];
+            int limitX = obs[2];
+            int limitY = obs[3];
+
+            if (newPosX + getWidth() > obsPosX && newPosX < limitX &&
+                newPosY + getHeight() > obsPosY && newPosY < limitY) {
+                return; // No actualizar la posición si hay colisión
+            }
+        }
+
+        // Si no hay colisión, actualizar la posición
+        posX = newPosX;
+        posY = newPosY;
         this.direction = direction;
     }
 
