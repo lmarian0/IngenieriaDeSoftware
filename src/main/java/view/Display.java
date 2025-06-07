@@ -32,7 +32,7 @@ public class Display extends JPanel {
     private final HUD hud;
 
     // Imagen
-    private BufferedImage streetImage, ZemansTileImage, grassTileImage;
+    private BufferedImage streetImage, ZemansTileImage, grassTileImage, paliniTileImage;
     private BufferedImage spritePJleft1, spritePJleft2, spritePJright1, spritePJright2;
     private BufferedImage spritePJup1, spritePJup2, spritePJdown1, spritePJdown2;
 
@@ -55,17 +55,10 @@ public class Display extends JPanel {
         try {
             streetImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\StreetTile.png"));
             ZemansTileImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\ZemanskyTile.png"));
+            paliniTileImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\agarriniLaPaliniTile.png"));
             grassTileImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\grass.png"));
-            //Sprites for Player
-            spritePJleft1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_left_1.png"));
-            spritePJleft2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_left_2.png"));
-            spritePJright1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_right_1.png"));
-            spritePJright2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_right_2.png"));
-            spritePJup1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_up_1.png"));
-            spritePJup2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_up_2.png"));
-            spritePJdown1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_down_1.png"));
-            spritePJdown2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_down_2.png"));
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -95,7 +88,7 @@ public class Display extends JPanel {
                 } else if (gameMap.getMapMatrix()[x][y] == Constants.SPAWN.getSize()) {
                     g.drawImage(grassTileImage, tileX, tileY, TILESIZE, TILESIZE, null);
                 } else if (gameMap.getMapMatrix()[x][y] == Constants.WALL.getSize()) {
-                    g.drawImage(ZemansTileImage, tileX, tileY, TILESIZE, TILESIZE, null);
+                    g.drawImage(ZemansTileImage, tileX, tileY, TILESIZE, TILESIZE, null);asdwasd
                 }
             }
 
