@@ -24,12 +24,7 @@ import main.java.view.ui.HUD;
 
 public class Main {
    public static void main(String[] args) {
-
-      Random rand = new Random();
-      int cantidadEnemigos = 10;
-      int separacionMinima = 100;
-
-      ArrayList<int[]> posicionesUsadas = new ArrayList<>();
+      
       KeyHandler keyHandler = new KeyHandler();
       Player player = new Player();
       List<Enemy> enemies = new ArrayList<>();

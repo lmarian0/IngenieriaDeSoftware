@@ -60,8 +60,8 @@ public class Controller {
     public void updateEnemies() {
         for(Enemy enemy: getEnemies()) {
             if(!enemy.getIsAlive()){
-                enemy = null;
                 removeEnemy(enemy); // Elimina el enemigo de la lista si está muerto
+                enemy = null;
                 continue;
             }
             enemy.chase(enzito.getPosX(), enzito.getPosY(), getEnemies());

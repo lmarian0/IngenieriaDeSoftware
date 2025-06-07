@@ -30,7 +30,6 @@ public class Enemy extends NPC implements Subject {
 
     public Enemy(String name, int movSpeed, int posX, int posY, int hp, int baseDmg, int attackTime, int attackDuration, Image image) {
         super(name, movSpeed ,posX, posY);
-        this.id = id;
         this.hp = hp;
         this.baseDmg = baseDmg;
         this.attackDuration = attackDuration;
@@ -82,7 +81,7 @@ public class Enemy extends NPC implements Subject {
     public void takeDamage(int dmg) {
         hp -= dmg;
         if (hp <= 0 && alive) {
-            System.out.println("Enemy [" + id + "] ha muerto.");
+            System.out.println("Un enemigo ha muerto.");
             die();  // si muere, se notifica al Player (Observer)
         }
     }
