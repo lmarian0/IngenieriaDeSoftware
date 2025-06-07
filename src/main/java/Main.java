@@ -26,7 +26,7 @@ public class Main {
    public static void main(String[] args) {
       
       KeyHandler keyHandler = new KeyHandler();
-      Player player = new Player();
+      Player player = Player.getInstance(); 
       List<Enemy> enemies = new ArrayList<>();
 
       // Identificar el tamaño de la pantalla
