@@ -58,6 +58,7 @@ public class Controller {
     }
 
     public void updateEnemies() {
+        spawner.setPlayerPos(enzito.getPosX(), enzito.getPosY());
         for(Enemy enemy: getEnemies()) {
             if(!enemy.getIsAlive()){
                 removeEnemy(enemy); // Elimina el enemigo de la lista si está muerto

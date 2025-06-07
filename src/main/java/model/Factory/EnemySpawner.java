@@ -44,7 +44,7 @@ public class EnemySpawner implements Runnable {
             } catch(InterruptedException e) {
                 e.printStackTrace();
             }
-            generatedEnemies.add(goblinFactory.createEnemy(10,20));
+            generatedEnemies.add(goblinFactory.createEnemy(setRandomPos(playerPosX),setRandomPos(playerPosY)));
         }
     }
 
@@ -52,10 +52,26 @@ public class EnemySpawner implements Runnable {
         return generatedEnemies;
     }
 
+    /*
+     Este metodo lo debera manipular el Controller para indicarle al Spawner
+     Cual sera la posicion actual del Player, y spawnear en base a ella.
+     */
     public void setPlayerPos(int playerPosX, int playerPosY) {
         this.playerPosX = playerPosX;
         this.playerPosY = playerPosY;
     }
+
+    /*
+     Este metodo lo implementará el thread para elegir una posicion
+     radial a la posicion del Player, es decir, se generan en una circunferencia
+     con centro en el Player.
+     */
+    public int setRandomPos(int position) {
+        Random random = new Random();
+        int offset = 600;
+        return position + (random.nextBoolean() ? offset : -offset); //Los enemies se generan a offset o -offset de distancia
+    }
+
 
     public void stop() {
         running = false;
