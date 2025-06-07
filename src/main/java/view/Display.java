@@ -32,7 +32,7 @@ public class Display extends JPanel {
     private final HUD hud;
 
     // Imagen
-    private BufferedImage streetImage, ZemansTileImage, grassTileImage;
+    private BufferedImage streetImage, ZemansTileImage, grassTileImage, paliniTileImage;
     private BufferedImage spritePJleft1, spritePJleft2, spritePJright1, spritePJright2;
     private BufferedImage spritePJup1, spritePJup2, spritePJdown1, spritePJdown2;
 
@@ -55,17 +55,10 @@ public class Display extends JPanel {
         try {
             streetImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\StreetTile.png"));
             ZemansTileImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\ZemanskyTile.png"));
+            paliniTileImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\agarriniLaPaliniTile.png"));
             grassTileImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\grass.png"));
-            //Sprites for Player
-            spritePJleft1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_left_1.png"));
-            spritePJleft2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_left_2.png"));
-            spritePJright1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_right_1.png"));
-            spritePJright2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_right_2.png"));
-            spritePJup1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_up_1.png"));
-            spritePJup2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_up_2.png"));
-            spritePJdown1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_down_1.png"));
-            spritePJdown2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_down_2.png"));
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -119,10 +112,11 @@ public class Display extends JPanel {
             }
         }
 
-        // Dibujar jugador
-        g.setColor(Color.RED);
-        g.fillRect(player.getPosX(), player.getPosY(), player.getWidth() * 2, player.getHeight() * 2);
+        
 
+        // Dibujar jugador
+        g.drawImage(player.getCurrentSprite(), player.getPosX(), player.getPosY(), player.getWidth()*2, player.getHeight()*2, null);
+        
         // DIBUJA EL HUD ARRIBA DE TODO
         hud.draw(g);
     }
