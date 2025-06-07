@@ -24,27 +24,36 @@ public class EnemySpawner implements Runnable {
     private GoblinFactory goblinFactory;
     private boolean running;
     private List<Enemy> generatedEnemies;
+    private Random random; //Utilizado para el tiempo y posicion aleatoria de spawn.
 
     public EnemySpawner() {
         this.goblinFactory = new GoblinFactory();
         running = true;
         this.generatedEnemies = new CopyOnWriteArrayList<>();
         //La primera posicion va a ser una posición valida del mapa cualquiera.
-        this.playerPosX = 10;
-        this.playerPosY = 20;
+        random = new Random();
     }
 
     @Override
     public void run() {
-        Random rand = new Random();
         while(running) {
-            int delay = 3000 + rand.nextInt(4000);
+            int delay = 3000 + random.nextInt(4000);
             try {
                 Thread.sleep(delay);
             } catch(InterruptedException e) {
                 e.printStackTrace();
             }
-            generatedEnemies.add(goblinFactory.createEnemy(10,20));
+
+            generatedEnemies.add(goblinFactory.createEnemy(playerPosX,playerPosY));
+        }
+    }
+
+    public void removeDeadEnemies() {
+        for(Enemy enemy: generatedEnemies) {
+            if(!enemy.IsAlive()) {
+                generatedEnemies.remove(enemy);
+                enemy = null;
+            }
         }
     }
 
@@ -52,9 +61,23 @@ public class EnemySpawner implements Runnable {
         return generatedEnemies;
     }
 
+    /*
+     Este metodo lo debera manipular el Controller para indicarle al Spawner
+     Cual sera la posicion actual del Player, y spawnear en base a ella.
+     */
     public void setPlayerPos(int playerPosX, int playerPosY) {
         this.playerPosX = playerPosX;
         this.playerPosY = playerPosY;
+    }
+
+    /*
+     Este metodo lo implementará el thread para elegir una posicion
+     radial a la posicion del Player, es decir, se generan en una circunferencia
+     con centro en el Player.
+     */
+    public int setRandomPos(int position) {
+        int offset = 800;
+        return position + (random.nextBoolean() ? offset : -offset); //Los enemies se generan a offset o -offset de distancia
     }
 
     public void stop() {

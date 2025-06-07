@@ -57,12 +57,9 @@ public class Controller {
     }
 
     public void updateEnemies() {
+        spawner.setPlayerPos(enzito.getPosX(), enzito.getPosY());
+        //spawner.removeDeadEnemies();
         for(Enemy enemy: getEnemies()) {
-            if(!enemy.getIsAlive()){
-                enemy = null;
-                removeEnemy(enemy); // Elimina el enemigo de la lista si está muerto
-                continue;
-            }
             enemy.chase(enzito.getPosX(), enzito.getPosY(), getEnemies());
             enemy.attack(enzito);
         }
