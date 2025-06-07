@@ -50,32 +50,6 @@ public class Main {
       gameMap.getMapMeasures();
       gameMap.debugObstacles();
 
-      // Crear enemigos
-      for (int i = 0; i < cantidadEnemigos; i++) {
-         int x, y;
-         boolean posicionValida;
-
-         do {
-            posicionValida = true;
-            x = rand.nextInt(width - 32); // considerando tamaño del enemy
-            y = rand.nextInt(height - 32);
-
-            for (int[] pos : posicionesUsadas) {
-               int dx = Math.abs(pos[0] - x);
-               int dy = Math.abs(pos[1] - y);
-               if (dx < separacionMinima && dy < separacionMinima) {
-                  posicionValida = false;
-                  break;
-               }
-            }
-
-         } while (!posicionValida);
-
-         int baseDmg = rand.nextInt(5) + 1; // daño aleatorio entre 1 y 5
-         posicionesUsadas.add(new int[] { x, y });
-         enemies.add(new Enemy("Enemy" + i, 2, x, y, 5, baseDmg, 10, 0, null));
-      }
-
       // VINCULAR: cada enemy notifica al player cuando muere
       for (Enemy enemy : enemies) {
          enemy.addObserver(player); // Player gana XP

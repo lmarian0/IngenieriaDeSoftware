@@ -19,6 +19,8 @@ public class EnemySpawner implements Runnable {
         generatedEnemies.add(gobSpawner.createEnemy(Player.getInstance().getPosX + 30, Player.getInstance().getPosY + 30));
         para que se creen a una distancia específica del Player.
      */
+
+    private int playerPosX, playerPosY;
     private GoblinFactory goblinFactory;
     private boolean running;
     private List<Enemy> generatedEnemies;
@@ -27,6 +29,9 @@ public class EnemySpawner implements Runnable {
         this.goblinFactory = new GoblinFactory();
         running = true;
         this.generatedEnemies = new CopyOnWriteArrayList<>();
+        //La primera posicion va a ser una posición valida del mapa cualquiera.
+        this.playerPosX = 10;
+        this.playerPosY = 20;
     }
 
     @Override
@@ -45,6 +50,11 @@ public class EnemySpawner implements Runnable {
 
     public List<Enemy> getGeneratedEnemies() {
         return generatedEnemies;
+    }
+
+    public void setPlayerPos(int playerPosX, int playerPosY) {
+        this.playerPosX = playerPosX;
+        this.playerPosY = playerPosY;
     }
 
     public void stop() {
