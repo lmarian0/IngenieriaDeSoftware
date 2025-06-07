@@ -76,7 +76,10 @@ public class Display extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        controller.drawEstadoActual(g);
 
+        
+         
         GameMap gameMap = GameMap.getInstance(SCREENWIDTH, SCREENHEIGHT);
         for (int x = 0; x < MAXSCREENCOL; x++) {
             for (int y = 0; y < MAXSCREENROW; y++) {
@@ -120,5 +123,7 @@ public class Display extends JPanel {
 
         // DIBUJA EL HUD ARRIBA DE TODO
         hud.draw(g);
+
+        
     }
 }

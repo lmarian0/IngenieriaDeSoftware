@@ -3,10 +3,13 @@ package main.java.controller;
 import main.java.model.Factory.EnemySpawner;
 import main.java.model.Factory.GoblinFactory;
 import main.java.model.constants.Direction;
+import main.java.model.gameState.GameState;
 import main.java.view.Display;
 import main.java.model.Enemy;
 import main.java.model.Player;
+import main.java.model.gameState.GameState;
 
+import java.awt.Graphics;
 import java.util.List;
 
 public class Controller {
@@ -25,6 +28,7 @@ public class Controller {
     }
 
     public void update() {
+        printEstadoActual();
         handlePlayerInput();
         updateEnemies();
         camera.update(enzito);
@@ -40,6 +44,10 @@ public class Controller {
                 }
             }
         }
+        if (estadoActual!=null){
+            estadoActual.update(); // Actualiza el estado actual del juego
+        }
+        
 
     }
 
@@ -84,5 +92,31 @@ public class Controller {
         return camera;
     }
 
+    //estados
+
+    private GameState estadoActual;
+
+    public void setEstadoActual(GameState state) {
+        this.estadoActual = state;
+    }
+
+    public void updateEstadoActual() {
+        if (estadoActual != null) {
+            estadoActual.update();
+        }
+    }
+
+    public void drawEstadoActual(Graphics g) {
+        if (estadoActual != null) {
+            estadoActual.draw(g);
+        }
+    }
+    public void printEstadoActual() {
+    if (estadoActual == null) {
+        System.out.println("El estado actual es: null");
+        } else {
+        System.out.println("El estado actual es: " + estadoActual.getClass().getSimpleName());
+        }
+    }
 }
 

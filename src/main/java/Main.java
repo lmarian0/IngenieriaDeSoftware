@@ -7,6 +7,7 @@ import main.java.model.Enemy;
 import main.java.model.Player;
 import main.java.model.Factory.EnemyFactory;
 import main.java.model.Factory.GoblinFactory;
+import main.java.model.gameState.MenuState;
 import main.java.view.Display;
 import main.java.view.MainWindow;
 import main.java.model.map.GameMap;
@@ -18,6 +19,9 @@ import java.util.List;
 import java.util.Random;
 
 import main.java.view.ui.HUD;
+
+import main.java.model.gameState.GameState;
+import main.java.model.gameState.MenuState;
 
 
 public class   Main {
@@ -32,30 +36,6 @@ public class   Main {
       Player player = new Player();
       List<Enemy> enemies = new ArrayList<>();
 
-      for (int i = 0; i < cantidadEnemigos; i++) {
-         int x, y;
-         boolean posicionValida;
-
-         do {
-            posicionValida = true;
-            x = rand.nextInt(1920 - 32);  // considerando tamaño del enemy
-            y = rand.nextInt(960 - 32);
-
-            for (int[] pos : posicionesUsadas) {
-               int dx = Math.abs(pos[0] - x);
-               int dy = Math.abs(pos[1] - y);
-               if (dx < separacionMinima && dy < separacionMinima) {
-                  posicionValida = false;
-                  break;
-               }
-            }
-
-         } while (!posicionValida);
-
-         int baseDmg = rand.nextInt(5) + 1;  // daño aleatorio entre 1 y 5
-         posicionesUsadas.add(new int[]{x, y});
-         enemies.add(new Enemy(i,"Enemy" + i, 2, x, y, 5, baseDmg, 10,0));
-      }
       
       // VINCULAR: cada enemy notifica al player cuando muere
       for (Enemy enemy : enemies) {
@@ -75,6 +55,9 @@ public class   Main {
       gameMap.showMap();
       gameMap.getMapMeasures();
 
+      //estados del juego
+      controller.setEstadoActual(new MenuState(keyHandler, controller));
+      
       Timer timer = new Timer(16, new ActionListener() {
          @Override
          public void actionPerformed(ActionEvent e) {
