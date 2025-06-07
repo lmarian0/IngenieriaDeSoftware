@@ -7,9 +7,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
-import main.java.model.gameState.Subject;
-import main.java.model.gameState.Observer;
+import main.java.model.observer.Observer;
 import main.java.model.items.XPOrb;
+import main.java.model.observer.Subject;
 
 import java.util.ArrayList;
 import java.util.List;

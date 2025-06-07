@@ -1,6 +1,6 @@
 package main.java.view.ui;
 
-import main.java.model.gameState.Observer;
+import main.java.model.observer.Observer;
 import main.java.model.Player;
 
 import java.awt.*;

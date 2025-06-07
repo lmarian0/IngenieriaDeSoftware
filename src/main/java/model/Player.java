@@ -2,9 +2,8 @@ package main.java.model;
 
 
 import main.java.model.constants.Direction;
-import main.java.model.gameState.Observer;
-import main.java.model.gameState.Subject;
 import main.java.model.map.GameMap;
+import main.java.model.observer.Subject;
 import main.java.view.Display;
 import main.java.controller.KeyHandler;
 import main.java.model.items.Item;
@@ -18,8 +17,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectStreamException;
 
-import main.java.model.gameState.Observer;
-import main.java.model.gameState.Subject;
+import main.java.model.observer.Observer;
 
 import java.util.ArrayList;
 import java.util.List;

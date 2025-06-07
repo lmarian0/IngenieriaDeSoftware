@@ -1,4 +1,4 @@
-package main.java.model.gameState;
+package main.java.model.observer;
 
 /**
  * Cualquier clase que tenga información que otros quieran observar (como Player o Enemy)

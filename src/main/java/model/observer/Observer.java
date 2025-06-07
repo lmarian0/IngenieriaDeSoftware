@@ -1,4 +1,4 @@
-package main.java.model.gameState;
+package main.java.model.observer;
 
 /**
  * Cualquier clase que quiera ser notificada de un cambio (como HUD, XPBar, HealthBar)

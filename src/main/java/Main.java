@@ -27,7 +27,6 @@ public class Main {
       
       KeyHandler keyHandler = new KeyHandler();
       Player player = Player.getInstance(); 
-      List<Enemy> enemies = new ArrayList<>();
 
       // Identificar el tamaño de la pantalla
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
