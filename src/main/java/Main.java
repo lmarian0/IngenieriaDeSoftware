@@ -34,18 +34,23 @@ public class Main {
          try {
             // Aquí podrías implementar una lógica para seleccionar la pantalla
             // Por ejemplo, podrías listar las pantallas disponibles y permitir al usuario elegir
-            // En este caso, simplemente asumimos que el usuario selecciona la primera pantalla
-            System.out.println("Ingrese en cual pantalla desea jugar: (0 a n)");
-            int n = scanner.nextInt();
-
-            device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[n]; // Selecciona la primera pantalla disponible
+            // En este caso, si el usuario solo cuenta con una pantalla, no será necesario seleccionar una pantalla específica.
             
-
+            if (GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices().length == 1) {
+               // Elige la única pantalla disponible
+               device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
+               screenSelection = true;
+            }
+            else{
+               // Si hay más de una pantalla, solicita al usuario que elija una
+               System.out.println("Ingrese en cual pantalla desea jugar: (1 a "+ GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices().length +")");
+               int n = scanner.nextInt();
+               device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[n-1]; // Selecciona la primera pantalla disponible
+            } 
             screenSelection = true; // Simulamos que se ha seleccionado una pantalla
          } catch (Exception e) {
              System.out.println("Error al seleccionar la pantalla. Intente nuevamente.");
             scanner.nextLine(); // Limpiar entrada incorrecta
-
          }
       } while (!screenSelection);
       scanner.close();
