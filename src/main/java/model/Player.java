@@ -39,7 +39,7 @@ public class Player extends Character implements Subject, Observer {
     private static Player SINGLETON_PLAYER;
 
     private Player() {
-        super("Enzito", 100, 10,  600, 300);
+        super("Enzito", 100, 5,  600, 300);
         this.level = 1;
         this.coins = 0;
         this.xp = 0;
