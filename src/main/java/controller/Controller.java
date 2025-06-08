@@ -3,10 +3,12 @@ package main.java.controller;
 import main.java.model.Factory.EnemySpawner;
 import main.java.model.Factory.GoblinFactory;
 import main.java.model.constants.Direction;
+import main.java.model.gameState.GameState;
 import main.java.view.Display;
 import main.java.model.Enemy;
 import main.java.model.Player;
 
+import java.awt.Graphics;
 import java.util.List;
 
 public class Controller {
@@ -25,25 +27,16 @@ public class Controller {
     }
 
     public void update() {
-        handlePlayerInput();
-        updateEnemies();
-        camera.update(enzito);
-
-        if (keyHandler.space && enzito.isAlive()) {
-            for (Enemy enemy : spawner.getGeneratedEnemies()) {
-                int dx = Math.abs(enemy.getPosX() - enzito.getPosX());
-                int dy = Math.abs(enemy.getPosY() - enzito.getPosY());
-
-                if (dx < 20 && dy < 20 && enemy.getIsAlive()) {
-                    enemy.takeDamage(5);  // daño de ataque del Player
-                    System.out.println("¡Ataque exitoso!");
-                }
-            }
+        if (estadoActual != null) {
+            estadoActual.update();
         }
+        
+        
+        
 
     }
 
-    private void handlePlayerInput() {
+    public void handlePlayerInput() {
         if (enzito.isAlive()) { // Para que el PJ no se mueva luego de muerto
             if (keyHandler.up)      enzito.move(Direction.UP);
             if (keyHandler.down)    enzito.move(Direction.DOWN);
@@ -89,5 +82,32 @@ public class Controller {
         return camera;
     }
 
+    private GameState estadoActual;
+
+    public void setEstadoActual(GameState state) {
+        this.estadoActual = state;
+    }
+
+    public void updateEstadoActual() {
+        if (estadoActual != null) {
+            estadoActual.update();
+        }
+    }
+
+    public void drawEstadoActual(Graphics g) {
+        if (estadoActual != null) {
+            estadoActual.draw(g);
+        }
+    }
+    public void printEstadoActual() {
+    if (estadoActual == null) {
+        System.out.println("El estado actual es: null");
+        } else {
+        System.out.println("El estado actual es: " + estadoActual.getClass().getSimpleName());
+        }
+    }
+
+
 }
+
 
