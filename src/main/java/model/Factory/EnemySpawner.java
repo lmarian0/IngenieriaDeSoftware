@@ -8,16 +8,23 @@ import java.util.Random;
 public class EnemySpawner implements Runnable {
 
     /*
-        Clase creada, encargada de spawnear a los enemigos segun el Factory correspondiente.
-        Para crear otro generador de Enemigos, tienen que añadirlo como atributo a esta clase.
-        Ej: TrapitoFactory, el cual  genere trapitos, y que tenga un metodo como el siguiente:
-            generatedEnemies.add(trapitoFactory.createEnemy(10,20));
-        Ahora, en el caso de la posicion de generacion, para mi hay que implementar un Singleton en Player,
-        el unico Singleton que deberiamos implementar en si, porque acá necesitamos si o si el dato de la
-        posX y posY del Player, y como no tenemos forma de meter al Player a esta clase sin acoplar todo,
-        conviene invocar a un metodo tipo
-        generatedEnemies.add(gobSpawner.createEnemy(Player.getInstance().getPosX + 30, Player.getInstance().getPosY + 30));
-        para que se creen a una distancia específica del Player.
+     * Clase creada, encargada de spawnear a los enemigos segun el Factory
+     * correspondiente.
+     * Para crear otro generador de Enemigos, tienen que añadirlo como atributo a
+     * esta clase.
+     * Ej: TrapitoFactory, el cual genere trapitos, y que tenga un metodo como el
+     * siguiente:
+     * generatedEnemies.add(trapitoFactory.createEnemy(10,20));
+     * Ahora, en el caso de la posicion de generacion, para mi hay que implementar
+     * un Singleton en Player,
+     * el unico Singleton que deberiamos implementar en si, porque acá necesitamos
+     * si o si el dato de la
+     * posX y posY del Player, y como no tenemos forma de meter al Player a esta
+     * clase sin acoplar todo,
+     * conviene invocar a un metodo tipo
+     * generatedEnemies.add(gobSpawner.createEnemy(Player.getInstance().getPosX +
+     * 30, Player.getInstance().getPosY + 30));
+     * para que se creen a una distancia específica del Player.
      */
 
     private int playerPosX, playerPosY;
@@ -26,13 +33,12 @@ public class EnemySpawner implements Runnable {
     private boolean running;
     private List<Enemy> generatedEnemies;
 
-
     public EnemySpawner() {
         this.goblinFactory = new GoblinFactory();
         this.naranjitaFactory = new NaranjitaFactory();
         running = true;
         this.generatedEnemies = new CopyOnWriteArrayList<>();
-        //La primera posicion va a ser una posición valida del mapa cualquiera.
+        // La primera posicion va a ser una posición valida del mapa cualquiera.
         this.playerPosX = 10;
         this.playerPosY = 20;
     }
@@ -40,29 +46,26 @@ public class EnemySpawner implements Runnable {
     @Override
     public void run() {
         Random rand = new Random();
-        while(running) {
+        while (running) {
             int delay = 3000 + rand.nextInt(3500);
             try {
                 Thread.sleep(delay);
-            } catch(InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            generatedEnemies.add(goblinFactory.createEnemy(setRandomPos(playerPosX),setRandomPos(playerPosY)));
+            generatedEnemies.add(goblinFactory.createEnemy(setRandomPos(playerPosX), setRandomPos(playerPosY)));
             try {
                 Thread.sleep(1000);
-            } catch(InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            generatedEnemies.add(naranjitaFactory.createEnemy(setRandomPos(playerPosX),setRandomPos(playerPosY)));
+            generatedEnemies.add(naranjitaFactory.createEnemy(setRandomPos(playerPosX), setRandomPos(playerPosY)));
         }
         System.out.println("Jugador muerto. Eliminando enemigos...");
         try {
-            for(int i=1000; i < 5000; i +=250) {
-                generatedEnemies.clear();
-                Thread.sleep(i);
-            }
-        }
-        catch(Exception e) {
+            Thread.sleep(100);
+            generatedEnemies.clear();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -72,8 +75,8 @@ public class EnemySpawner implements Runnable {
     }
 
     /*
-     Este metodo lo debera manipular el Controller para indicarle al Spawner
-     Cual sera la posicion actual del Player, y spawnear en base a ella.
+     * Este metodo lo debera manipular el Controller para indicarle al Spawner
+     * Cual sera la posicion actual del Player, y spawnear en base a ella.
      */
     public void setPlayerPos(int playerPosX, int playerPosY) {
         this.playerPosX = playerPosX;
@@ -81,14 +84,15 @@ public class EnemySpawner implements Runnable {
     }
 
     /*
-     Este metodo lo implementará el thread para elegir una posicion
-     radial a la posicion del Player, es decir, se generan en una circunferencia
-     con centro en el Player.
+     * Este metodo lo implementará el thread para elegir una posicion
+     * radial a la posicion del Player, es decir, se generan en una circunferencia
+     * con centro en el Player.
      */
     public int setRandomPos(int position) {
         Random random = new Random();
         int offset = 600;
-        return position + (random.nextBoolean() ? offset : -offset); //Los enemies se generan a offset o -offset de distancia
+        return position + (random.nextBoolean() ? offset : -offset); // Los enemies se generan a offset o -offset de
+                                                                     // distancia
     }
 
     public void stop() {
@@ -97,9 +101,10 @@ public class EnemySpawner implements Runnable {
         generatedEnemies.clear();
     }
 
-    // Metodo para que los enemigos generados luego de que enzito muera se queden congelados.
+    // Metodo para que los enemigos generados luego de que enzito muera se queden
+    // congelados.
     public void freezeEnemies() {
-        for(Enemy enemy : generatedEnemies) {
+        for (Enemy enemy : generatedEnemies) {
             enemy.setMovSpeed(0);
         }
     }
