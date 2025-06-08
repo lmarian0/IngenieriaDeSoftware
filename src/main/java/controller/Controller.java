@@ -74,16 +74,16 @@ public class Controller {
         numero = rand.nextInt(4); // Genera un número aleatorio entre 0 y 2
         switch (numero) {
             case 0:
-                ally = new Ally("Sergio", "¡Hola, soy Sergio, tu aliado!");
+                ally = new Ally("Sergio", "¡Hola, soy Sergio Chad y soy re capo!");
                 break;
             case 1:
-                ally = new Ally("Nikito", "¡Hola, soy Nikito, tu aliado!");
+                ally = new Ally("Nikito", "¡Hola, soy Nikito, tomate un fernet!");
                 break;
             case 2:
-                ally = new Ally("Danilo", "¡Hola, soy Danilo, tu aliado!");
+                ally = new Ally("Danilo", "¡Hola, soy Danilo, mirate tu cuenta de Naranja X ;)!");
                 break;
             default:
-                ally = new Ally("JuanMa", "¡Hola, soy JuanMa, tu aliado!");
+                ally = new Ally("JuanMa", "¡Hola, soy JuanMa mansa barba tengo!");
                 break;
         }
         return ally;
@@ -93,9 +93,10 @@ public class Controller {
         if(aliado==null && enzito.getXp()<=10 && keyHandler.k){
             aliado = createAlly();
             System.out.println("¡Hola soy " + aliado.getName() + " y soy tu aliado!");
+            System.out.println(aliado.speak());
         }
         if(aliado != null) {
-            if(aliado.getClkDuration() < 6) {
+            if(aliado.getClkDuration() < 625) {
                 aliado.addClkDuracion();
             }else {
                 aliado = null; // Elimina al aliado si ha pasado el tiempo
