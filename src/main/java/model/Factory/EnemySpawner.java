@@ -49,7 +49,7 @@ public class EnemySpawner implements Runnable {
     public void run() {
         Random rand = new Random();
         while (running) {
-            int delay = 3000 + rand.nextInt(3500);
+            int delay = 3000 + rand.nextInt(4500);
             try {
                 Thread.sleep(delay);
             } catch (InterruptedException e) {
