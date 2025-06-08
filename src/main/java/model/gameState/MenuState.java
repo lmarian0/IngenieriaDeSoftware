@@ -9,12 +9,11 @@ public class MenuState extends GameState {
 
     public MenuState(KeyHandler keyHandler , Controller controller) {
         super(keyHandler , controller);
-        
+
     }
 
     @Override
     public void update() {
-        System.out.println("ESTOFUNCIONA?");
         if (keyHandler.space) {
             controller.setEstadoActual(new PlayingState(keyHandler, controller)); // Transition to PlayingState when space is pressed
             keyHandler.space = false; // Reset the space key state to prevent multiple transitions
@@ -30,6 +29,5 @@ public class MenuState extends GameState {
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 32));
         g.drawString("Menu Principal", 100, 100);
-        System.out.println("DIBUJANDO MENU PRINCIPAL");
     }
 }

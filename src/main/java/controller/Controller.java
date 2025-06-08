@@ -27,25 +27,16 @@ public class Controller {
     }
 
     public void update() {
-        handlePlayerInput();
-        updateEnemies();
-        camera.update(enzito);
-
-        if (keyHandler.space && enzito.isAlive()) {
-            for (Enemy enemy : spawner.getGeneratedEnemies()) {
-                int dx = Math.abs(enemy.getPosX() - enzito.getPosX());
-                int dy = Math.abs(enemy.getPosY() - enzito.getPosY());
-
-                if (dx < 20 && dy < 20 && enemy.getIsAlive()) {
-                    enemy.takeDamage(5);  // daño de ataque del Player
-                    System.out.println("¡Ataque exitoso!");
-                }
-            }
+        if (estadoActual != null) {
+            estadoActual.update();
         }
+        
+        
+        
 
     }
 
-    private void handlePlayerInput() {
+    public void handlePlayerInput() {
         if (enzito.isAlive()) { // Para que el PJ no se mueva luego de muerto
             if (keyHandler.up)      enzito.move(Direction.UP);
             if (keyHandler.down)    enzito.move(Direction.DOWN);

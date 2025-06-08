@@ -9,6 +9,7 @@ import main.java.model.Factory.EnemyFactory;
 import main.java.model.Factory.GoblinFactory;
 import main.java.model.constants.Constants;
 import main.java.model.constants.MapConstants;
+import main.java.model.gameState.MenuState;
 import main.java.view.Display;
 import main.java.view.MainWindow;
 import main.java.model.map.GameMap;
@@ -32,7 +33,6 @@ public class Main {
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
       int width = (int) screenSize.getWidth();
       int height = (int) screenSize.getHeight() - (int) screenSize.getHeight() / 10;
-      System.out.println("Resolución de pantalla: " + width + "x" + height);
       
       // Crear el mapa del juego
       int horTiles = (width / Constants.SCALE.getSize()) / Constants.TILE_SIZE.getSize();
@@ -40,15 +40,20 @@ public class Main {
 
       GameMap gameMap = GameMap.getInstance(horTiles, verTiles); // Initialize the game map with 8x6 tiles
 
-      gameMap.showMap();
-      gameMap.getMapMeasures();
+      
 
       // CREAR HUD (se actualiza con la vida y XP del Player)
       HUD hud = new HUD(player);
 
       Controller controller = new Controller(player, keyHandler);
-      Display display = new Display(controller, keyHandler, hud, horTiles, verTiles);
+      Display display = new Display(controller, keyHandler, hud);
+
       MainWindow window = new MainWindow(display);
+
+      
+      // ESTADOS
+      controller.setEstadoActual(new MenuState(keyHandler, controller));
+
 
       Timer timer = new Timer(16, new ActionListener() {
          @Override

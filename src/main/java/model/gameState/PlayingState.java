@@ -17,12 +17,16 @@ import main.java.view.ui.HUD;
 
 public class PlayingState extends GameState {
     private GameMap gameMap;
-    private BufferedImage streetImage, ZemansTileImage, grassTileImage;
+
     private final int TILESIZE;
     private final int MAXSCREENCOL;
     private final int MAXSCREENROW;
-
+    private final HUD hud;
     	
+    private BufferedImage streetImage, ZemansTileImage, grassTileImage;
+    private BufferedImage spritePJleft1, spritePJleft2, spritePJright1, spritePJright2;
+    private BufferedImage spritePJup1, spritePJup2, spritePJdown1, spritePJdown2;
+
     public PlayingState(KeyHandler keyHandler, Controller controller) {
         super(keyHandler, controller);
         this.TILESIZE = Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize();
@@ -31,10 +35,21 @@ public class PlayingState extends GameState {
         int SCREENWIDTH = TILESIZE * MAXSCREENCOL;
         int SCREENHEIGHT = TILESIZE * MAXSCREENROW;
         this.gameMap = GameMap.getInstance(SCREENWIDTH, SCREENHEIGHT);
+        this.hud = new HUD(controller.getPlayer()); // Initialize the final field 'hud'
+        
         try {
-            streetImage = ImageIO.read(new File("src/main/java/view/resources/tiles/StreetTile.png"));
-            ZemansTileImage = ImageIO.read(new File("src/main/java/view/resources/tiles/ZemanskyTile.png"));
-            grassTileImage = ImageIO.read(new File("src/main/java/view/resources/tiles/grass.png"));
+            streetImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\StreetTile.png"));
+            ZemansTileImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\ZemanskyTile.png"));
+            grassTileImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\grass.png"));
+            //Sprites for Player
+            spritePJleft1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_left_1.png"));
+            spritePJleft2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_left_2.png"));
+            spritePJright1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_right_1.png"));
+            spritePJright2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_right_2.png"));
+            spritePJup1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_up_1.png"));
+            spritePJup2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_up_2.png"));
+            spritePJdown1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_down_1.png"));
+            spritePJdown2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_down_2.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -42,10 +57,13 @@ public class PlayingState extends GameState {
 
     @Override
     public void update() {
+        controller.handlePlayerInput();
+
         if(controller.getPlayer().getHp() == 0) {
             controller.setEstadoActual(new GameOverState(keyHandler, controller)); // Transition to PlayingState when space is pressed
 
         }   
+
     }
 
     public int getScreenRow() {
@@ -57,6 +75,7 @@ public class PlayingState extends GameState {
 
     @Override
     public void draw(Graphics g) {
+
         for (int x = 0; x < MAXSCREENCOL; x++) {
             for (int y = 0; y < MAXSCREENROW; y++) {
                 int tileX = x * TILESIZE;
@@ -79,10 +98,10 @@ public class PlayingState extends GameState {
             }
         }
         // Dibuja jugador
-        g.setColor(java.awt.Color.RED);
-        g.fillRect(player.getPosX(), player.getPosY(), player.getWidth() * 2, player.getHeight() * 2);
-        // Dibuja el HUD
+        g.drawImage(player.getCurrentSprite(), player.getPosX(), player.getPosY(), player.getWidth()*2, player.getHeight()*2, null);
 
-        controller.updateEnemies();
+        
+        // Dibuja el HUD
+        hud.draw(g);
     }
 }
