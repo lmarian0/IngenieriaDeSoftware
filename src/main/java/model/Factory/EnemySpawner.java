@@ -56,7 +56,7 @@ public class EnemySpawner implements Runnable {
                 e.printStackTrace();
             }
 
-            if(rand.nextInt(100) < 60) {
+            if(rand.nextInt(100) < 50) {
                 generatedEnemies.add(goblinFactory.createEnemy(setRandomPos(playerPosX), setRandomPos(playerPosY)));
             }
             else {
