@@ -63,6 +63,7 @@ public class PlayingState extends GameState {
             controller.setEstadoActual(new GameOverState(keyHandler, controller)); // Transition to PlayingState when space is pressed
 
         }   
+        controller.updateEnemies();
 
     }
 
@@ -88,6 +89,7 @@ public class PlayingState extends GameState {
                     g.drawImage(ZemansTileImage, tileX, tileY, TILESIZE, TILESIZE, null);
                 }
             }
+            
         }
         // Dibuja enemigos
         g.setColor(java.awt.Color.BLUE);
@@ -103,5 +105,7 @@ public class PlayingState extends GameState {
         
         // Dibuja el HUD
         hud.draw(g);
+
+        
     }
 }
