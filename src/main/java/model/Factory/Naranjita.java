@@ -7,7 +7,7 @@ import main.java.model.Enemy;
 public class Naranjita extends Enemy {
 
     public Naranjita(int posX, int posY) {
-        super("Naranjita", 2, posX, posY, 50, 10, 1000, 500, null);
+        super("Naranjita", 2, posX, posY, 50, 10, 800, 500, null);
     }
 
     @Override
