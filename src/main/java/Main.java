@@ -1,4 +1,4 @@
-package main.java;
+ package main.java;
 
 import javax.swing.*;
 import main.java.controller.Controller;
@@ -19,26 +19,53 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
 import main.java.view.ui.HUD;
 
 public class Main {
    public static void main(String[] args) {
+
+      System.out.println("Bienvenido a las desventuras del Enzito!");
+      boolean screenSelection = false;
+      GraphicsDevice device = null;
+      Scanner scanner = new Scanner(System.in);
+      do {
+         try {
+            // Aquí podrías implementar una lógica para seleccionar la pantalla
+            // Por ejemplo, podrías listar las pantallas disponibles y permitir al usuario elegir
+            // En este caso, simplemente asumimos que el usuario selecciona la primera pantalla
+            System.out.println("Ingrese en cual pantalla desea jugar: (0 a n)");
+            int n = scanner.nextInt();
+
+            device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[n]; // Selecciona la primera pantalla disponible
+            
+
+            screenSelection = true; // Simulamos que se ha seleccionado una pantalla
+         } catch (Exception e) {
+             System.out.println("Error al seleccionar la pantalla. Intente nuevamente.");
+            scanner.nextLine(); // Limpiar entrada incorrecta
+
+         }
+      } while (!screenSelection);
+      scanner.close();
       
       KeyHandler keyHandler = new KeyHandler();
       Player player = Player.getInstance(); 
+      
+      Dimension screenSize = device.getDefaultConfiguration().getBounds().getSize();
 
       // Identificar el tamaño de la pantalla
-      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+     // Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
       int width = (int) screenSize.getWidth();
-      int height = (int) screenSize.getHeight() - (int) screenSize.getHeight() / 10;
+      int height = (int) screenSize.getHeight();
       System.out.println("Resolución de pantalla: " + width + "x" + height);
       
       // Crear el mapa del juego
       int horTiles = (width / Constants.SCALE.getSize()) / Constants.TILE_SIZE.getSize();
       int verTiles = (height / Constants.SCALE.getSize()) / Constants.TILE_SIZE.getSize();
 
-      GameMap gameMap = GameMap.getInstance(horTiles, verTiles); // Initialize the game map with 8x6 tiles
+      GameMap gameMap = GameMap.getInstance(horTiles, verTiles);
 
       gameMap.showMap();
       gameMap.getMapMeasures();
@@ -47,14 +74,19 @@ public class Main {
       HUD hud = new HUD(player);
 
       Controller controller = new Controller(player, keyHandler);
-      Display display = new Display(controller, keyHandler, hud, horTiles, verTiles);
-      MainWindow window = new MainWindow(display);
+      Display display = new Display(controller, keyHandler, hud, horTiles, verTiles, device);
+      MainWindow window = new MainWindow(display, device);
+      window.setFocusable(true);
+      window.requestFocus();
+      window.addKeyListener(keyHandler);
+
 
       Timer timer = new Timer(16, new ActionListener() {
          @Override
          public void actionPerformed(ActionEvent e) {
             controller.update();
             display.repaint();
+            window.repaint();
          }
       });
       timer.start();

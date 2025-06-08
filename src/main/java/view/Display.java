@@ -36,14 +36,21 @@ public class Display extends JPanel {
     private BufferedImage spritePJleft1, spritePJleft2, spritePJright1, spritePJright2;
     private BufferedImage spritePJup1, spritePJup2, spritePJdown1, spritePJdown2;
 
-    public Display(Controller controller, KeyListener keyHandler, HUD hud, int screenWidth, int screenHeight) {
+    public Display(Controller controller, KeyListener keyHandler, HUD hud, int screenWidth, int screenHeight, GraphicsDevice device) {
+        
+        Dimension screenSize = device.getDefaultConfiguration().getBounds().getSize();
+        SCREENWIDTH = (int) screenSize.getWidth();
+        SCREENHEIGHT = (int) screenSize.getHeight();
+        this.setPreferredSize(new Dimension(SCREENWIDTH, SCREENHEIGHT));
+        
+        
         this.controller = controller;
         this.hud = hud;
         this.MAXSCREENCOL = screenWidth; // Cantidad de columnas de tiles en pantalla
         this.MAXSCREENROW = screenHeight; // Cantidad de filas de tiles en pantalla
 
-        SCREENWIDTH = TILESIZE * MAXSCREENCOL;
-        SCREENHEIGHT = TILESIZE * MAXSCREENROW;
+       // SCREENWIDTH = TILESIZE * MAXSCREENCOL;
+        //SCREENHEIGHT = TILESIZE * MAXSCREENROW;
         this.setPreferredSize(new Dimension(SCREENWIDTH, SCREENHEIGHT));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
