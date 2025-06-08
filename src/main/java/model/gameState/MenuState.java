@@ -28,6 +28,6 @@ public class MenuState extends GameState {
         g.fillRect(100, 100, 100,200);
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 32));
-        g.drawString("Menu Principal", 100, 100);
+        g.drawString("Menu Principal", 500, 300);
     }
 }

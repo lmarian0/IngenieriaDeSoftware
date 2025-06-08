@@ -1,5 +1,5 @@
 package main.java.model.gameState;
-import java.awt.Graphics;
+import java.awt.*;
 
 import main.java.controller.Controller;
 import main.java.controller.KeyHandler;
@@ -18,6 +18,10 @@ public class GameOverState extends GameState {
     @Override
 
     public void draw(Graphics g) {
-        g.drawString("Gameover", 100, 100); // Draw "Menu" message at position (100, 100)
+        g.setColor(Color.BLACK);
+        g.fillRect(100, 100, 100,200);
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.BOLD, 32));
+        g.drawString("Moriste :v", 600, 300);
     }
 }
