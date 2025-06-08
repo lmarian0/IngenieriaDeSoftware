@@ -102,14 +102,14 @@ public class Player extends Character implements Subject, Observer {
             int limitX = obs[2];
             int limitY = obs[3];
 
-            if (newPosX + getWidth() > obsPosX && newPosX < limitX &&
-                newPosY + getHeight() > obsPosY && newPosY < limitY) {
+            if (newPosX + getWidth()/4 > obsPosX && newPosX+(getWidth()*0.8) < limitX &&
+                newPosY + getHeight() > obsPosY && newPosY+(getHeight()/2) < limitY) {
                 
                 // Ajustar la posición para evitar que el jugador se quede atrapado
-                if (direction == Direction.UP) newPosY = limitY;
+                if (direction == Direction.UP) newPosY = limitY-(getHeight()/2);
                 if (direction == Direction.DOWN) newPosY = obsPosY - getHeight();
-                if (direction == Direction.LEFT) newPosX = limitX;
-                if (direction == Direction.RIGHT) newPosX = obsPosX - getWidth();
+                if (direction == Direction.LEFT) newPosX = (int) (limitX- (getWidth()*0.7));
+                if (direction == Direction.RIGHT) newPosX = obsPosX - (getWidth()/4);
             }
         }
 
