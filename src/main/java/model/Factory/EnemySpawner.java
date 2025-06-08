@@ -84,6 +84,7 @@ public class EnemySpawner implements Runnable {
 
     public void stop() {
         running = false;
+        generatedEnemies.clear();
     }
 
 }

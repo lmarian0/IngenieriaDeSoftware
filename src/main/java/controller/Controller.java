@@ -54,6 +54,7 @@ public class Controller {
             System.out.println("¡El jugador ha muerto! No se puede mover.");
             System.out.println(enzito.getPosX() + " " + enzito.getPosY());
             flagDead = true; // para que solo se imprima una vez
+            spawner.stop();
         }
     }
 
