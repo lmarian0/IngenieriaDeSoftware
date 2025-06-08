@@ -55,13 +55,16 @@ public class EnemySpawner implements Runnable {
             }
             generatedEnemies.add(naranjitaFactory.createEnemy(setRandomPos(playerPosX),setRandomPos(playerPosY)));
         }
+        System.out.println("Jugador muerto. Eliminando enemigos...");
         try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
+            for(int i=1000; i < 5000; i +=250) {
+                generatedEnemies.clear();
+                Thread.sleep(i);
+            }
+        }
+        catch(Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Jugador muerto. Eliminando enemigos...");
-        generatedEnemies.clear();
     }
 
     public List<Enemy> getGeneratedEnemies() {
