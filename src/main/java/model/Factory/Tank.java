@@ -1,19 +1,18 @@
 package main.java.model.Factory;
-import java.awt.Color;
-import java.awt.Graphics;
 
 import main.java.model.Enemy;
 
-public class Goblin extends Enemy {
+import java.awt.*;
 
-    public Goblin(int posX, int posY) {
-        super("Goblin", 3, posX, posY, 50, 10, 400, 500, null);
+public class Tank extends Enemy {
+
+    public Tank(int posX, int posY) {
+        super("Tank", 1, posX, posY, 200, 40, 1000, 500, null);
     }
 
     @Override
     public void draw(Graphics g, int posX, int posY) {
-        g.setColor(Color.GREEN);
+        g.setColor(Color.RED);
         g.fillRect(getPosX(), getPosY(), 50, 50); // Dibujar un cuadrado verde como representación del goblin
     }
-    
 }
