@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 
 import main.java.controller.Controller;
 import main.java.controller.KeyHandler;
+import main.java.model.Player;
 import main.java.model.constants.Constants;
 import main.java.model.map.GameMap;
 import main.java.view.Display;
@@ -21,6 +22,7 @@ public class PlayingState extends GameState {
     private final int MAXSCREENCOL;
     private final int MAXSCREENROW;
 
+    	
     public PlayingState(KeyHandler keyHandler, Controller controller) {
         super(keyHandler, controller);
         this.TILESIZE = Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize();
@@ -40,7 +42,10 @@ public class PlayingState extends GameState {
 
     @Override
     public void update() {
-        
+        if(controller.getPlayer().getHp() == 0) {
+            controller.setEstadoActual(new GameOverState(keyHandler, controller)); // Transition to PlayingState when space is pressed
+
+        }   
     }
 
     public int getScreenRow() {
