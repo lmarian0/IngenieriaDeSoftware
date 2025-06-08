@@ -64,6 +64,7 @@ public class PlayingState extends GameState {
 
         }   
         controller.updateEnemies();
+        controller.updateAlly();
 
     }
 
@@ -102,6 +103,11 @@ public class PlayingState extends GameState {
         // Dibuja jugador
         g.drawImage(player.getCurrentSprite(), player.getPosX(), player.getPosY(), player.getWidth()*2, player.getHeight()*2, null);
 
+        //Dibuja aliados
+        
+        if(controller.getAlly() != null){
+            controller.getAlly().draw(g, (TILESIZE*MAXSCREENCOL-controller.getAlly().getWidth())/2, 0);
+        }
         
         // Dibuja el HUD
         hud.draw(g);

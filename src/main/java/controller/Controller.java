@@ -7,20 +7,26 @@ import main.java.model.gameState.GameState;
 import main.java.view.Display;
 import main.java.model.Enemy;
 import main.java.model.Player;
-
+import main.java.model.character.Ally;
 import java.awt.Graphics;
 import java.util.List;
+import java.util.Random;
+import main.java.model.character.Ally;
 
 public class Controller {
     private Player enzito;
+    private Ally aliado;
     private KeyHandler keyHandler;
     private EnemySpawner spawner;
     private GameState estadoActual;
     private final Camera camera = new Camera();
     private boolean flagDead = false;
+    private Random rand = new Random();
+    private int numero;
     
     public Controller (Player enzito, KeyHandler keyHandler) {
         this.enzito = enzito;
+        this.aliado = null;
         this.keyHandler = keyHandler;
         spawner = new EnemySpawner();
         Thread venThread = new Thread(spawner);
@@ -31,10 +37,6 @@ public class Controller {
         if (estadoActual != null) {
             estadoActual.update();
         }
-        
-        
-        
-
     }
 
     public void handlePlayerInput() {
@@ -67,12 +69,54 @@ public class Controller {
         }
     }
 
+    private Ally createAlly() {
+        Ally ally;
+        numero = rand.nextInt(4); // Genera un número aleatorio entre 0 y 2
+        switch (numero) {
+            case 0:
+                ally = new Ally("Sergio", "¡Hola, soy Sergio, tu aliado!");
+                break;
+            case 1:
+                ally = new Ally("Nikito", "¡Hola, soy Nikito, tu aliado!");
+                break;
+            case 2:
+                ally = new Ally("Danilo", "¡Hola, soy Danilo, tu aliado!");
+                break;
+            default:
+                ally = new Ally("JuanMa", "¡Hola, soy JuanMa, tu aliado!");
+                break;
+        }
+        return ally;
+    }
+
+    public void updateAlly(){
+        if(aliado==null && enzito.getXp()<=10 && keyHandler.k){
+            aliado = createAlly();
+            System.out.println("¡Hola soy " + aliado.getName() + " y soy tu aliado!");
+        }
+        if(aliado != null) {
+            if(aliado.getClkDuration() < 6) {
+                aliado.addClkDuracion();
+            }else {
+                aliado = null; // Elimina al aliado si ha pasado el tiempo
+                System.out.println("El aliado ha desaparecido.");
+            }
+        }
+    }
+
     public Player getPlayer() {
         return enzito;
     }
 
     public List<Enemy> getEnemies() {
         return spawner.getGeneratedEnemies();
+    }
+
+    public Ally getAlly(){
+        if(aliado != null){
+            return aliado;
+        }
+        return null;
     }
 
     public void removeEnemy(Enemy enemy) {
