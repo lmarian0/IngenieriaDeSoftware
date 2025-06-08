@@ -6,11 +6,11 @@ import java.awt.*;
 
 public class MainWindow extends JFrame {
 
-    public MainWindow(Display display, GraphicsDevice device) {
+    public MainWindow(Display display) {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true); // Quita la barra de título
 
-        device.setFullScreenWindow(this);
+        //device.setFullScreenWindow(this);
 
         add(display);
         setVisible(true);
