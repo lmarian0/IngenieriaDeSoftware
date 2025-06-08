@@ -41,7 +41,7 @@ public class EnemySpawner implements Runnable {
     public void run() {
         Random rand = new Random();
         while(running) {
-            int delay = 3000 + rand.nextInt(4000);
+            int delay = 3000 + rand.nextInt(3500);
             try {
                 Thread.sleep(delay);
             } catch(InterruptedException e) {
@@ -55,6 +55,13 @@ public class EnemySpawner implements Runnable {
             }
             generatedEnemies.add(naranjitaFactory.createEnemy(setRandomPos(playerPosX),setRandomPos(playerPosY)));
         }
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Jugador muerto. Eliminando enemigos...");
+        generatedEnemies.clear();
     }
 
     public List<Enemy> getGeneratedEnemies() {
@@ -81,10 +88,16 @@ public class EnemySpawner implements Runnable {
         return position + (random.nextBoolean() ? offset : -offset); //Los enemies se generan a offset o -offset de distancia
     }
 
-
     public void stop() {
         running = false;
+        freezeEnemies();
         generatedEnemies.clear();
     }
 
+    // Metodo para que los enemigos generados luego de que enzito muera se queden congelados.
+    public void freezeEnemies() {
+        for(Enemy enemy : generatedEnemies) {
+            enemy.setMovSpeed(0);
+        }
+    }
 }
