@@ -7,7 +7,7 @@ import main.java.model.Enemy;
 public class Goblin extends Enemy {
 
     public Goblin(int posX, int posY) {
-        super("Goblin", 2, posX, posY, 50, 10, 1000, 500, null);
+        super("Goblin", 3, posX, posY, 50, 1, 100, 500, null);
     }
 
     @Override

@@ -30,12 +30,14 @@ public class EnemySpawner implements Runnable {
     private int playerPosX, playerPosY;
     private GoblinFactory goblinFactory;
     private NaranjitaFactory naranjitaFactory;
+    private TankFactory tankFactory;
     private boolean running;
     private List<Enemy> generatedEnemies;
 
     public EnemySpawner() {
         this.goblinFactory = new GoblinFactory();
         this.naranjitaFactory = new NaranjitaFactory();
+        this.tankFactory = new TankFactory();
         running = true;
         this.generatedEnemies = new CopyOnWriteArrayList<>();
         // La primera posicion va a ser una posición valida del mapa cualquiera.
@@ -53,13 +55,28 @@ public class EnemySpawner implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            generatedEnemies.add(goblinFactory.createEnemy(setRandomPos(playerPosX), setRandomPos(playerPosY)));
+
+            if(rand.nextInt(100) < 60) {
+                generatedEnemies.add(goblinFactory.createEnemy(setRandomPos(playerPosX), setRandomPos(playerPosY)));
+            }
+            else {
+                generatedEnemies.add(naranjitaFactory.createEnemy(setRandomPos(playerPosX), setRandomPos(playerPosY)));
+            }
             try {
-                Thread.sleep(1000);
+                Thread.sleep(200);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            generatedEnemies.add(naranjitaFactory.createEnemy(setRandomPos(playerPosX), setRandomPos(playerPosY)));
+
+            if (rand.nextInt(100) < 15) {
+                generatedEnemies.add(tankFactory.createEnemy(setRandomPos(playerPosX), setRandomPos(playerPosY)));
+                // Probabilidad del 15% de generar un tanque
+                try {
+                    Thread.sleep(10000); // Delay grande por el tank
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         System.out.println("Jugador muerto. Eliminando enemigos...");
         try {

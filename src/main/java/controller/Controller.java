@@ -15,6 +15,7 @@ public class Controller {
     private Player enzito;
     private KeyHandler keyHandler;
     private EnemySpawner spawner;
+    private GameState estadoActual;
     private final Camera camera = new Camera();
     private boolean flagDead = false;
     
@@ -81,8 +82,6 @@ public class Controller {
     public Camera getCamera() {
         return camera;
     }
-
-    private GameState estadoActual;
 
     public void setEstadoActual(GameState state) {
         this.estadoActual = state;
