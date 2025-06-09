@@ -29,9 +29,14 @@ public class Player extends Character implements Subject, Observer {
     private int dmg;
     private Item weapon;
     private Direction direction;
+    private boolean attacking = false;
+    private long attackStartTime;
+    private final int attackDurationMs = 100;
     private BufferedImage spriteUp1, spriteDown1, spriteLeft1, spriteRight1;
     private BufferedImage spriteUp2, spriteDown2, spriteLeft2, spriteRight2;
+    private BufferedImage spriteUpAttack, spriteDownAttack, spriteLeftAttack, spriteRightAttack;
     private BufferedImage currentSprite; // Imagen actual del jugador
+    
 
 
     //public static Player SINGLETON_PLAYER;
@@ -43,8 +48,8 @@ public class Player extends Character implements Subject, Observer {
         super("Enzito", 100, 5,  600, 300);
         this.level = 1;
         this.coins = 0;
-        this.xp = 1000;
-        this.dmg = 5;
+        this.xp = 0;
+        this.dmg = 10;
         this.weapon = null; // Inicialmente sin arma
         this.direction = Direction.DOWN;
         try {
@@ -56,6 +61,11 @@ public class Player extends Character implements Subject, Observer {
             spriteDown2 = ImageIO.read(new File( "src\\main\\java\\view\\resources\\player\\p1_down_2.png"));
             spriteLeft2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_left_2.png"));
             spriteRight2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_right_2.png"));
+
+            spriteUpAttack = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_up_attack.png"));
+            spriteDownAttack = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_down_attack.png"));
+            spriteLeftAttack = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_left_attack.png"));
+            spriteRightAttack = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_right_attack.png"));
 
             currentSprite = spriteDown1; // Imagen inicial
         } catch (IOException e) {
@@ -97,7 +107,6 @@ public class Player extends Character implements Subject, Observer {
             case RIGHT -> {currentSprite = (currentSprite == spriteRight1) ? spriteRight2 : spriteRight1;}
         }
 
-
         // Verificar si la nueva posición colisiona con un obstáculo
         for (int[] obs : obstacles) {
             int obsPosX = obs[0];
@@ -127,7 +136,7 @@ public class Player extends Character implements Subject, Observer {
     }
 
     public void restoreDmg(){
-        this.dmg = 5;
+        this.dmg = 10;
     }
 
     public void restoreSpeed(){
@@ -143,7 +152,6 @@ public class Player extends Character implements Subject, Observer {
         System.out.println("Vida actual: " + getHp());  // debug
         notifyObservers();  // <== Esto es lo que actualiza el HealthBar
     }
-
 
     public void gainXP(int amount) {
         this.xp += amount;
@@ -185,6 +193,38 @@ public class Player extends Character implements Subject, Observer {
 
     }
 
+    public void updateSprite() {
+        if (attacking) {
+            switch (direction) {
+                case UP -> currentSprite = spriteUpAttack;
+                case DOWN -> currentSprite = spriteDownAttack;
+                case LEFT -> currentSprite = spriteLeftAttack;
+                case RIGHT -> currentSprite = spriteRightAttack;
+            }
+        } else {
+            switch (direction) {
+                case UP -> currentSprite = (currentSprite == spriteUp1) ? spriteUp2 : spriteUp1;
+                case DOWN -> currentSprite = (currentSprite == spriteDown1) ? spriteDown2 : spriteDown1;
+                case LEFT -> currentSprite = (currentSprite == spriteLeft1) ? spriteLeft2 : spriteLeft1;
+                case RIGHT -> currentSprite = (currentSprite == spriteRight1) ? spriteRight2 : spriteRight1;
+            }
+        }
+    }
+
+    public void setAttacking(boolean attacking) {
+        this.attacking = attacking;
+        if (attacking) {
+            this.attackStartTime = System.currentTimeMillis();
+        }
+        updateSprite(); // <- unifica el comportamiento visual del player
+    }
+
+    // Llamado en cada update para saber si debe dejar de atacar
+    public void updateAttackState() {
+        if (attacking && (System.currentTimeMillis() - attackStartTime > attackDurationMs)) {
+            setAttacking(false); // <- actualiza el sprite internamente
+        }
+    }
 
     //El ataque tiene que ser invocar a un metodo del Enemy al q alcanza con el impacto
     public void attack(Enemy e){
@@ -192,8 +232,8 @@ public class Player extends Character implements Subject, Observer {
         int dx = Math.abs(e.getPosX() - getPosX());
         int dy = Math.abs(e.getPosY() - getPosY());
 
-        if (dx < 40 && dy < 40 && e.getIsAlive()) {
-            e.takeDamage(10);  // daño de ataque del Player
+        if (dx < 32 && dy < 32 && e.getIsAlive()) {
+            e.takeDamage(dmg);  // daño de ataque del Player
             System.out.println("¡Ataque exitoso!");
         }
     

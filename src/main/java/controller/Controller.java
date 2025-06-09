@@ -59,12 +59,19 @@ public class Controller {
     }
 
     public void handlePlayerInput() {
-        if (enzito.isAlive()) { // Para que el PJ no se mueva luego de muerto
-            if (keyHandler.up)      enzito.move(Direction.UP);
-            if (keyHandler.down)    enzito.move(Direction.DOWN);
-            if (keyHandler.left)    enzito.move(Direction.LEFT);
-            if (keyHandler.right)   enzito.move(Direction.RIGHT);
-            
+        if (enzito.isAlive()) { // Si está vivo puede moverse o atacar
+
+            // Movimiento
+            if (keyHandler.up) enzito.move(Direction.UP);
+            if (keyHandler.down) enzito.move(Direction.DOWN);
+            if (keyHandler.left) enzito.move(Direction.LEFT);
+            if (keyHandler.right) enzito.move(Direction.RIGHT);
+
+            // Ataque (solo cuando se presiona la tecla una vez)
+            if (keyHandler.space) {
+                handleAttack();
+            }
+
         } else if (!flagDead) {
             System.out.println("¡El jugador ha muerto! No se puede mover.");
             System.out.println(enzito.getPosX() + " " + enzito.getPosY());
@@ -73,6 +80,18 @@ public class Controller {
             spawner.stop();
         }
     }
+
+    private void handleAttack() {
+        keyHandler.space = false; // solo una vez por tecla
+        enzito.setAttacking(true); // activa flag de ataque
+        enzito.updateSprite();     // actualiza el sprite inmediatamente
+        for (Enemy enemy : getEnemies()) {
+            if(enemy.getIsAlive()){
+                enzito.attack(enemy);
+            }
+        }
+    }
+
 
     public void updateEnemies() {
         spawner.setPlayerPos(enzito.getPosX(), enzito.getPosY());
@@ -86,8 +105,6 @@ public class Controller {
             enemy.chase(enzito.getPosX(), enzito.getPosY(), getEnemies());
             enemy.addObserver(enzito);
             enemy.attack(enzito);
-            // ATAQUE CON SPACE
-            if(keyHandler.space) enzito.attack(enemy);
         }
     }
 

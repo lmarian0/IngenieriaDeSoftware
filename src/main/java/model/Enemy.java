@@ -133,5 +133,4 @@ public class Enemy extends NPC implements Subject {
     }
 
     public int gepId() { return id; }
-
 }

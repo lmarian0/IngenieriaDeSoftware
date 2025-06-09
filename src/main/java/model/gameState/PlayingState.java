@@ -67,6 +67,7 @@ public class PlayingState extends GameState {
         controller.updateAlly();
         controller.handlePlayerInput();
         controller.updatePowerUp();
+        controller.getPlayer().updateAttackState();
     }
 
     public int getScreenRow() {

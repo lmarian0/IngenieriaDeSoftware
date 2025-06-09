@@ -17,7 +17,7 @@ import main.java.model.constants.Constants;
 
 public class PowerUpFactory implements Runnable{
     private Ally aliado;
-    private GameMap mapa = GameMap.getInstance(2000000, 2000000);
+    private GameMap mapa = GameMap.getInstance(0, 0);
     private Random random = new Random();
     private boolean active;
     private List<Power> generatedPowerUps;
@@ -51,7 +51,7 @@ public class PowerUpFactory implements Runnable{
                             break;
                     }
                     
-                    Thread.sleep(500);
+                    Thread.sleep(300);
                     generatedPowerUps.add(powerUp);
                 }else{
                     generatedPowerUps.clear();
@@ -78,7 +78,7 @@ public class PowerUpFactory implements Runnable{
         for (int[] obstacle : obstaclePositions) {
             int dx = Math.abs(x-obstacle[0]);
             int dy = Math.abs(y-obstacle[1]);
-            if (dx<=TILESIZE && dy<=TILESIZE) {
+            if (dx<=TILESIZE*2 && dy<=TILESIZE*2) {
                 return false; // La posición está ocupada por un obstáculo
             }
         }
