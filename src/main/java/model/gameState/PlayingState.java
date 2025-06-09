@@ -9,7 +9,9 @@ import javax.imageio.ImageIO;
 import main.java.controller.Controller;
 import main.java.controller.KeyHandler;
 import main.java.model.Player;
+import main.java.model.PowerUpFactory.Power;
 import main.java.model.constants.Constants;
+import main.java.model.items.PowerUps.PowerUp;
 import main.java.model.map.GameMap;
 import main.java.view.Display;
 import main.java.view.ui.HUD;
@@ -36,7 +38,7 @@ public class PlayingState extends GameState {
         int SCREENHEIGHT = TILESIZE * MAXSCREENROW;
         this.gameMap = GameMap.getInstance(SCREENWIDTH, SCREENHEIGHT);
         this.hud = new HUD(controller.getPlayer()); // Initialize the final field 'hud'
-        
+        this.controller.startThreads(); // Start the enemy spawner thread
         try {
             streetImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\StreetTile.png"));
             ZemansTileImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\ZemanskyTile.png"));
@@ -64,6 +66,7 @@ public class PlayingState extends GameState {
         controller.updateEnemies();
         controller.updateAlly();
         controller.handlePlayerInput();
+        controller.updatePowerUp();
     }
 
     public int getScreenRow() {
@@ -106,6 +109,13 @@ public class PlayingState extends GameState {
         if(controller.getAlly() != null){
             controller.getAlly().draw(g, (TILESIZE*MAXSCREENCOL-controller.getAlly().getWidth())/3, 0);
             controller.getAllyTextBar().draw(g,(TILESIZE*MAXSCREENCOL-controller.getAlly().getWidth())/3+controller.getAlly().getWidth(), 0, TILESIZE);
+        }
+
+        //Dibuja powerUps
+        if(controller.getProduction()){
+            for(Power powerUp: controller.getPowerUps()){
+                powerUp.draw(g);
+            }
         }
         
         // Dibuja el HUD

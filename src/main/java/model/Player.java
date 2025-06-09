@@ -126,7 +126,17 @@ public class Player extends Character implements Subject, Observer {
         return currentSprite;
     }
 
+    public void restoreDmg(){
+        this.dmg = 5;
+    }
 
+    public void restoreSpeed(){
+        super.setMovSpeed(5);
+    }
+
+    public void addDamage(int damage){
+        this.dmg += damage;
+    }
 
     public void takeDamage(int dmg) {
         setHp(getHp() - dmg);
@@ -142,6 +152,10 @@ public class Player extends Character implements Subject, Observer {
 
     public void heal(int amount) {
         setHp(getHp() + amount);
+    }
+
+    public void addSpeed(int spd){
+        super.setMovSpeed(super.getMovSpeed()+spd);
     }
 
     // Observer: se llama cuando un Enemy notifica que murió
@@ -206,7 +220,6 @@ public class Player extends Character implements Subject, Observer {
     }
 
     public int getDmg(){
-        
         if(weapon != null){
             return weapon.getItemDamage() + this.dmg;
         }
