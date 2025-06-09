@@ -25,10 +25,6 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_SPACE) {
             space = true;
         }
-        if (code == KeyEvent.VK_ESCAPE) {
-            System.out.println("Cerrando la aplicación...");
-            System.exit(0); // Cierra la aplicación al presionar Escape
-        }
     }
 
     @Override
