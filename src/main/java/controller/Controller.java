@@ -77,9 +77,6 @@ public class Controller {
                 System.out.println("¡Ataque exitoso!");
             }
         }
-
-        // Apagar sprite de ataque luego de un corto tiempo
-        enzito.scheduleAttackReset();
     }
 
 

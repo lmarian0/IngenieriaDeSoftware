@@ -106,7 +106,6 @@ public class Player extends Character implements Subject, Observer {
             case RIGHT -> {currentSprite = (currentSprite == spriteRight1) ? spriteRight2 : spriteRight1;}
         }
 
-
         // Verificar si la nueva posición colisiona con un obstáculo
         for (int[] obs : obstacles) {
             int obsPosX = obs[0];
@@ -135,14 +134,11 @@ public class Player extends Character implements Subject, Observer {
         return currentSprite;
     }
 
-
-
     public void takeDamage(int dmg) {
         setHp(getHp() - dmg);
         System.out.println("Vida actual: " + getHp());  // debug
         notifyObservers();  // <== Esto es lo que actualiza el HealthBar
     }
-
 
     public void gainXP(int amount) {
         this.xp += amount;
@@ -211,12 +207,6 @@ public class Player extends Character implements Subject, Observer {
         if (attacking && (System.currentTimeMillis() - attackStartTime > attackDurationMs)) {
             setAttacking(false); // <- actualiza el sprite internamente
         }
-    }
-
-
-
-    public void scheduleAttackReset() {
-        attackStartTime = System.currentTimeMillis();
     }
 
     //El ataque tiene que ser invocar a un metodo del Enemy al q alcanza con el impacto
