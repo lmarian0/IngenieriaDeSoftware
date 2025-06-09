@@ -190,6 +190,10 @@ public class Player extends Character implements Subject, Observer {
         this.xp += exp;
     }
 
+    public void subXp(int exp){
+        this.xp -= exp;
+    }
+
     public int getDmg(){
         int dmg = (weapon.getItemDamage()+getDmg());
         return dmg;

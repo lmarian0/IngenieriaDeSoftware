@@ -57,7 +57,6 @@ public class PlayingState extends GameState {
 
     @Override
     public void update() {
-        controller.handlePlayerInput();
 
         if(controller.getPlayer().getHp() == 0) {
             controller.setEstadoActual(new GameOverState(keyHandler, controller)); // Transition to PlayingState when space is pressed
@@ -65,7 +64,7 @@ public class PlayingState extends GameState {
         }   
         controller.updateEnemies();
         controller.updateAlly();
-
+        controller.handlePlayerInput();
     }
 
     public int getScreenRow() {

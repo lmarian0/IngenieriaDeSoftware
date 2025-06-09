@@ -45,7 +45,7 @@ public class Controller {
             if (keyHandler.down)    enzito.move(Direction.DOWN);
             if (keyHandler.left)    enzito.move(Direction.LEFT);
             if (keyHandler.right)   enzito.move(Direction.RIGHT);
-
+            
         } else if (!flagDead) {
             System.out.println("¡El jugador ha muerto! No se puede mover.");
             System.out.println(enzito.getPosX() + " " + enzito.getPosY());
@@ -90,10 +90,11 @@ public class Controller {
     }
 
     public void updateAlly(){
-        if(aliado==null && enzito.getXp()<=10 && keyHandler.k){
+        if(aliado==null && enzito.getXp()>=100 && keyHandler.k){
             aliado = createAlly();
             System.out.println("¡Hola soy " + aliado.getName() + " y soy tu aliado!");
             System.out.println(aliado.speak());
+            enzito.subXp(100); // Resta 300 de experiencia al jugador
         }
         if(aliado != null) {
             if(aliado.getClkDuration() < 625) {
