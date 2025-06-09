@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
-    public boolean up, down, left, right, space;
+    public boolean up, down, left, right, space, k;
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -24,6 +24,10 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_SPACE) {
             space = true;
+        }
+
+        if (code == KeyEvent.VK_K){
+            k = true;
         }
     }
 
@@ -45,6 +49,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_SPACE) {
             space = false;
+        }
+        if (code == KeyEvent.VK_K) {
+            k = false;
         }
     }
 
