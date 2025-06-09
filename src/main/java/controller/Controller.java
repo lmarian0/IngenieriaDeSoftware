@@ -87,7 +87,7 @@ public class Controller {
                 ally = new Ally("Danilo", "¡Hola, soy Danilo, mirate tu cuenta de Naranja X ;)!");
                 break;
             default:
-                ally = new Ally("JuanMa", "¡Hola, soy JuanMa mansa barba tengo!");
+                ally = new Ally("JuanMa", "¡Hola, soy JuanMa. Tremenda barba tengo!");
                 break;
         }
         return ally;
