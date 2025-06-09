@@ -57,14 +57,26 @@ public class PlayingState extends GameState {
 
     @Override
     public void update() {
+        controller.handlePlayerInput();
+
+        // ATAQUE CON SPACE
+        Player enzito = controller.getPlayer();
+        if (keyHandler.space && enzito.isAlive()) {
+            for (main.java.model.Enemy enemy : controller.getEnemies()) {
+                int dx = Math.abs(enemy.getPosX() - enzito.getPosX());
+                int dy = Math.abs(enemy.getPosY() - enzito.getPosY());
+
+                if (dx < 20 && dy < 20 && enemy.getIsAlive()) {
+                    enemy.takeDamage(5);  // daño de ataque del Player
+                    System.out.println("¡Ataque exitoso!");
+                }
+            }
+        }
 
         if(controller.getPlayer().getHp() == 0) {
             controller.setEstadoActual(new GameOverState(keyHandler, controller)); // Transition to PlayingState when space is pressed
-
-        }   
+        }
         controller.updateEnemies();
-        controller.updateAlly();
-        controller.handlePlayerInput();
     }
 
     public int getScreenRow() {
