@@ -111,16 +111,16 @@ public class Controller {
         numero = rand.nextInt(4); // Genera un número aleatorio entre 0 y 2
         switch (numero) {
             case 0:
-                ally = new Ally("Sergio", "¡Hola, soy Sergio Chad y soy re capo!","src\\main\\java\\view\\resources\\Sergio\\MilitarSergio.png");
+                ally = new Ally("Sergio", "Soy el Figue, comete un chori saludable dale","src\\main\\java\\view\\resources\\Sergio\\MilitarSergio.png");
                 break;
             case 1:
-                ally = new Ally("Nikito", "¡Hola, soy Nikito, tomate un fernet!", "src\\main\\java\\view\\resources\\Sergio\\MilitarSergio.png");
+                ally = new Ally("Nikito", "Soy Nikito nitoka, tomate un fernet", "src\\main\\java\\view\\resources\\Sergio\\MilitarSergio.png");
                 break;
             case 2:
-                ally = new Ally("Danilo", "¡Hola, soy Danilo, mirate tu cuenta de Naranja X ;)!","src\\main\\java\\view\\resources\\Sergio\\MilitarSergio.png");
+                ally = new Ally("Danilo", "Soy Danilo, aguante Argentina locooo","src\\main\\java\\view\\resources\\Sergio\\MilitarSergio.png");
                 break;
             default:
-                ally = new Ally("JuanMa", "¡Hola, soy JuanMa. Tremenda barba tengo!","src\\main\\java\\view\\resources\\Sergio\\MilitarSergio.png");
+                ally = new Ally("JuanMa", "Soy Juanma, sebate un mate king","src\\main\\java\\view\\resources\\Sergio\\MilitarSergio.png");
                 break;
         }
         return ally;

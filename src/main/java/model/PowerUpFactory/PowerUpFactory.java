@@ -39,23 +39,20 @@ public class PowerUpFactory implements Runnable{
                     switch (aliado.getName()) {
                         case "Sergio":
                             powerUp = new Choripan(position[0], position[1]);
-                            System.out.println("Choripan generado en la posición: (" + position[0] + ", " + position[1] + ")");
                             break;
                         case "JuanMa":
                             powerUp = new Mate(position[0], position[1]);
-                            System.out.println("Mate generado en la posición: (" + position[0] + ", " + position[1] + ")");
                             break;
                         case "Nikito":
-                            powerUp = new Fernet(0, 0);
-                            System.out.println("Fernet generado en la posición: (" + position[0] + ", " + position[1] + ")");
+                            powerUp = new Fernet(position[0], position[1]);
                             break;
                         default:
-                            System.out.println("money money money pero no chori :()");
                             powerUp = new CopaDelMundo(position[0], position[1]);
                             break;
                     }
+                    
+                    Thread.sleep(500);
                     generatedPowerUps.add(powerUp);
-                    Thread.sleep(1000);
                 }else{
                     generatedPowerUps.clear();
                     Thread.sleep(1000);
@@ -70,8 +67,8 @@ public class PowerUpFactory implements Runnable{
     private int[] generateValidPosition(){
         int x, y;
         do {
-            x = TILESIZE*2 + random.nextInt((mapa.getTileWidth()-2)*TILESIZE*2-16);
-            y = TILESIZE*2 + random.nextInt((mapa.getTileHeight()-2)*TILESIZE*2-16);
+            x = TILESIZE*2 + random.nextInt((mapa.getTileWidth()-2)*TILESIZE*2-TILESIZE);
+            y = TILESIZE*2 + random.nextInt((mapa.getTileHeight()-2)*TILESIZE*2-TILESIZE);
         } while (!isValidPosition(x, y));
         return new int[]{x, y};
     }

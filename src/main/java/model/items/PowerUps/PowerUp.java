@@ -16,7 +16,6 @@ import java.io.IOException;
 public class PowerUp extends Drop{
     private BufferedImage image;
     private String name;
-
     public PowerUp(int posX, int posY, String name, String imagePath) {
         super(posX, posY);
         try {
@@ -37,8 +36,8 @@ public class PowerUp extends Drop{
         return name;
     }
 
-    public int getWidth(){return 20;}
-    public int getHeight(){return 20;}
+    public int getWidth(){return 32;}
+    public int getHeight(){return 32;}
 
     public void draw (Graphics g){
        if (image != null) {
