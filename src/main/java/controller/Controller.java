@@ -5,6 +5,7 @@ import main.java.model.Factory.GoblinFactory;
 import main.java.model.constants.Direction;
 import main.java.model.gameState.GameState;
 import main.java.view.Display;
+import main.java.view.AllyTextBar.AllyTextBar;
 import main.java.model.Enemy;
 import main.java.model.Player;
 import main.java.model.character.Ally;
@@ -23,7 +24,8 @@ public class Controller {
     private boolean flagDead = false;
     private Random rand = new Random();
     private int numero;
-    
+    private AllyTextBar textAliado;
+
     public Controller (Player enzito, KeyHandler keyHandler) {
         this.enzito = enzito;
         this.aliado = null;
@@ -65,8 +67,9 @@ public class Controller {
             enemy.addObserver(enzito);
             enemy.chase(enzito.getPosX(), enzito.getPosY(), getEnemies());
             enemy.addObserver(enzito);
+            enemy.attack(enzito);
             // ATAQUE CON SPACE
-            enzito.attack(enemy);
+            if(keyHandler.space) enzito.attack(enemy);
         }
     }
 
@@ -93,6 +96,7 @@ public class Controller {
     public void updateAlly(){
         if(aliado==null && enzito.getXp()>=100 && keyHandler.k){
             aliado = createAlly();
+            textAliado = new AllyTextBar(aliado);
             System.out.println("¡Hola soy " + aliado.getName() + " y soy tu aliado!");
             System.out.println(aliado.speak());
             enzito.subXp(100); // Resta 300 de experiencia al jugador
@@ -102,6 +106,7 @@ public class Controller {
                 aliado.addClkDuracion();
             }else {
                 aliado = null; // Elimina al aliado si ha pasado el tiempo
+                textAliado = null; // Elimina la barra de texto del aliado
                 System.out.println("El aliado ha desaparecido.");
             }
         }
@@ -118,6 +123,13 @@ public class Controller {
     public Ally getAlly(){
         if(aliado != null){
             return aliado;
+        }
+        return null;
+    }
+
+    public AllyTextBar getAllyTextBar() {
+        if(textAliado != null){
+            return textAliado;
         }
         return null;
     }

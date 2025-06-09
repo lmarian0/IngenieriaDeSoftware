@@ -104,7 +104,8 @@ public class PlayingState extends GameState {
         //Dibuja aliados
         
         if(controller.getAlly() != null){
-            controller.getAlly().draw(g, (TILESIZE*MAXSCREENCOL-controller.getAlly().getWidth())/2, 0);
+            controller.getAlly().draw(g, (TILESIZE*MAXSCREENCOL-controller.getAlly().getWidth())/3, 0);
+            controller.getAllyTextBar().draw(g,(TILESIZE*MAXSCREENCOL-controller.getAlly().getWidth())/3+controller.getAlly().getWidth(), 0, TILESIZE);
         }
         
         // Dibuja el HUD
