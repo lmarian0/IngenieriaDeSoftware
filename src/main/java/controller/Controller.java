@@ -64,8 +64,9 @@ public class Controller {
             }
             enemy.addObserver(enzito);
             enemy.chase(enzito.getPosX(), enzito.getPosY(), getEnemies());
-            enemy.attack(enzito);
             enemy.addObserver(enzito);
+            // ATAQUE CON SPACE
+            enzito.attack(enemy);
         }
     }
 

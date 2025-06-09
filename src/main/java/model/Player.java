@@ -26,6 +26,7 @@ public class Player extends Character implements Subject, Observer {
     private int level;
     private int coins;
     private int xp;
+    private int dmg;
     private Item weapon;
     private Direction direction;
     private BufferedImage spriteUp1, spriteDown1, spriteLeft1, spriteRight1;
@@ -43,6 +44,8 @@ public class Player extends Character implements Subject, Observer {
         this.level = 1;
         this.coins = 0;
         this.xp = 0;
+        this.dmg = 5;
+        this.weapon = null; // Inicialmente sin arma
         this.direction = Direction.DOWN;
         try {
             spriteUp1 = ImageIO.read(new File( "src\\main\\java\\view\\resources\\player\\p1_up_1.png"));
@@ -171,7 +174,15 @@ public class Player extends Character implements Subject, Observer {
 
     //El ataque tiene que ser invocar a un metodo del Enemy al q alcanza con el impacto
     public void attack(Enemy e){
-        e.takeDamage(getDmg());
+    
+        int dx = Math.abs(e.getPosX() - getPosX());
+        int dy = Math.abs(e.getPosY() - getPosY());
+
+        if (dx < 40 && dy < 40 && e.getIsAlive()) {
+            e.takeDamage(10);  // daño de ataque del Player
+            System.out.println("¡Ataque exitoso!");
+        }
+    
     }
 
     public void takeWeapon (Item weapon){
@@ -195,7 +206,10 @@ public class Player extends Character implements Subject, Observer {
     }
 
     public int getDmg(){
-        int dmg = (weapon.getItemDamage()+getDmg());
+        
+        if(weapon != null){
+            return weapon.getItemDamage() + this.dmg;
+        }
         return dmg;
     }
 
