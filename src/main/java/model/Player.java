@@ -48,7 +48,7 @@ public class Player extends Character implements Subject, Observer {
         super("Enzito", 100, 5,  600, 300);
         this.level = 1;
         this.coins = 0;
-        this.xp = 0;
+        this.xp = 1000;
         this.dmg = 10;
         this.weapon = null; // Inicialmente sin arma
         this.direction = Direction.DOWN;
@@ -95,16 +95,10 @@ public class Player extends Character implements Subject, Observer {
         int newPosY = posY;
 
         switch (direction) {
-            case UP -> newPosY -= getMovSpeed();
-            case DOWN -> newPosY += getMovSpeed();
-            case LEFT -> newPosX -= getMovSpeed();
-            case RIGHT -> newPosX += getMovSpeed();
-        }
-        switch (direction) {
-            case UP -> {currentSprite = (currentSprite == spriteUp1) ? spriteUp2 : spriteUp1;}
-            case DOWN -> {currentSprite = (currentSprite == spriteDown1) ? spriteDown2 : spriteDown1;}
-            case LEFT -> {currentSprite = (currentSprite == spriteLeft1) ? spriteLeft2 : spriteLeft1;}
-            case RIGHT -> {currentSprite = (currentSprite == spriteRight1) ? spriteRight2 : spriteRight1;}
+            case UP -> {newPosY -= getMovSpeed(); currentSprite = (currentSprite == spriteUp1) ? spriteUp2 : spriteUp1;}
+            case DOWN -> {newPosY += getMovSpeed(); currentSprite = (currentSprite == spriteDown1) ? spriteDown2 : spriteDown1;}
+            case LEFT -> {newPosX -= getMovSpeed(); currentSprite = (currentSprite == spriteLeft1) ? spriteLeft2 : spriteLeft1;}
+            case RIGHT -> {newPosX += getMovSpeed(); currentSprite = (currentSprite == spriteRight1) ? spriteRight2 : spriteRight1;}
         }
 
         // Verificar si la nueva posición colisiona con un obstáculo
@@ -114,14 +108,14 @@ public class Player extends Character implements Subject, Observer {
             int limitX = obs[2];
             int limitY = obs[3];
 
-            if (newPosX + getWidth() > obsPosX && newPosX < limitX &&
-                newPosY + getHeight() > obsPosY && newPosY < limitY) {
+            if (newPosX + getWidth()/2 > obsPosX && newPosX < limitX- getWidth()/2 &&
+                newPosY + getHeight()/2 > obsPosY && newPosY < limitY-getHeight()/2) {
                 
                 // Ajustar la posición para evitar que el jugador se quede atrapado
-                if (direction == Direction.UP) newPosY = limitY;
-                if (direction == Direction.DOWN) newPosY = obsPosY - getHeight();
-                if (direction == Direction.LEFT) newPosX = limitX;
-                if (direction == Direction.RIGHT) newPosX = obsPosX - getWidth();
+                if (direction == Direction.UP) newPosY = limitY-getHeight()/2;
+                if (direction == Direction.DOWN) newPosY = obsPosY - getHeight()/2;
+                if (direction == Direction.LEFT) newPosX = limitX - getWidth()/2;
+                if (direction == Direction.RIGHT) newPosX = obsPosX - getWidth()/2;
             }
         }
 

@@ -24,8 +24,6 @@ public class MenuState extends GameState {
     @Override
 
     public void draw(Graphics g) {
-        g.setColor(Color.BLACK);
-        g.fillRect(100, 100, 100,200);
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 32));
         g.drawString("Menu Principal", 500, 300);
