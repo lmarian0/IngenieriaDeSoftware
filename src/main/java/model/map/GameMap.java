@@ -11,7 +11,7 @@ public class GameMap {
     private int horTiles; // Cantidad de tiles horizontales
     private int verTiles; // Cantidad de tiles verticales
     private int[][] map; // Matriz del mapa
-    public static GameMap SINGLETON_MAP;
+    private static GameMap SINGLETON_MAP;
 
     // Constructor
     private GameMap(int width, int height) {

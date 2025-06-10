@@ -36,10 +36,6 @@ public class Player extends Character implements Subject, Observer {
     private BufferedImage spriteUp2, spriteDown2, spriteLeft2, spriteRight2;
     private BufferedImage spriteUpAttack, spriteDownAttack, spriteLeftAttack, spriteRightAttack;
     private BufferedImage currentSprite; // Imagen actual del jugador
-    
-
-
-    //public static Player SINGLETON_PLAYER;
 
     private final List<Observer> observers = new ArrayList<>();
     private static Player SINGLETON_PLAYER;
