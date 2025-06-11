@@ -22,7 +22,6 @@ public class Naranjita extends Enemy {
             // TODO: handle exception
         }
     }
-    }
 
     @Override
     public void draw(Graphics g, int posX, int posY) {
