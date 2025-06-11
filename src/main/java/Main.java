@@ -60,6 +60,7 @@ public class Main {
       System.out.println("Mapa creado con " + horTiles + " columnas y " + verTiles + " filas.");
       System.out.println("Tamaño de pantalla: "  + Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize());
       
+      scSt.transformX(scSt.getDevice());
 
       
       // ESTADOS

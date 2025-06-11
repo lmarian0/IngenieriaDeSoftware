@@ -2,6 +2,7 @@ package main.java.model.constants;
 
 import java.util.Scanner;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 public class ScreenSettings {
 
@@ -38,7 +39,7 @@ public class ScreenSettings {
                // Elige la única pantalla disponible
                device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
                screenSelection = true;
-            }
+               }
             else{
                // Si hay más de una pantalla, solicita al usuario que elija una
                System.out.println("Ingrese en cual pantalla desea jugar: (1 a "+ GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices().length +")");
@@ -69,6 +70,22 @@ public class ScreenSettings {
     public int getScreenHeight() {
         return device.getDisplayMode().getHeight();
     }
+    
+    public double transformX(GraphicsDevice device) {
+        GraphicsConfiguration gc = device.getDefaultConfiguration();
+        AffineTransform transform = gc.getDefaultTransform()   ;
+        double scaleX = transform.getScaleX();
+        
+        return scaleX;
+    }
+
+    public double transformY(GraphicsDevice device) {
+        GraphicsConfiguration gc = device.getDefaultConfiguration();
+        AffineTransform transform = gc.getDefaultTransform();
+        double scaleY = transform.getScaleY();
+
+        return scaleY;
+    }
 
     public Dimension getScreenSize() {
         return new Dimension(getScreenWidth(), getScreenHeight());
@@ -76,12 +93,12 @@ public class ScreenSettings {
 
 
     public int getScreenCols() {
-        int cols = (int) (getScreenWidth() / (Constants.TILE_SIZE.getSize()*Constants.SCALE.getSize()));
+        int cols = (int) (getScreenWidth()/transformX(device)) / (Constants.TILE_SIZE.getSize()*Constants.SCALE.getSize());
         return cols; // Restamos 1 para evitar que se salga del borde derecho
     }
 
     public int getScreenRows() {
-        int rows = (int) (getScreenHeight() / (Constants.TILE_SIZE.getSize()*Constants.SCALE.getSize()));
+        int rows = (int) (getScreenHeight()/transformY(device)) / (Constants.TILE_SIZE.getSize()*Constants.SCALE.getSize());
         return rows;
     }
 
