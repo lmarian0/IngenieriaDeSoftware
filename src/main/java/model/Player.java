@@ -44,7 +44,7 @@ public class Player extends Character implements Subject, Observer {
         super("Enzito", 100, 5,  600, 300);
         this.level = 1;
         this.coins = 0;
-        this.xp = 1000;
+        this.xp = 0;
         this.dmg = 10;
         this.weapon = null; // Inicialmente sin arma
         this.direction = Direction.DOWN;

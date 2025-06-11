@@ -5,6 +5,7 @@ import main.java.model.map.GameMap;
 import main.java.model.Enemy;
 import main.java.model.Player;
 import main.java.model.constants.Constants;
+import main.java.model.constants.ScreenSettings;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +23,16 @@ import main.java.view.ui.HUD;
 public class Display extends JPanel {
 
     // SCREEN SETTINGS
+    private ScreenSettings scSt = ScreenSettings.getInstance();
     private final int FPS = 60;
     private final int TILESIZE = Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize() ; // 96x96 Tile Size
-    private final int MAXSCREENCOL = 20;
-    private final int MAXSCREENROW = 10;
+    private final int MAXSCREENCOL = scSt.getScreenCols(); // 20 columns
+    private final int MAXSCREENROW = scSt.getScreenRows(); // 10 rows
     private final int SCREENWIDTH = TILESIZE * MAXSCREENCOL;
     private final int SCREENHEIGHT = TILESIZE * MAXSCREENROW;
     private final Controller controller;
     private final HUD hud;
+    
 
     // Imagen
     

@@ -1,21 +1,32 @@
 package main.java.view;
 
 import main.java.controller.KeyHandler;
+import main.java.model.constants.ScreenSettings;
 
 import javax.swing.*;
+
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainWindow {
 
-    public MainWindow(Display display) {
-        JFrame window = new JFrame("Juego MVC");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(true);
+    private ScreenSettings scSt = ScreenSettings.getInstance();
 
-        window.add(display);
+
+    public MainWindow(Display display, KeyHandler keyHandler) {
+        JFrame window = new JFrame("Juego MVC");
+        GraphicsDevice device = scSt.getDevice();
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setUndecorated(true);
+        window.setResizable(false); 
         window.pack();
-        window.setLocationRelativeTo(null);
+        device.setFullScreenWindow(window);
+        window.add(display);
+        
         window.setVisible(true);
+
+        window.addKeyListener(keyHandler);
+        window.requestFocusInWindow();
     }
 }

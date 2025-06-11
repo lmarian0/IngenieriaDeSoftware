@@ -11,6 +11,7 @@ import main.java.controller.KeyHandler;
 import main.java.model.Player;
 import main.java.model.PowerUpFactory.Power;
 import main.java.model.constants.Constants;
+import main.java.model.constants.ScreenSettings;
 import main.java.model.items.PowerUps.PowerUp;
 import main.java.model.map.GameMap;
 import main.java.view.Display;
@@ -24,6 +25,7 @@ public class PlayingState extends GameState {
     private final int MAXSCREENCOL;
     private final int MAXSCREENROW;
     private final HUD hud;
+
     	
     private BufferedImage streetImage, ZemansTileImage, grassTileImage;
     private BufferedImage spritePJleft1, spritePJleft2, spritePJright1, spritePJright2;
@@ -31,9 +33,10 @@ public class PlayingState extends GameState {
 
     public PlayingState(KeyHandler keyHandler, Controller controller) {
         super(keyHandler, controller);
+        ScreenSettings scSt = ScreenSettings.getInstance();
         this.TILESIZE = Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize();
-        this.MAXSCREENCOL = 20;
-        this.MAXSCREENROW = 10;
+        this.MAXSCREENCOL = scSt.getScreenCols();
+        this.MAXSCREENROW = scSt.getScreenRows(); 
         int SCREENWIDTH = TILESIZE * MAXSCREENCOL;
         int SCREENHEIGHT = TILESIZE * MAXSCREENROW;
         this.gameMap = GameMap.getInstance(SCREENWIDTH, SCREENHEIGHT);

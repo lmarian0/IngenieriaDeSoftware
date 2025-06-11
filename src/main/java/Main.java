@@ -9,6 +9,7 @@ import main.java.model.Factory.EnemyFactory;
 import main.java.model.Factory.GoblinFactory;
 import main.java.model.constants.Constants;
 import main.java.model.constants.MapConstants;
+import main.java.model.constants.ScreenSettings;
 import main.java.model.gameState.MenuState;
 import main.java.view.Display;
 import main.java.view.MainWindow;
@@ -29,15 +30,17 @@ public class Main {
       
       KeyHandler keyHandler = new KeyHandler();
       Player player = Player.getInstance(); 
+      ScreenSettings scSt = ScreenSettings.getInstance();
+      scSt.getDevice();
 
       // Identificar el tamaño de la pantalla
-      Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-      int width = (int) screenSize.getWidth();
-      int height = (int) screenSize.getHeight() - (int) screenSize.getHeight() / 10;
+      //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+      int width = scSt.getScreenWidth();
+      int height = scSt.getScreenHeight();
       
       // Crear el mapa del juego
-      int horTiles = (width / Constants.SCALE.getSize()) / Constants.TILE_SIZE.getSize();
-      int verTiles = (height / Constants.SCALE.getSize()) / Constants.TILE_SIZE.getSize();
+      int horTiles = scSt.getScreenCols();
+      int verTiles = scSt.getScreenRows();
 
       GameMap gameMap = GameMap.getInstance(horTiles, verTiles); // Initialize the game map with 8x6 tiles
 
@@ -49,7 +52,14 @@ public class Main {
       Controller controller = new Controller(player, keyHandler);
       Display display = new Display(controller, keyHandler, hud);
 
-      MainWindow window = new MainWindow(display);
+      MainWindow window = new MainWindow(display, keyHandler);
+
+      gameMap.showMap(); 
+      gameMap.getMapMeasures();
+      System.out.println(width + "x" + height);
+      System.out.println("Mapa creado con " + horTiles + " columnas y " + verTiles + " filas.");
+      System.out.println("Tamaño de pantalla: "  + Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize());
+      
 
       
       // ESTADOS
