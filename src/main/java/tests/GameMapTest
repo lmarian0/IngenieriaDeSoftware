@@ -1,0 +1,33 @@
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import main.java.model.map.GameMap;
+
+class GameMapTest {
+    
+    private GameMap gameMap;
+
+    @BeforeEach
+    void setUp() {
+        gameMap = GameMap.getInstance(10, 10);
+    }
+
+    @Test
+    void testSingletonInstance() {
+        GameMap anotherMap = GameMap.getInstance(10, 10);
+        assertSame(gameMap, anotherMap, "GameMap debe ser una instancia única");
+    }
+
+    @Test
+    void testMapDimensions() {
+        assertEquals(10, gameMap.getTileWidth(), "Ancho incorrecto");
+        assertEquals(10, gameMap.getTileHeight(), "Altura incorrecta");
+    }
+
+    @Test
+    void testSpawnRegions() {
+        int[][] mapMatrix = gameMap.getMapMatrix();
+        assertEquals(Constants.SPAWN.getSize(), mapMatrix[0][0], "Spawn incorrecto en esquina");
+        assertEquals(Constants.SPAWN.getSize(), mapMatrix[9][9], "Spawn incorrecto en esquina opuesta");
+    }
+}
