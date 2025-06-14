@@ -1,9 +1,9 @@
 package main.java.model.gameState;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import main.java.controller.Controller;
 import main.java.controller.KeyHandler;
-import java.awt.Font;
 
 public class MenuState extends GameState {
 
@@ -14,6 +14,7 @@ public class MenuState extends GameState {
 
     @Override
     public void update() {
+        
         if (keyHandler.space) {
             controller.setEstadoActual(new PlayingState(keyHandler, controller)); // Transition to PlayingState when space is pressed
             keyHandler.space = false; // Reset the space key state to prevent multiple transitions
