@@ -39,9 +39,7 @@ public class Main {
       // CREAR HUD (se actualiza con la vida y XP del Player)
       HUD hud = new HUD(player);
       
-      JFrame frame = new JFrame("snap");
-
-      Controller controller = new Controller(frame, player, keyHandler);
+      Controller controller = new Controller(player, keyHandler);
       Display display = new Display(controller, keyHandler, hud);
 
       MainWindow window = new MainWindow(display, keyHandler);
