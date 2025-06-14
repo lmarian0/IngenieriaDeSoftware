@@ -3,19 +3,13 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-
 import main.java.controller.Controller;
 import main.java.controller.KeyHandler;
-import main.java.model.Player;
 import main.java.model.PowerUpFactory.Power;
 import main.java.model.constants.Constants;
 import main.java.model.constants.ScreenSettings;
-import main.java.model.items.PowerUps.PowerUp;
 import main.java.model.map.GameMap;
-import main.java.view.Display;
-import main.java.view.ui.HUD;
 import main.java.view.ui.HUD;
 
 public class PlayingState extends GameState {
@@ -46,15 +40,7 @@ public class PlayingState extends GameState {
             streetImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\StreetTile.png"));
             ZemansTileImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\ZemanskyTile.png"));
             grassTileImage = ImageIO.read(new File("src\\main\\java\\view\\resources\\tiles\\grass.png"));
-            //Sprites for Player
-            spritePJleft1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_left_1.png"));
-            spritePJleft2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_left_2.png"));
-            spritePJright1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_right_1.png"));
-            spritePJright2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_right_2.png"));
-            spritePJup1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_up_1.png"));
-            spritePJup2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_up_2.png"));
-            spritePJdown1 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_down_1.png"));
-            spritePJdown2 = ImageIO.read(new File("src\\main\\java\\view\\resources\\player\\p1_down_2.png"));
+           
         } catch (IOException e) {
             e.printStackTrace();
         }
