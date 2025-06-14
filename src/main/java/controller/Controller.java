@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 
 import main.java.model.character.Ally;
 
@@ -36,6 +37,18 @@ public class Controller {
     private Thread venThread;
     private PowerUpFactory spawnerPowerUp;
     private Thread venThreadLaVenganza;
+
+    private JFrame frame;
+    public Controller(JFrame frame, Player enzito, KeyHandler keyHandler) {
+        this.frame = frame;
+        this.enzito = enzito;
+        this.aliado = null;
+        this.keyHandler = keyHandler;
+        this.spawner = new EnemySpawner();
+        this.spawnerPowerUp = new PowerUpFactory(aliado);
+        this.venThread = new Thread(spawner);
+        this.venThreadLaVenganza = new Thread(spawnerPowerUp);
+    }
 
     public Controller (Player enzito, KeyHandler keyHandler) {
         this.enzito = enzito;
@@ -224,6 +237,11 @@ public class Controller {
         System.out.println("El estado actual es: " + estadoActual.getClass().getSimpleName());
         }
     }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
 
 
 }

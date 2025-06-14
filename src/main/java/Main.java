@@ -21,6 +21,7 @@ public class Main {
       Player player = Player.getInstance(); 
       ScreenSettings scSt = ScreenSettings.getInstance();
       scSt.getDevice();
+      
 
       // Identificar el tamaño de la pantalla
       //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -37,8 +38,10 @@ public class Main {
 
       // CREAR HUD (se actualiza con la vida y XP del Player)
       HUD hud = new HUD(player);
+      
+      JFrame frame = new JFrame("snap");
 
-      Controller controller = new Controller(player, keyHandler);
+      Controller controller = new Controller(frame, player, keyHandler);
       Display display = new Display(controller, keyHandler, hud);
 
       MainWindow window = new MainWindow(display, keyHandler);
@@ -53,6 +56,7 @@ public class Main {
 
       
       // ESTADOS
+      
       controller.setEstadoActual(new LoadingState(keyHandler, controller));
 
 
