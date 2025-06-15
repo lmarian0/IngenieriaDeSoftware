@@ -1,25 +1,17 @@
 package main.java.controller;
 
-import main.java.model.Factory.EnemySpawner;
-import main.java.model.Factory.GoblinFactory;
-import main.java.model.constants.Direction;
-import main.java.model.gameState.GameState;
-import main.java.model.items.PowerUps.PowerUp;
-import main.java.view.Display;
-import main.java.view.AllyTextBar.AllyTextBar;
-import main.java.model.Enemy;
-import main.java.model.Player;
-import main.java.model.character.Ally;
-import main.java.model.PowerUpFactory.Power;
-import main.java.model.PowerUpFactory.PowerUpFactory;
 import java.awt.Graphics;
-import java.io.File;
 import java.util.List;
 import java.util.Random;
-
-import javax.imageio.ImageIO;
-
+import main.java.model.Enemy;
+import main.java.model.Factory.EnemySpawner;
+import main.java.model.Player;
+import main.java.model.PowerUpFactory.Power;
+import main.java.model.PowerUpFactory.PowerUpFactory;
 import main.java.model.character.Ally;
+import main.java.model.constants.Direction;
+import main.java.model.gameState.GameState;
+import main.java.view.AllyTextBar.AllyTextBar;
 
 
 public class Controller {
@@ -224,8 +216,6 @@ public class Controller {
         System.out.println("El estado actual es: " + estadoActual.getClass().getSimpleName());
         }
     }
-
-
 }
 
 

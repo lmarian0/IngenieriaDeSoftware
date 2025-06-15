@@ -1,8 +1,8 @@
 package main.java.model.constants;
 
-import java.util.Scanner;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.util.Scanner;
 
 public class ScreenSettings {
 
@@ -71,7 +71,7 @@ public class ScreenSettings {
         return device.getDisplayMode().getHeight();
     }
     
-    public double transformX(GraphicsDevice device) {
+    public double transformX() {
         GraphicsConfiguration gc = device.getDefaultConfiguration();
         AffineTransform transform = gc.getDefaultTransform()   ;
         double scaleX = transform.getScaleX();
@@ -79,7 +79,7 @@ public class ScreenSettings {
         return scaleX;
     }
 
-    public double transformY(GraphicsDevice device) {
+    public double transformY() {
         GraphicsConfiguration gc = device.getDefaultConfiguration();
         AffineTransform transform = gc.getDefaultTransform();
         double scaleY = transform.getScaleY();
@@ -93,12 +93,12 @@ public class ScreenSettings {
 
 
     public int getScreenCols() {
-        int cols = (int) (getScreenWidth()/transformX(device)) / (Constants.TILE_SIZE.getSize()*Constants.SCALE.getSize());
+        int cols = (int) (getScreenWidth()/transformX()) / (Constants.TILE_SIZE.getSize()*Constants.SCALE.getSize());
         return cols; // Restamos 1 para evitar que se salga del borde derecho
     }
 
     public int getScreenRows() {
-        int rows = (int) (getScreenHeight()/transformY(device)) / (Constants.TILE_SIZE.getSize()*Constants.SCALE.getSize());
+        int rows = (int) (getScreenHeight()/transformY()) / (Constants.TILE_SIZE.getSize()*Constants.SCALE.getSize());
         return rows;
     }
 

@@ -1,29 +1,18 @@
 package main.java;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.*;
 import main.java.controller.Controller;
 import main.java.controller.KeyHandler;
-import main.java.model.Enemy;
 import main.java.model.Player;
-import main.java.model.Factory.EnemyFactory;
-import main.java.model.Factory.GoblinFactory;
 import main.java.model.constants.Constants;
-import main.java.model.constants.MapConstants;
 import main.java.model.constants.ScreenSettings;
-import main.java.model.gameState.MenuState;
+import main.java.model.gameState.*;
+import main.java.model.map.GameMap;
 import main.java.view.Display;
 import main.java.view.MainWindow;
-import main.java.model.map.GameMap;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import main.java.view.ui.HUD;
-import java.util.Random;
 
 public class Main {
    public static void main(String[] args) {
@@ -32,6 +21,7 @@ public class Main {
       Player player = Player.getInstance(); 
       ScreenSettings scSt = ScreenSettings.getInstance();
       scSt.getDevice();
+      
 
       // Identificar el tamaño de la pantalla
       //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -48,7 +38,7 @@ public class Main {
 
       // CREAR HUD (se actualiza con la vida y XP del Player)
       HUD hud = new HUD(player);
-
+      
       Controller controller = new Controller(player, keyHandler);
       Display display = new Display(controller, keyHandler, hud);
 
@@ -60,11 +50,12 @@ public class Main {
       System.out.println("Mapa creado con " + horTiles + " columnas y " + verTiles + " filas.");
       System.out.println("Tamaño de pantalla: "  + Constants.TILE_SIZE.getSize() * Constants.SCALE.getSize());
       
-      scSt.transformX(scSt.getDevice());
+      scSt.transformX();
 
       
       // ESTADOS
-      controller.setEstadoActual(new MenuState(keyHandler, controller));
+      
+      controller.setEstadoActual(new LoadingState(keyHandler, controller));
 
 
       Timer timer = new Timer(16, new ActionListener() {
