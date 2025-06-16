@@ -13,7 +13,7 @@ import main.java.model.PowerUpFactory.Power;
 public class Choripan extends PowerUp implements Power {
     private BufferedImage image;
     private static final String NAME = "Choripan";
-    private static final String URL = "src\\main\\java\\view\\resources\\Sprites\\OrbHealth.png";
+    private static final String URL = "src\\main\\java\\view\\resources\\Sprites\\Choripan.png";
 
     public Choripan(int posX, int posY) {
         super(posX, posY, NAME, URL);
