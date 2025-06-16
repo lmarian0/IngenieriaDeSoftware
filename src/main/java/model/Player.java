@@ -159,7 +159,7 @@ public class Player extends Character implements Subject, Observer {
     // Observer: se llama cuando un Enemy notifica que murió
     @Override
     public void update() {
-        gainXP(10); // o un valor dinámico
+        gainXP(20); // o un valor dinámico
     }
 
     @Override
@@ -179,9 +179,6 @@ public class Player extends Character implements Subject, Observer {
         }
     }
 
-    public void die() {
-
-    }
 
     public void updateSprite() {
         if (attacking) {

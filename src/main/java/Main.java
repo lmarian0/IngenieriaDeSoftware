@@ -58,7 +58,7 @@ public class Main {
       controller.setEstadoActual(new LoadingState(keyHandler, controller));
 
 
-      Timer timer = new Timer(16, new ActionListener() {
+      Timer timer = new Timer(20, new ActionListener() {
          @Override
          public void actionPerformed(ActionEvent e) {
             controller.update();
