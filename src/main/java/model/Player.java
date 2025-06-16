@@ -1,26 +1,19 @@
 package main.java.model;
 
 
-import main.java.model.constants.Direction;
-import main.java.model.map.GameMap;
-import main.java.model.observer.Subject;
-import main.java.view.Display;
-import main.java.controller.KeyHandler;
-import main.java.model.items.Item;
-import main.java.model.character.Character;
-
-import javax.imageio.ImageIO;
-
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.ObjectStreamException;
-
-import main.java.model.observer.Observer;
-
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
+import main.java.model.character.Character;
+import main.java.model.constants.Direction;
+import main.java.model.constants.ScreenSettings;
+import main.java.model.items.Item;
+import main.java.model.map.GameMap;
+import main.java.model.observer.Observer;
+import main.java.model.observer.Subject;
 
 public class Player extends Character implements Subject, Observer {
     private int level;
@@ -39,9 +32,10 @@ public class Player extends Character implements Subject, Observer {
 
     private final List<Observer> observers = new ArrayList<>();
     private static Player SINGLETON_PLAYER;
+    private static final ScreenSettings settings = ScreenSettings.getInstance();
 
     private Player() {
-        super("Enzito", 100, 5,  600, 300);
+        super("Enzito", 100, 5,  (settings.getScaledWidth(settings)/2), settings.getScaledHeight(settings)/2);
         this.level = 1;
         this.coins = 0;
         this.xp = 0;

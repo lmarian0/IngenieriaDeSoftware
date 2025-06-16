@@ -10,7 +10,7 @@ import main.java.model.constants.ScreenSettings;
 public class LoadingState extends GameState {
 
     private BufferedImage loadingImage;
-    private boolean isLoadingComplete = false;
+    private boolean animacionCompleta = false;
     private float alpha = 1.0f; // Opacity level, starts fully opaque
 
     public LoadingState(KeyHandler keyHandler , Controller controller) {
@@ -26,21 +26,18 @@ public class LoadingState extends GameState {
 
     @Override
     public void update() {
-
         try {
             if (alpha > 0) {
-                alpha -= 0.01f; // Reduce la opacidad gradualmente
-            } else {
-                isLoadingComplete = true;
-            }
-
-            if (isLoadingComplete) {
-                // Transition to the next state after loading is complete
-                controller.setEstadoActual(new MenuState(keyHandler, controller));
-            }
+            alpha -= 0.01f; // Reduce la opacidad gradualmente
+            } else {animacionCompleta = true;}
+        } catch (IllegalArgumentException e) {
+            // Manejo de excepción si la opacidad se vuelve negativa
+            alpha = 0.0f; // Asegura que no sea menor que 0
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        
+        if (animacionCompleta) {
+            // Luego de que la animacion se complete, se cambia al estado del menú
+            controller.setEstadoActual(new MenuState(keyHandler, controller));
         }
     }
 
@@ -52,7 +49,7 @@ public class LoadingState extends GameState {
         g.fill3DRect(0, 0, settings.getScreenWidth() , settings.getScreenHeight() , true);
 
         Graphics2D g2d = (Graphics2D) g;
-        
+        if (alpha < 0.0f) {alpha = 0.0f;} // Asegura que la opacidad no sea menor que 0
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha)); // Aplica transparencia
         g2d.drawImage(loadingImage, 0, 0,  (int) (settings.getScreenWidth() / settings.transformX()), 
             (int) (settings.getScreenHeight() / settings.transformY()), null);

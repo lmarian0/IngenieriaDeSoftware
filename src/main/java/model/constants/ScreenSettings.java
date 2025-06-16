@@ -102,5 +102,15 @@ public class ScreenSettings {
         return rows;
     }
 
+    public int getScaledWidth(ScreenSettings settings) {
+        int width = (int) (settings.getScreenWidth() / settings.transformX());
+        return width;
+    }
+
+    public int getScaledHeight(ScreenSettings settings) {
+        int height = (int) (settings.getScreenHeight() / settings.transformY());
+        return height;
+    }
+
 
 }
