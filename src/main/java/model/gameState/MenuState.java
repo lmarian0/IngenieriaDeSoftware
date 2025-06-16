@@ -3,14 +3,12 @@ import java.awt.Graphics;
 import java.awt.image.*;
 import java.io.*;
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
 import main.java.controller.Controller;
 import main.java.controller.KeyHandler;
 import main.java.model.constants.ScreenSettings;
 
 public class MenuState extends GameState {
 
-    private JButton startButton;
 
     private BufferedImage menuImage;
     private ScreenSettings settings = ScreenSettings.getInstance();
