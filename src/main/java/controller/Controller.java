@@ -204,6 +204,10 @@ public class Controller {
         }
     }
 
+    public GameState getEstadoActual() {
+        return estadoActual;
+    }
+
     public void drawEstadoActual(Graphics g) {
         if (estadoActual != null) {
             estadoActual.draw(g);

@@ -41,4 +41,6 @@ public class MenuState extends GameState {
         g.drawImage(menuImage, 0, 0,  width, height, null);
     }
 
+    
+
 }

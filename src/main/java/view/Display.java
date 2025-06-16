@@ -1,23 +1,13 @@
 package main.java.view;
 
+import java.awt.*;
+import java.awt.event.KeyListener;
+import javax.swing.*;
 import main.java.controller.Controller;
-import main.java.model.map.GameMap;
-import main.java.model.Enemy;
-import main.java.model.Player;
+import main.java.controller.KeyHandler;
 import main.java.model.constants.Constants;
 import main.java.model.constants.ScreenSettings;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.awt.event.KeyListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-
-import javax.swing.*;
-import java.awt.*;
-
+import main.java.model.gameState.*;
 import main.java.view.ui.HUD;
 
 public class Display extends JPanel {
@@ -32,6 +22,9 @@ public class Display extends JPanel {
     private final int SCREENHEIGHT = TILESIZE * MAXSCREENROW;
     private final Controller controller;
     private final HUD hud;
+
+    private static final JButton  startButton = new JButton();
+    private static final KeyListener keyHandler = new KeyHandler(); // Instancia del KeyHandler
     
 
     // Imagen
@@ -55,10 +48,47 @@ public class Display extends JPanel {
         return MAXSCREENCOL;
     }
 
+    // Crea un boton de inicio para agregarlo al menu
+    private void addButtons() {
+        //configuramos el boton de inicio en la posicion segun el porcentaje que corresponde a la imagen del menu
+        // (Todo fue calculado mediante mediciones de la imagen del menu y teniendo en cuenta el escalado de la pantalla)
+        ScreenSettings settings = ScreenSettings.getInstance();
+        startButton.setBounds((int) (settings.getScaledWidth(settings)*0.414), (int) (settings.getScaledHeight(settings)*0.846), (int) (335/settings.transformX()), (int) (110/settings.transformY()));
+        this.add(startButton);
+        // Hacemos que el boton de inicio sea invisible
+        startButton.isOpaque();
+        startButton.setContentAreaFilled(false);
+        startButton.setBorderPainted(false);
+        // Detecta la presion del boton de inicio y te manda a PlayingState
+        startButton.addActionListener(e -> {
+            if (keyHandler instanceof KeyHandler) {
+            controller.setEstadoActual(new PlayingState((KeyHandler) keyHandler, controller)); 
+            }
+        });
+
+        startButton.setVisible(true);
+
+    }
+
+    // Elimina el boton de inicio del menu
+    private void removeButtons() {
+        this.remove(startButton);
+        this.repaint();
+    }
+
     @Override
     protected void paintComponent(Graphics g) { 
         super.paintComponent(g);
         controller.drawEstadoActual(g);
-        
+
+        // Dibuja el boton solo si el estado actual es MenuState
+        // sino lo elimina
+        if (controller.getEstadoActual() instanceof MenuState) {
+            addButtons();
+        }
+        else{
+            removeButtons();
+        }
     }
+    
 }
