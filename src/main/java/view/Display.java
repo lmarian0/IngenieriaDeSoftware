@@ -62,7 +62,13 @@ public class Display extends JPanel {
         // Detecta la presion del boton de inicio y te manda a PlayingState
         startButton.addActionListener(e -> {
             if (keyHandler instanceof KeyHandler) {
-            controller.setEstadoActual(new PlayingState((KeyHandler) keyHandler, controller)); 
+                try{ controller.setEstadoActual(new PlayingState((KeyHandler) keyHandler, controller)); }
+                catch (IllegalThreadStateException ex) {
+                    Thread.currentThread().interrupt(); // Interrumpe el hilo actual si ya está en ejecución
+                    // Lo hace pq sino actualiza varias veces el estado actual y muestra error
+                    // Asi se interrumpe cuando pasa a PlayingState
+                }
+           
             }
         });
 
