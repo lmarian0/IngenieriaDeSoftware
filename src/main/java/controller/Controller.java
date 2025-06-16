@@ -120,16 +120,16 @@ public class Controller {
         numero = rand.nextInt(4); // Genera un número aleatorio entre 0 y 2
         switch (numero) {
             case 0:
-                ally = new Ally("Sergio", "Soy el Figue, comete un chori saludable dale","src\\main\\java\\view\\resources\\Aliades\\Sergio\\MilitarSergio.png");
+                ally = new Ally("Sergio", "Soy el Figue, comete un chori dale, te va a hacer bien","src\\main\\java\\view\\resources\\Aliades\\Sergio\\MilitarSergio.png");
                 break;
             case 1:
-                ally = new Ally("Nikito", "Soy Nikito nitoka, tomate un fernet", "src\\main\\java\\view\\resources\\Aliades\\Nikito\\NikitoSprite.png");
+                ally = new Ally("Nikito", "Tomate un fernet con el nikito", "src\\main\\java\\view\\resources\\Aliades\\Nikito\\NikitoSprite.png");
                 break;
             case 2:
-                ally = new Ally("Danilo", "Soy Danilo, aguante Argentina locooo","src\\main\\java\\view\\resources\\Aliades\\Danilo\\DaniloSprite.png");
+                ally = new Ally("Danilo", "Danilo: aguante Argentina papaa, somos campeones","src\\main\\java\\view\\resources\\Aliades\\Danilo\\DaniloSprite.png");
                 break;
             default:
-                ally = new Ally("JuanMa", "Soy Juanma, sebate un mate king","src\\main\\java\\view\\resources\\Aliades\\JuanMa\\JuanMaSprite.png");
+                ally = new Ally("JuanMa", "Soy Juanma, cebate un mate rey","src\\main\\java\\view\\resources\\Aliades\\JuanMa\\JuanMaSprite.png");
                 break;
         }
         return ally;

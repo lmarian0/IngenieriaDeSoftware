@@ -16,7 +16,7 @@ public class Tank extends Enemy {
     private static String sR2 = "src\\main\\java\\view\\resources\\Rappi\\rappi_right2.png";
 
     public Tank(int posX, int posY) {
-        super("Tank", 1, posX, posY, 200, 40, 1000, 500, sU1, sU2, sD1, sD2, sL1, sL2, sR1, sR2);
+        super("Tank", 2, posX, posY, 200, 40, 1000, 500, sU1, sU2, sD1, sD2, sL1, sL2, sR1, sR2);
     }
 
     @Override

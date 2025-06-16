@@ -16,7 +16,7 @@ public class Goblin extends Enemy {
     private static String sR2 = "src\\main\\java\\view\\resources\\Carpincho\\carpincho_right2.png";
 
     public Goblin(int posX, int posY) {
-        super("Goblin", 3, posX, posY, 50, 1, 50, 500, sU1, sU2, sD1, sD2, sL1, sL2, sR1, sR2);
+        super("Goblin", 5, posX, posY, 50, 1, 50, 500, sU1, sU2, sD1, sD2, sL1, sL2, sR1, sR2);
     }
 
     @Override
