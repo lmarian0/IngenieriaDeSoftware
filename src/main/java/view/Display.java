@@ -58,6 +58,16 @@ public class Display extends JPanel {
         // Hacemos que el boton de inicio sea invisible
         startButton.isOpaque();
         startButton.setContentAreaFilled(false);
+        startButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                startButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+            }
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                startButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+            }
+        });
         startButton.setBorderPainted(false);
         // Detecta la presion del boton de inicio y te manda a PlayingState
         startButton.addActionListener(e -> {
