@@ -46,4 +46,24 @@ public class ControllerTest {
         assertTrue(player.getPosX() > xInicial);
     }
 
+    @Test
+    public void testHandlePlayerInput_MoveDown() {
+        int xInicial = player.getPosX();
+        keyHandler.down = true;
+
+        controller.handlePlayerInput();
+
+        assertTrue(player.getPosY() < xInicial);
+    }
+
+    @Test
+    public void testHandlePlayerInput_MoveLeft() {
+        int xInicial = player.getPosX();
+        keyHandler.left = true;
+
+        controller.handlePlayerInput();
+
+        assertTrue(player.getPosX() < xInicial);
+    }
+
 }
