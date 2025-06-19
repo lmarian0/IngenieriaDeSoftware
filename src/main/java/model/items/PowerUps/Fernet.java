@@ -43,6 +43,4 @@ public class Fernet extends PowerUp implements Power {
         return super.active(player);
     }
 
-    
-    
 }
