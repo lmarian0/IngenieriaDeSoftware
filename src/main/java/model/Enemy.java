@@ -145,6 +145,15 @@ public class Enemy extends NPC implements Subject {
     }
 
     @Override
+    public void notifyObservers() {
+        if (!alive) {
+            for (Observer o : observers) {
+                o.update();
+            }
+        }
+    }
+
+    @Override
     public void addObserver(Observer o) {
         if(!observers.contains(o)) observers.add(o);
     }
@@ -154,14 +163,6 @@ public class Enemy extends NPC implements Subject {
         observers.remove(o);
     }
 
-    @Override
-    public void notifyObservers() {
-        if (!alive) {
-            for (Observer o : observers) {
-                o.update();
-            }
-        }
-    }
     public void draw (Graphics g, int offsetXl, int offsetY){
        if (image != null) {
             g.drawImage(image, getPosX(), getPosY(), getWidth()*Constants.SCALE.getSize(), getHeight()*Constants.SCALE.getSize(), null);

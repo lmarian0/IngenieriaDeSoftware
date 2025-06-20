@@ -116,7 +116,7 @@ public class Controller {
 
     private Ally createAlly() {
         Ally ally;
-        numero = rand.nextInt(4); // Genera un número aleatorio entre 0 y 2
+        numero = rand.nextInt(4); // Genera un número aleatorio entre 0 y 3
         switch (numero) {
             case 0:
                 ally = new Ally("Sergio", "Soy el Figue, comete un chori dale, te va a hacer bien","src\\main\\java\\view\\resources\\Aliades\\Sergio\\MilitarSergio.png");
