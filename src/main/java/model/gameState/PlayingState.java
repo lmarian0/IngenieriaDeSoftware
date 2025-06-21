@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import main.java.controller.Controller;
 import main.java.controller.KeyHandler;
+import main.java.model.Player;
 import main.java.model.PowerUpFactory.Power;
 import main.java.model.constants.Constants;
 import main.java.model.constants.ScreenSettings;
@@ -97,6 +98,8 @@ public class PlayingState extends GameState {
         if(controller.getAlly() != null){
             controller.getAlly().draw(g, (TILESIZE*MAXSCREENCOL-controller.getAlly().getWidth())/3, 0);
             controller.getAllyTextBar().draw(g,(TILESIZE*MAXSCREENCOL-controller.getAlly().getWidth())/3+controller.getAlly().getWidth(), 0, TILESIZE);
+        }else if(Player.getInstance().getXp() >= 100){
+            controller.CallAdvice(g, MAXSCREENCOL, TILESIZE);
         }
 
         //Dibuja powerUps

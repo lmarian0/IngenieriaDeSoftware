@@ -76,44 +76,54 @@ public class Player extends Character implements Subject, Observer {
         return SINGLETON_PLAYER;
     }
 
-    public void move(Direction direction) {
-        GameMap gameMap = GameMap.getInstance(1, 1);
-        List<int[]> obstacles = gameMap.getObsPos();
-
-        // Calcular la nueva posición antes de mover al jugador
+    //Retorna un arreglo con nuevas posiciones en caso movimiento
+    private int[] logicMove(Direction direction){
         int newPosX = posX;
         int newPosY = posY;
-
         switch (direction) {
             case UP -> {newPosY -= getMovSpeed(); currentSprite = (currentSprite == spriteUp1) ? spriteUp2 : spriteUp1;}
             case DOWN -> {newPosY += getMovSpeed(); currentSprite = (currentSprite == spriteDown1) ? spriteDown2 : spriteDown1;}
             case LEFT -> {newPosX -= getMovSpeed(); currentSprite = (currentSprite == spriteLeft1) ? spriteLeft2 : spriteLeft1;}
             case RIGHT -> {newPosX += getMovSpeed(); currentSprite = (currentSprite == spriteRight1) ? spriteRight2 : spriteRight1;}
         }
+        return new int[]{newPosX, newPosY};
+    }
 
-        // Verificar si la nueva posición colisiona con un obstáculo
+    //Retorna un arreglo con nuevas posiciones en x e y en caso de colision
+    private int[] logicColision(Direction direction, int newPosX, int newPosY){
+        GameMap gameMap = GameMap.getInstance(1, 1);
+        List<int[]> obstacles = gameMap.getObsPos();
+        int x = newPosX;
+        int y = newPosY;
         for (int[] obs : obstacles) {
             int obsPosX = obs[0];
             int obsPosY = obs[1];
             int limitX = obs[2];
             int limitY = obs[3];
-
             if (newPosX + getWidth()/3 > obsPosX && newPosX < limitX- getWidth()*0.8 &&
                 newPosY + getHeight()/2 > obsPosY && newPosY < limitY-getHeight()/2) {
-                
                 // Ajustar la posición para evitar que el jugador se quede atrapado
-                if (direction == Direction.UP) newPosY = limitY-getHeight()/2;
-                if (direction == Direction.DOWN) newPosY = obsPosY - getHeight()/2;
-                if (direction == Direction.LEFT) newPosX = (int) (limitX - getWidth()*0.7);
-                if (direction == Direction.RIGHT) newPosX = obsPosX - getWidth()/3;
+                if (direction == Direction.UP) y = limitY-getHeight()/2;
+                if (direction == Direction.DOWN) y = obsPosY - getHeight()/2;
+                if (direction == Direction.LEFT) x = (int) (limitX - getWidth()*0.7); //Asimetria?
+                if (direction == Direction.RIGHT) x = obsPosX - getWidth()/3;
             }
         }
+        return new int[]{x, y};
+    }
 
+    public void move(Direction direction) {
+        // Calcular la nueva posición antes de mover al jugador
+        int[] position = logicMove(direction);
+        //Se verifica que las nuevas posiciones no den contra un obstaculo, en caso de ser asi se cambian por nuevas teniendo en cuenta la colision
+        position = logicColision(direction, position[0], position[1]);
+        int newPosX = position[0];
+        int newPosY = position[1];
         // Actualizar la posición después de la corrección
         posX = newPosX;
         posY = newPosY;
         this.direction = direction;
-    } 
+    }
     
     public BufferedImage getCurrentSprite() {
         return currentSprite;
