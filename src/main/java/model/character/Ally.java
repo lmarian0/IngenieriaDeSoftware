@@ -4,9 +4,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
-import java.util.Random;
-
 import javax.imageio.ImageIO;
 
 public class Ally extends NPC{
@@ -54,6 +51,7 @@ public class Ally extends NPC{
     public String getName(){
         return super.getName();
     }
+    
 
     public int getClkDuration() {
         return clkDuration;

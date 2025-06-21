@@ -1,5 +1,7 @@
 package main.java.controller;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.List;
 import java.util.Random;
@@ -153,6 +155,29 @@ public class Controller {
                 // Detiene el hilo de generación de PowerUps
                 System.out.println("El aliado ha desaparecido.");
             }
+        }
+    }
+
+    // Dibuja una advertancia en la parte superior de la pantalla
+    // para que el jugador sepa que puede llamar a un aliado
+    public void CallAdvice(Graphics g, int MAXSCREENCOL, int TILESIZE) { 
+        if(aliado == null) {
+            String mensaje = "¡Apreta la K y mira lo que pasa! (0.0)";
+            int barWidth = mensaje.length() * 10 + 10; // Ancho de la barra basado en el texto
+            int x = ((MAXSCREENCOL*TILESIZE)/2)-(barWidth/2);
+            int y = 0;
+            // Fondo de la barra
+            g.setColor(new Color(0, 0, 0, 180)); // negro semi-transparente
+            g.fillRoundRect(x, y , barWidth, (int) (TILESIZE -TILESIZE*0.1), 20, 20);
+
+            // Borde de la barra
+            g.setColor(Color.WHITE);
+            g.drawRoundRect(x, y, barWidth, (int) (TILESIZE -TILESIZE*0.1), 20, 20);
+
+            // Texto del aliado
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Arial", Font.BOLD, 18));
+            g.drawString(mensaje, x + 20, y + 30);
         }
     }
 

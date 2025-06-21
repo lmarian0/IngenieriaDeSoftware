@@ -96,9 +96,11 @@ public class PlayingState extends GameState {
 
         //Dibuja aliados
         
-        if(controller.getAlly() != null){
+        if(controller.getAlly() != null) {
             controller.getAlly().draw(g, (TILESIZE*MAXSCREENCOL-controller.getAlly().getWidth())/3, 0);
             controller.getAllyTextBar().draw(g,(TILESIZE*MAXSCREENCOL-controller.getAlly().getWidth())/3+controller.getAlly().getWidth(), 0, TILESIZE);
+        }else if (controller.getPlayer().getXp() >= 100) {
+            controller.CallAdvice(g, MAXSCREENCOL, TILESIZE);
         }
 
         //Dibuja powerUps
@@ -113,4 +115,5 @@ public class PlayingState extends GameState {
 
         
     }
+
 }
