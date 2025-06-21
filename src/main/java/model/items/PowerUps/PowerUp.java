@@ -18,6 +18,7 @@ public class PowerUp extends Drop{
     private String name;
     public PowerUp(int posX, int posY, String name, String imagePath) {
         super(posX, posY);
+        this.name = name;
         try {
             this.image = ImageIO.read(new File(imagePath));
         } catch (IOException e) {

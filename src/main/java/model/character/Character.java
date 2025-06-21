@@ -1,6 +1,5 @@
 package main.java.model.character;
 
-import java.awt.image.BufferedImage;
 
 public abstract class Character {
     private String name;

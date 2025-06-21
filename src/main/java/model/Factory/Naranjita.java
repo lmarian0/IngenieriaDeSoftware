@@ -1,11 +1,6 @@
 package main.java.model.Factory;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.nio.Buffer;
-
-import javax.imageio.ImageIO;
 
 import main.java.model.Enemy;
 import main.java.model.constants.Constants;

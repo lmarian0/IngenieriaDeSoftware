@@ -22,8 +22,6 @@ public class PlayingState extends GameState {
 
     	
     private BufferedImage streetImage, ZemansTileImage, grassTileImage;
-    private BufferedImage spritePJleft1, spritePJleft2, spritePJright1, spritePJright2;
-    private BufferedImage spritePJup1, spritePJup2, spritePJdown1, spritePJdown2;
 
     public PlayingState(KeyHandler keyHandler, Controller controller) {
         super(keyHandler, controller);

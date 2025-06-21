@@ -20,7 +20,6 @@ public class Controller {
     private KeyHandler keyHandler;
     private EnemySpawner spawner;
     private GameState estadoActual;
-    private final Camera camera = new Camera();
     private boolean flagDead = false;
     private Random rand = new Random();
     private int numero;
@@ -117,7 +116,7 @@ public class Controller {
 
     private Ally createAlly() {
         Ally ally;
-        numero = rand.nextInt(4); // Genera un número aleatorio entre 0 y 2
+        numero = rand.nextInt(4); // Genera un número aleatorio entre 0 y 3
         switch (numero) {
             case 0:
                 ally = new Ally("Sergio", "Soy el Figue, comete un chori dale, te va a hacer bien","src\\main\\java\\view\\resources\\Aliades\\Sergio\\MilitarSergio.png");
@@ -190,9 +189,6 @@ public class Controller {
         spawner.getGeneratedEnemies().remove(enemy);
     }
 
-    public Camera getCamera() {
-        return camera;
-    }
 
     public void setEstadoActual(GameState state) {
         this.estadoActual = state;

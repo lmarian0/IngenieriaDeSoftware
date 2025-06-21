@@ -2,8 +2,6 @@ package main.java.model;
 
 import main.java.model.character.NPC;
 import main.java.model.constants.Constants;
-import main.java.model.Player;
-import main.java.model.character.Character;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -12,7 +10,6 @@ import java.io.File;
 import java.io.IOException;
 
 import main.java.model.observer.Observer;
-import main.java.model.items.XPOrb;
 import main.java.model.observer.Subject;
 
 import java.util.ArrayList;
@@ -39,7 +36,6 @@ public class Enemy extends NPC implements Subject {
     private BufferedImage spriteUp2, spriteDown2, spriteLeft2, spriteRight2;
     private BufferedImage currentSprite; // Imagen actual del jugador
 
-    private String su1, su2, sd1, sd2, sl1, sl2, sr1, sr2;
 
 
     public Enemy(String name, int movSpeed, int posX, int posY, int hp, int baseDmg, int attackTime, int attackDuration, String su1, String su2, String sd1, String sd2, String sl1, String sl2, String sr1, String sr2) {
@@ -145,8 +141,16 @@ public class Enemy extends NPC implements Subject {
 
     public void die() {
         this.alive = false;
-        XPOrb orb = new XPOrb(posX, posY, 5); //Hay que ver como hacer que la View se entere de la existencia para dibujarlo
         notifyObservers();
+    }
+
+    @Override
+    public void notifyObservers() {
+        if (!alive) {
+            for (Observer o : observers) {
+                o.update();
+            }
+        }
     }
 
     @Override
@@ -159,14 +163,6 @@ public class Enemy extends NPC implements Subject {
         observers.remove(o);
     }
 
-    @Override
-    public void notifyObservers() {
-        if (!alive) {
-            for (Observer o : observers) {
-                o.update();
-            }
-        }
-    }
     public void draw (Graphics g, int offsetXl, int offsetY){
        if (image != null) {
             g.drawImage(image, getPosX(), getPosY(), getWidth()*Constants.SCALE.getSize(), getHeight()*Constants.SCALE.getSize(), null);

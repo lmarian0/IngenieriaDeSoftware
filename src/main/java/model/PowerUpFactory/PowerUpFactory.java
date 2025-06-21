@@ -1,26 +1,23 @@
 package main.java.model.PowerUpFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import main.java.model.Enemy;
 import main.java.model.character.Ally;
 import main.java.model.items.PowerUps.Choripan;
 import main.java.model.items.PowerUps.CopaDelMundo;
 import main.java.model.items.PowerUps.Fernet;
 import main.java.model.items.PowerUps.Mate;
-import main.java.model.items.PowerUps.PowerUp;
 import main.java.model.map.GameMap;
 import main.java.model.constants.Constants;
 
 public class PowerUpFactory implements Runnable{
+    private List<Power> generatedPowerUps;
     private Ally aliado;
     private GameMap mapa = GameMap.getInstance(0, 0);
     private Random random = new Random();
     private boolean active;
-    private List<Power> generatedPowerUps;
     private int TILESIZE = Constants.TILE_SIZE.getSize();
 
     public PowerUpFactory(Ally aliado){
