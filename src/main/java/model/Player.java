@@ -123,7 +123,7 @@ public class Player extends Character implements Subject, Observer {
         posX = newPosX;
         posY = newPosY;
         this.direction = direction;
-    } 
+    }
     
     public BufferedImage getCurrentSprite() {
         return currentSprite;
