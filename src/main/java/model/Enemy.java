@@ -73,26 +73,96 @@ public class Enemy extends NPC implements Subject {
     private void stepLeftDiag() {setPosX(getPosX()-(int)(getMovSpeed()/Math.sqrt(2)));}
     private void stepRightDiag() {setPosX(getPosX()+(int)(getMovSpeed()/Math.sqrt(2)));}
 
-    private void logicMove(int playerPosX, int playerPosY){
+
+    private void diagMove(int playerPosX, int playerPosY){
         if      (playerPosX < getPosX() && playerPosY < getPosY()) {stepLeftDiag(); stepUpDiag();} //MoveLeftUp
         else if (playerPosX < getPosX() && playerPosY > getPosY()) {stepLeftDiag(); stepDownDiag();} //MoveLeftDown
         else if (playerPosX > getPosX() && playerPosY < getPosY()) {stepRightDiag(); stepUpDiag();} //MoveRightUp
         else if (playerPosX > getPosX() && playerPosY > getPosY()) {stepRightDiag(); stepDownDiag();} //MoveRightDown
-        else if (playerPosX < getPosX()) stepLeft(); //MoveLeft
-        else if (playerPosX > getPosX()) stepRight(); //MoveRight
-        else if (playerPosY < getPosY()) stepUp(); //MoveUp
-        else if (playerPosY > getPosY()) stepDown(); //MoveDown
     }
 
-    private void logicGraphicMove(int playerPosX, int playerPosY){
-        if      (playerPosX < getPosX() && playerPosY < getPosY()) {stepLeftDiag(); stepUpDiag();this.currentSprite = (currentSprite == spriteLeft1) ? spriteLeft2 : spriteLeft1;} //MoveLeftUp
-        else if (playerPosX < getPosX() && playerPosY > getPosY()) {stepLeftDiag(); stepDownDiag();this.currentSprite = (currentSprite == spriteLeft1) ? spriteLeft2 : spriteLeft1;} //MoveLeftDown
-        else if (playerPosX > getPosX() && playerPosY < getPosY()) {stepRightDiag(); stepUpDiag(); this.currentSprite = (currentSprite == spriteRight1) ? spriteRight2 : spriteRight1;} //MoveRightUp
-        else if (playerPosX > getPosX() && playerPosY > getPosY()) {stepRightDiag(); stepDownDiag(); this.currentSprite = (currentSprite == spriteRight1) ? spriteRight2 : spriteRight1;} //MoveRightDown
-        else if (playerPosX < getPosX()) {stepLeft(); this.currentSprite = (currentSprite == spriteLeft1) ? spriteLeft2 : spriteLeft1;} //MoveLeft
-        else if (playerPosX > getPosX()) {stepRight(); this.currentSprite = (currentSprite == spriteRight1) ? spriteRight2 : spriteRight1;} //MoveRight
-        else if (playerPosY < getPosY()) {stepUp(); this.currentSprite = (currentSprite == spriteUp1) ? spriteUp2 : spriteUp1;} //MoveUp
+    private void verticalMove(int playerPosY){
+        int speed = getMovSpeed();
+        int dy = Math.abs(playerPosY-getPosY());
+        if(dy!=0 && dy<speed){
+            setMovSpeed(dy);
+        }
+        if (playerPosY < getPosY()) stepUp(); //MoveUp
+        else if (playerPosY > getPosY()) stepDown(); //MoveDown
+        setMovSpeed(speed);
+    }
+
+    private void horizontalMove(int playerPosX){
+        int speed = getMovSpeed();
+        int dx = Math.abs(playerPosX-getPosX());
+        if(dx!=0 && dx<speed){
+            setMovSpeed(dx);
+        }
+        if (playerPosX < getPosX()) stepLeft(); //MoveLeft
+        else if (playerPosX > getPosX()) stepRight(); //MoveRight
+        setMovSpeed(speed);
+    }
+
+    //Logica de movimiento sin graficos
+    private void logicMove(int playerPosX, int playerPosY){
+        int dx = Math.abs(playerPosX-getPosX());
+        int dy = Math.abs(playerPosY-getPosY());
+        if(dx<5 || dy<5){
+            if(Math.abs(playerPosY-getPosY())>0){
+                verticalMove(playerPosY);
+            }else{
+                horizontalMove(playerPosX);
+            }
+        }else{
+            diagMove(playerPosX, playerPosY);
+        }
+    }
+
+    //Movimiento diagonal con graficos
+    private void diagMoveG(int playerPosX, int playerPosY){
+        if      (playerPosX < getPosX() && playerPosY < getPosY()) {stepLeftDiag();stepUpDiag();this.currentSprite = (currentSprite == spriteLeft1) ? spriteLeft2 : spriteLeft1;} //MoveLeftUp
+        else if (playerPosX < getPosX() && playerPosY > getPosY()) {stepLeftDiag();stepDownDiag();this.currentSprite = (currentSprite == spriteLeft1) ? spriteLeft2 : spriteLeft1;} //MoveLeftDown
+        else if (playerPosX > getPosX() && playerPosY < getPosY()) {stepRightDiag();stepUpDiag();this.currentSprite = (currentSprite == spriteRight1) ? spriteRight2 : spriteRight1;} //MoveRightUp
+        else if (playerPosX > getPosX() && playerPosY > getPosY()) {stepRightDiag();stepDownDiag();this.currentSprite = (currentSprite == spriteRight1) ? spriteRight2 : spriteRight1;} //MoveRightDown
+    }
+
+    //Movimiento vertical con graficos
+    private void verticalMoveG(int playerPosY){
+        int speed = getMovSpeed();
+        int dy = Math.abs(playerPosY-getPosY());
+        if(dy!=0 && dy<speed){
+            setMovSpeed(dy);
+        }
+        if (playerPosY < getPosY()) {stepUp(); this.currentSprite = (currentSprite == spriteUp1) ? spriteUp2 : spriteUp1;} //MoveUp
         else if      (playerPosY > getPosY()) {stepDown(); this.currentSprite = (currentSprite == spriteDown1) ? spriteDown2 : spriteDown1;} //MoveDown
+        setMovSpeed(speed);
+    }
+
+    //Movimiento horizontal con graficos
+    private void horizontalMoveG(int playerPosX){
+        int speed = getMovSpeed();
+        int dx = Math.abs(playerPosX-getPosX());
+        if(dx!=0 && dx<speed){
+            setMovSpeed(dx);
+        }
+        if (playerPosX < getPosX()) {stepLeft(); this.currentSprite = (currentSprite == spriteLeft1) ? spriteLeft2 : spriteLeft1;} //MoveLeft
+        else if (playerPosX > getPosX()) {stepRight(); this.currentSprite = (currentSprite == spriteRight1) ? spriteRight2 : spriteRight1;} //MoveRight
+        setMovSpeed(speed);
+    }
+
+    //Logica de movimiento con graficos
+    private void logicGraphicMove(int playerPosX, int playerPosY){
+        int dx = Math.abs(playerPosX-getPosX());
+        int dy = Math.abs(playerPosY-getPosY());
+        if(dx<5 || dy<5){
+            if(Math.abs(playerPosY-getPosY())>0){
+                verticalMoveG(playerPosY);
+            }else{
+                horizontalMoveG(playerPosX);
+            }
+        }else{
+            diagMoveG(playerPosX, playerPosY);
+        }
     }
 
     public void chase(int playerPosX, int playerPosY, List<Enemy> enemies) {
